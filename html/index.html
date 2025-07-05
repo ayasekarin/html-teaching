@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ダウンロード方式の比較デモ</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+    }
+
+    button,
+    a.download-link {
+      display: inline-block;
+      margin: 0.5rem 0;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      text-decoration: none;
+      background: #007acc;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    a.download-link {
+      line-height: 2.4rem;
+    }
+
+    button:hover,
+    a.download-link:hover {
+      background: #005fa3;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>ダウンロード</h1>
+
+  <h2>① aタグ(PDFファイルであればそのまま表示)</h2>
+  <a class="download-link" href="/download/display">ダウンロード</a>
+
+  <h2>② aタグ + Content-Disposition</h2>
+  <a class="download-link" href="/download/direct">直接ダウンロード</a>
+
+  <h2>③ fetch + Blob + 動的a生成（非推奨）</h2>
+  <button onclick="downloadByBlob()">Blobでダウンロード</button>
+  <h4>※失敗例 ⇒　<button onclick="download()">ダウンロード</button></h4>
+
+  <h2>④ token + cookie + aタグ（推奨）</h2>
+  <button onclick="verifyAndDownload()">認証して安全にダウンロード</button>
+
+  <script>
+    const token = "valid-token";
+
+    function download() {
+      fetch("/download/direct", {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      })
+    }
+
+    function downloadByBlob() {
+      fetch("/download/blob", {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      })
+        .then(res => {
+          if (!res.ok) throw new Error("失敗しました");
+          return res.blob();
+        })
+        .then(blob => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "blob-file.pdf";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+        })
+        .catch(err => alert("エラー：" + err.message));
+    }
+
+    function verifyAndDownload() {
+      fetch("/verify-token", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: token })
+      })
+        .then(res => {
+          if (!res.ok) throw new Error("認証に失敗しました");
+          const a = document.createElement("a");
+          a.href = "/secure-download";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        })
+        .catch(err => alert("エラー：" + err.message));
+    }
+  </script>
+</body>
+
+</html>

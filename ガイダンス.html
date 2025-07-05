@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ファイルダウンロード実装の正解と落とし穴</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 2rem;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #333;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        pre {
+            background: #f0f0f0;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>ファイルダウンロード実装の正解と落とし穴</h1>
+
+    <section>
+        <h2>1. 導入</h2>
+        <ul>
+            <li>ファイルダウンロードには「正しい方法」と「間違った方法」が存在</li>
+            <li>大容量ファイルほど、適切な設計が不可欠</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>2. 正しいダウンロードの基礎</h2>
+
+        <h3>方法①：&lt;a&gt; タグとサーバーヘッダー</h3>
+        <pre><code>&lt;a href="http://example.com/file.pdf"&gt;ダウンロード&lt;/a&gt;</code></pre>
+        <p>サーバーレスポンスヘッダー：</p>
+        <pre><code>Content-Disposition: attachment; filename="file.pdf"</code></pre>
+
+        <h3>方法②：&lt;a download&gt; 属性（同一オリジンのみ有効）</h3>
+        <pre><code>&lt;a href="/files/sample.pdf" download="custom-name.pdf"&gt;Download&lt;/a&gt;</code></pre>
+    </section>
+
+    <section>
+        <h2>3. よくある誤実装（AJAX + Blob）</h2>
+        <pre><code>fetch("/api/download", {
+  method: "GET",
+  headers: {
+    Authorization: "Bearer token"
+  }
+})
+.then(res => res.blob())
+.then(blob => {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "filename.pdf";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+});</code></pre>
+        <ul>
+            <li>全データを一度メモリに読み込む必要があり、特に大きなファイルでは非効率</li>
+            <li>ユーザー体験が劣化：クリックしてもすぐにダウンロードされない</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>4. 推奨される安全・高速な実装</h2>
+
+        <h3>フロントエンドの例（token確認 → aタグ発火）</h3>
+        <pre><code>fetch("/api/verify-token", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ token: "your-token" })
+})
+.then(() => {
+  const a = document.createElement("a");
+  a.href = "/api/secure-download";
+  a.click();
+});</code></pre>
+
+        <h3>バックエンド例（Python Flask など）</h3>
+        <pre><code># token検証後に一時cookieを設定
+response.set_cookie("temp_auth", "valid", max_age=30, httponly=True)</code></pre>
+    </section>
+
+    <section>
+        <h2>5. まとめ</h2>
+        <ul>
+            <li>AJAX + Blob + a生成は「コード上OK」でも「実際にはNG」な場面が多い</li>
+            <li>ストリームベースで処理されるaタグの自動ダウンロードを活用すべき</li>
+            <li>ブラウザのダウンロード挙動を信頼し、前段での認証処理を分離することが鍵</li>
+        </ul>
+    </section>
+</body>
+
+</html>

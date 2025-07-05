@@ -1,0 +1,22 @@
+{
+  "name": "download-demo",
+  "version": "1.0.0",
+  "description": "ファイルダウンロードの方法を比較・学習するためのNode.jsデモ",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "download",
+    "blob",
+    "express",
+    "cookie",
+    "nodejs"
+  ],
+  "author": "zhuchen",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "express": "^4.21.2"
+  }
+}

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <title>ファイルダウンロード方式 図解</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            width: 1024px;
+            margin: 0 auto;
+            overflow-x: auto;
+        }
+
+        .diagram {
+            background: white;
+            padding: 20px;
+            margin-bottom: 40px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .box,
+        .server,
+        .file {
+            width: 100px;
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .browser {
+            width: 100px;
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 6px;
+            background: #bbdefb;
+        }
+
+        .box {
+            background: #f55;
+            width: 5px;
+            height: 5px;
+            margin: 5px;
+        }
+
+        .box_tate {
+            width: 128px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+
+
+        .server {
+            background: #ffe082;
+            padding: 20px;
+        }
+
+        .file {
+            background: #e57373;
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        .arrow {
+            font-weight: bold;
+            color: red;
+        }
+
+        .label {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .browser3 {
+            width: 100px;
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 6px;
+            background: #bbdefb;
+            height: 200px;
+            line-height: 200px;
+        }
+
+        .arrow3 {
+            font-weight: bold;
+            color: red;
+            width: 100px;
+            margin-top: 25px;
+        }
+
+        .server3 {
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 6px;
+            width: 100px;
+            background: #ffe082;
+            padding: 20px;
+            height: 180px;
+            line-height: 180px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="diagram">
+        <h3>① aタグ + download属性（正常フロー/aタグ）</h3>
+        <div class="browser">🌐 ブラウザ</div>
+        <span class="arrow">←</span>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <span class="arrow">←</span>
+        <div class="server">🖥️ サーバー</div>
+        <div>
+            <div class="box_tate">
+                <div class="box"></div>
+            </div>
+            <div class="box_tate">
+                <div class="box"></div>
+            </div>
+            <div class="box_tate">
+                <div class="box"></div>
+            </div>
+            <div class="box_tate">
+                <div class="box"></div>
+            </div>
+        </div>
+        <div><span class="arrow box_tate">↓</span></div>
+        <div class="file">📄 PDF保存</div>
+    </div>
+
+    <div class="diagram">
+        <h3>② Ajax + Blob + aタグ（中継あり）</h3>
+        <div style="display:flex; flex-wrap: wrap; width: 150px">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+        <div class="browser">🌐 ブラウザ</div>
+        <span class="arrow">←</span>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <span class="arrow">←</span>
+        <div class="server">🖥️ サーバー</div>
+        <div>
+            <div class="box_tate">
+                <div class="box"></div>
+            </div>
+            <div class="box_tate">
+                <div class="box"></div>
+            </div>
+            <div class="box_tate">
+                <div class="box"></div>
+            </div>
+            <div class="box_tate">
+                <div class="box"></div>
+            </div>
+        </div>
+        <div><span class="arrow box_tate">↓</span></div>
+        <div class="file">📄 PDF保存</div>
+    </div>
+
+    <div class="diagram">
+        <h3>③ 一時Cookie認証 + aタグ（推奨）</h3>
+        <ol>
+            <li>Ajaxでtokenを送信</li>
+            <li>set-cookie: temp（一時クッキー）</li>
+            <li>aタグでクリックしてダウンロード</li>
+        </ol>
+        <div style="display: flex;">
+            <div class="browser3">🌐 ブラウザ
+            </div>
+            <div>
+                <div class="arrow3">
+                    <div style="width: 100px;text-align: center;">
+                        <span>①</span>
+                    </div>
+                    <span class="arrow">──────&gt;</span>
+                </div>
+                <div class="arrow3">
+                    <div style="width: 100px;text-align: center;">
+                        <span>②</span>
+                    </div>
+                    <span class="arrow">──────&gt;</span>
+                </div>
+                <div class="arrow3">
+                    <div style="width: 100px;text-align: center;">
+                        <span>③</span>
+                    </div>
+                    <span class="arrow">&larr;──────</span>
+                </div>
+            </div>
+            <div class="server3">🖥️ サーバー</div>
+        </div>
+
+        <div>
+            <div class="box_tate">
+                <div class="box"></div>
+            </div>
+            <div class="box_tate">
+                <div class="box"></div>
+            </div>
+            <div class="box_tate">
+                <div class="box"></div>
+            </div>
+            <div class="box_tate">
+                <div class="box"></div>
+            </div>
+        </div>
+        <div><span class="arrow box_tate">↓</span></div>
+        <div class="file">📄 PDF保存</div>
+    </div>
+
+</body>
+
+</html>
