@@ -110,17 +110,3 @@ document.querySelectorAll("button.hensyu").forEach(btn => {
     btn.setAttribute("data-bs-target", "#editOrderModal");
 });
 
-//--------------------------------------------------------------
-// セキュリティ対策
-//--------------------------------------------------------------
-document.addEventListener('contextmenu', event => event.preventDefault());
-
-document.addEventListener('keydown', function (event) {
-    if (
-        event.key === 'F12' ||
-        (event.ctrlKey && event.shiftKey && event.key === 'I') ||
-        (event.ctrlKey && event.key === 'U')
-    ) {
-        event.preventDefault();
-    }
-});
