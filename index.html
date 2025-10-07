@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>日历 · 记事 & 记账</title>
 
   <!-- Tailwind -->
@@ -40,6 +41,7 @@
     }
   </style>
 </head>
+
 <body class="bg-gray-50 text-gray-800">
   <div class="max-w-7xl mx-auto px-4 py-6">
     <header class="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-5">
@@ -49,7 +51,7 @@
       </div>
 
       <!-- Quick settings (user key + supabase env) -->
-      <div class="flex flex-wrap gap-2 items-center">
+      <!-- <div class="flex flex-wrap gap-2 items-center">
         <label class="text-xs text-neutral">用户键(user_key)</label>
         <input id="user-key" class="px-2 py-1 rounded border border-gray-300 text-sm" placeholder="如: myspace-X" />
         <button id="save-user-key" class="px-3 py-1.5 bg-primary text-white rounded text-sm">保存</button>
@@ -58,12 +60,13 @@
           <summary class="cursor-pointer text-sm text-neutral">连接设置</summary>
           <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-2 p-3 bg-white border rounded-lg">
             <input id="sb-url" class="px-2 py-1 rounded border border-gray-300 text-sm" placeholder="SUPABASE_URL" />
-            <input id="sb-key" class="px-2 py-1 rounded border border-gray-300 text-sm" placeholder="SUPABASE_ANON_KEY" />
+            <input id="sb-key" class="px-2 py-1 rounded border border-gray-300 text-sm"
+              placeholder="SUPABASE_ANON_KEY" />
             <button id="save-sb" class="px-3 py-1.5 bg-secondary text-white rounded text-sm">保存连接</button>
             <p class="col-span-full text-xs text-neutral">提示：这些仅存于本机设置中，不包含任何业务数据。</p>
           </div>
         </details>
-      </div>
+      </div> -->
     </header>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
@@ -82,7 +85,13 @@
         </div>
 
         <div class="grid grid-cols-7 text-center text-xs text-neutral mb-1">
-          <div>周一</div><div>周二</div><div>周三</div><div>周四</div><div>周五</div><div>周六</div><div>周日</div>
+          <div>周一</div>
+          <div>周二</div>
+          <div>周三</div>
+          <div>周四</div>
+          <div>周五</div>
+          <div>周六</div>
+          <div>周日</div>
         </div>
         <div id="calendar-grid" class="grid grid-cols-7 gap-1"></div>
       </section>
@@ -90,7 +99,8 @@
       <!-- Right panel -->
       <section class="flex flex-col gap-4">
         <div class="bg-white rounded-xl shadow p-4">
-          <h3 class="font-semibold mb-1 flex items-center gap-2"><i class="fa fa-calendar-o text-primary"></i><span id="selected-title"></span></h3>
+          <h3 class="font-semibold mb-1 flex items-center gap-2"><i class="fa fa-calendar-o text-primary"></i><span
+              id="selected-title"></span></h3>
           <p id="selected-weekday" class="text-sm text-neutral"></p>
         </div>
 
@@ -105,8 +115,8 @@
           <details class="mt-3">
             <summary class="text-sm cursor-pointer text-neutral">添加模板</summary>
             <div class="mt-2 grid grid-cols-1 sm:grid-cols-3 gap-2">
-              <input id="tpl-name" class="px-2 py-1 rounded border border-gray-300 text-sm" placeholder="模板名，如：学习"/>
-              <input id="tpl-color" type="color" value="#3B82F6" class="w-full h-9 rounded border"/>
+              <input id="tpl-name" class="px-2 py-1 rounded border border-gray-300 text-sm" placeholder="模板名，如：学习" />
+              <input id="tpl-color" type="color" value="#3B82F6" class="w-full h-9 rounded border" />
               <button id="add-template" class="px-3 py-2 bg-secondary text-white rounded text-sm">添加</button>
             </div>
           </details>
@@ -116,9 +126,11 @@
         <div class="bg-white rounded-xl shadow p-4">
           <h3 class="font-semibold mb-3 flex items-center gap-2"><i class="fa fa-plus-circle text-primary"></i>新增事件</h3>
           <div class="grid grid-cols-1 sm:grid-cols-6 gap-2 items-center">
-            <input id="ev-content" class="sm:col-span-3 px-3 py-2 rounded border border-gray-300 text-sm" placeholder="事件内容，如：午饭、健身、写代码"/>
-            <input id="ev-amount" type="number" step="0.01" class="sm:col-span-1 px-3 py-2 rounded border border-gray-300 text-sm" placeholder="金额"/>
-            <input id="ev-color" type="color" value="#3B82F6" class="sm:col-span-1 w-full h-10 rounded border"/>
+            <input id="ev-content" class="sm:col-span-3 px-3 py-2 rounded border border-gray-300 text-sm"
+              placeholder="事件内容，如：午饭、健身、写代码" />
+            <input id="ev-amount" type="number" step="0.01"
+              class="sm:col-span-1 px-3 py-2 rounded border border-gray-300 text-sm" placeholder="金额" />
+            <input id="ev-color" type="color" value="#3B82F6" class="sm:col-span-1 w-full h-10 rounded border" />
             <button id="add-event" class="sm:col-span-1 px-3 py-2 rounded bg-primary text-white text-sm">添加</button>
           </div>
           <p class="text-xs text-neutral mt-2">提示：金额留空表示普通事件；有金额表示消费，会参与合计。</p>
@@ -141,9 +153,10 @@
     <div class="bg-white rounded-xl p-4 w-[92vw] max-w-md">
       <h3 class="font-semibold mb-3">编辑事件</h3>
       <div class="grid grid-cols-1 sm:grid-cols-6 gap-2 items-center">
-        <input id="md-content" class="sm:col-span-4 px-3 py-2 rounded border border-gray-300 text-sm"/>
-        <input id="md-amount" type="number" step="0.01" class="sm:col-span-2 px-3 py-2 rounded border border-gray-300 text-sm" placeholder="金额"/>
-        <input id="md-color" type="color" value="#3B82F6" class="sm:col-span-2 w-full h-10 rounded border"/>
+        <input id="md-content" class="sm:col-span-4 px-3 py-2 rounded border border-gray-300 text-sm" />
+        <input id="md-amount" type="number" step="0.01"
+          class="sm:col-span-2 px-3 py-2 rounded border border-gray-300 text-sm" placeholder="金额" />
+        <input id="md-color" type="color" value="#3B82F6" class="sm:col-span-2 w-full h-10 rounded border" />
         <div class="sm:col-span-6 flex justify-end gap-2 mt-2">
           <button id="md-delete" class="px-3 py-1.5 border border-red-200 text-red-600 rounded">删除</button>
           <button id="md-cancel" class="px-3 py-1.5 border rounded">取消</button>
@@ -158,21 +171,26 @@
      * Supabase & Config *
      *********************/
     const Conf = {
-      get url(){ return localStorage.getItem('SB_URL') || ''; },
-      get key(){ return localStorage.getItem('SB_KEY') || ''; },
-      set url(v){ localStorage.setItem('SB_URL', v || ''); },
-      set key(v){ localStorage.setItem('SB_KEY', v || ''); },
-      get userKey(){ return localStorage.getItem('USER_KEY') || 'public'; },
-      set userKey(v){ localStorage.setItem('USER_KEY', v || 'public'); },
+      url: window.ENV_SUPABASE_URL || localStorage.getItem('SB_URL') || '',
+      key: window.ENV_SUPABASE_KEY || localStorage.getItem('SB_KEY') || '',
+      userKey: window.ENV_USER_KEY || localStorage.getItem('USER_KEY') || 'public'
     };
+    // const Conf = {
+    //   get url() { return localStorage.getItem('SB_URL') || ''; },
+    //   get key() { return localStorage.getItem('SB_KEY') || ''; },
+    //   set url(v) { localStorage.setItem('SB_URL', v || ''); },
+    //   set key(v) { localStorage.setItem('SB_KEY', v || ''); },
+    //   get userKey() { return localStorage.getItem('USER_KEY') || 'public'; },
+    //   set userKey(v) { localStorage.setItem('USER_KEY', v || 'public'); },
+    // };
 
     let supabase = null;
-    function ensureClient(){
-      if (!Conf.url || !Conf.key){
+    function ensureClient() {
+      if (!Conf.url || !Conf.key) {
         alert('请先在右上角「连接设置」里填入 SUPABASE_URL 和 SUPABASE_ANON_KEY。');
         return null;
       }
-      if (!supabase){
+      if (!supabase) {
         supabase = window.supabase.createClient(Conf.url, Conf.key);
       }
       return supabase;
@@ -181,25 +199,25 @@
     /*****************
      * Data helpers  *
      *****************/
-    async function fetchMonthEvents(year, month){ // month: 1..12
-      const sb = ensureClient(); if(!sb) return [];
+    async function fetchMonthEvents(year, month) { // month: 1..12
+      const sb = ensureClient(); if (!sb) return [];
       const user_key = Conf.userKey;
-      const first = new Date(year, month-1, 1);
-      const last  = new Date(year, month, 0);
+      const first = new Date(year, month - 1, 1);
+      const last = new Date(year, month, 0);
       const { data, error } = await sb
         .from('events')
         .select('*')
         .eq('user_key', user_key)
-        .gte('date', first.toISOString().slice(0,10))
-        .lte('date', last.toISOString().slice(0,10))
+        .gte('date', first.toISOString().slice(0, 10))
+        .lte('date', last.toISOString().slice(0, 10))
         .order('date', { ascending: true })
         .order('created_at', { ascending: false });
-      if (error) { console.error(error); alert('读取事件失败：'+error.message); return []; }
+      if (error) { console.error(error); alert('读取事件失败：' + error.message); return []; }
       return data || [];
     }
 
-    async function fetchDayEvents(dateStr){
-      const sb = ensureClient(); if(!sb) return [];
+    async function fetchDayEvents(dateStr) {
+      const sb = ensureClient(); if (!sb) return [];
       const user_key = Conf.userKey;
       const { data, error } = await sb
         .from('events')
@@ -207,55 +225,55 @@
         .eq('user_key', user_key)
         .eq('date', dateStr)
         .order('created_at', { ascending: false });
-      if (error) { console.error(error); alert('读取事件失败：'+error.message); return []; }
+      if (error) { console.error(error); alert('读取事件失败：' + error.message); return []; }
       return data || [];
     }
 
-    async function insertEvent(e){
-      const sb = ensureClient(); if(!sb) return null;
+    async function insertEvent(e) {
+      const sb = ensureClient(); if (!sb) return null;
       e.user_key = Conf.userKey;
       const { data, error } = await sb.from('events').insert(e).select().single();
-      if (error) { console.error(error); alert('新增失败：'+error.message); return null; }
+      if (error) { console.error(error); alert('新增失败：' + error.message); return null; }
       return data;
     }
 
-    async function updateEventById(id, patch){
-      const sb = ensureClient(); if(!sb) return false;
+    async function updateEventById(id, patch) {
+      const sb = ensureClient(); if (!sb) return false;
       const { data, error } = await sb.from('events').update(patch).eq('id', id).eq('user_key', Conf.userKey).select().single();
-      if (error) { console.error(error); alert('更新失败：'+error.message); return false; }
+      if (error) { console.error(error); alert('更新失败：' + error.message); return false; }
       return true;
     }
 
-    async function deleteEventById(id){
-      const sb = ensureClient(); if(!sb) return false;
+    async function deleteEventById(id) {
+      const sb = ensureClient(); if (!sb) return false;
       const { error } = await sb.from('events').delete().eq('id', id).eq('user_key', Conf.userKey);
-      if (error) { console.error(error); alert('删除失败：'+error.message); return false; }
+      if (error) { console.error(error); alert('删除失败：' + error.message); return false; }
       return true;
     }
 
-    async function fetchTemplates(){
-      const sb = ensureClient(); if(!sb) return [];
+    async function fetchTemplates() {
+      const sb = ensureClient(); if (!sb) return [];
       const { data, error } = await sb
         .from('templates')
         .select('*')
         .eq('user_key', Conf.userKey)
         .order('created_at', { ascending: true });
-      if (error) { console.error(error); alert('读取模板失败：'+error.message); return []; }
+      if (error) { console.error(error); alert('读取模板失败：' + error.message); return []; }
       return data || [];
     }
 
-    async function insertTemplate(tpl){
-      const sb = ensureClient(); if(!sb) return null;
+    async function insertTemplate(tpl) {
+      const sb = ensureClient(); if (!sb) return null;
       tpl.user_key = Conf.userKey;
       const { data, error } = await sb.from('templates').insert(tpl).select().single();
-      if (error) { console.error(error); alert('新增模板失败：'+error.message); return null; }
+      if (error) { console.error(error); alert('新增模板失败：' + error.message); return null; }
       return data;
     }
 
-    async function deleteTemplateById(id){
-      const sb = ensureClient(); if(!sb) return false;
+    async function deleteTemplateById(id) {
+      const sb = ensureClient(); if (!sb) return false;
       const { error } = await sb.from('templates').delete().eq('id', id).eq('user_key', Conf.userKey);
-      if (error) { console.error(error); alert('删除模板失败：'+error.message); return false; }
+      if (error) { console.error(error); alert('删除模板失败：' + error.message); return false; }
       return true;
     }
 
@@ -271,10 +289,16 @@
       editing: null, // event row
     };
 
-    function ymd(d){ return d.toISOString().slice(0,10); }
-    function y_m(d){ return [d.getFullYear(), d.getMonth()+1]; }
+    function ymd(d) {
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    }
 
-    function updateHeader(){
+    function y_m(d) { return [d.getFullYear(), d.getMonth() + 1]; }
+
+    function updateHeader() {
       const [y, m] = y_m(state.current);
       document.getElementById('month-title').textContent = `${y}年${m}月`;
       const wd = '日一二三四五六'[state.selected.getDay()];
@@ -282,68 +306,68 @@
       document.getElementById('selected-weekday').textContent = `星期${wd}`;
     }
 
-    function calcSum(events){
+    function calcSum(events) {
       return events.reduce((sum, e) => sum + (parseFloat(e.amount) || 0), 0);
     }
 
-    function colorStyle(hex){
+    function colorStyle(hex) {
       // return classes and inline style for chip
       const color = hex || '#3B82F6';
       return `background:${color}20;color:${color};border:1px solid ${color}33;`;
     }
 
-    async function renderCalendar(){
+    async function renderCalendar() {
       updateHeader();
       const [y, m] = y_m(state.current);
       state.monthEvents = await fetchMonthEvents(y, m);
       const grid = document.getElementById('calendar-grid');
       grid.innerHTML = '';
 
-      const firstDay = new Date(y, m-1, 1);
-      const startWeekday = (firstDay.getDay()+6)%7; // Mon=0
-      for(let i=0;i<startWeekday;i++){
+      const firstDay = new Date(y, m - 1, 1);
+      const startWeekday = (firstDay.getDay() + 6) % 7; // Mon=0
+      for (let i = 0; i < startWeekday; i++) {
         const d = document.createElement('div'); d.className = 'calendar-day bg-gray-50 opacity-60'; grid.appendChild(d);
       }
 
-      const days = new Date(y,m,0).getDate();
+      const days = new Date(y, m, 0).getDate();
       const today = new Date();
-      for(let day=1; day<=days; day++){
+      for (let day = 1; day <= days; day++) {
         const cell = document.createElement('div');
         cell.className = 'calendar-day';
-        const isToday = today.getFullYear()===y && today.getMonth()+1===m && today.getDate()===day;
-        if (isToday) cell.classList.add('ring-today');
+        const isToday = today.getFullYear() === y && today.getMonth() + 1 === m && today.getDate() === day;
+        if (isToday) cell.classList.add('ring', 'ring-primary');
 
         const head = document.createElement('div'); head.className = 'calendar-day-header'; head.textContent = day;
         cell.appendChild(head);
 
-        const dateStr = `${y}-${String(m).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+        const dateStr = `${y}-${String(m).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
         cell.dataset.date = dateStr;
 
         const events = state.monthEvents.filter(e => e.date === dateStr);
-        events.slice(0,3).forEach(e=>{
+        events.slice(0, 3).forEach(e => {
           const chip = document.createElement('div');
           chip.className = 'event-chip';
           chip.style = colorStyle(e.color);
           chip.textContent = e.content + (e.amount ? ` · ¥${Number(e.amount).toFixed(0)}` : '');
-          chip.addEventListener('click', (ev)=>{
+          chip.addEventListener('click', (ev) => {
             ev.stopPropagation();
             openModal(e);
           });
           cell.appendChild(chip);
         });
-        if (events.length>3){
-          const more = document.createElement('div'); more.className='text-[10px] text-neutral italic'; more.textContent = `+${events.length-3} 更多`; cell.appendChild(more);
+        if (events.length > 3) {
+          const more = document.createElement('div'); more.className = 'text-[10px] text-neutral italic'; more.textContent = `+${events.length - 3} 更多`; cell.appendChild(more);
         }
 
-        cell.addEventListener('click', async ()=>{
-          state.selected = new Date(y, m-1, day);
+        cell.addEventListener('click', async () => {
+          state.selected = new Date(y, m - 1, day);
           updateHeader();
           await renderDayList();
           await renderCalendar(); // refresh selection highlight
         });
 
-        if (state.selected.getFullYear()===y && state.selected.getMonth()+1===m && state.selected.getDate()===day){
-          cell.classList.add('bg-primary/5');
+        if (state.selected.getFullYear() === y && state.selected.getMonth() + 1 === m && state.selected.getDate() === day) {
+          cell.classList.add('ring-2', 'ring-accent', 'ring-offset-2');
         }
 
         grid.appendChild(cell);
@@ -354,32 +378,32 @@
       document.getElementById('month-sum').textContent = monthSum.toFixed(0);
     }
 
-    async function renderDayList(){
+    async function renderDayList() {
       const dateStr = ymd(state.selected);
       state.dayEvents = await fetchDayEvents(dateStr);
       const list = document.getElementById('events-list');
-      list.innerHTML='';
+      list.innerHTML = '';
 
-      if (state.dayEvents.length===0){
+      if (state.dayEvents.length === 0) {
         const empty = document.createElement('div');
         empty.className = 'text-center text-sm text-neutral py-6';
         empty.innerHTML = '<i class="fa fa-calendar-o mr-1"></i>今天没有事件';
         list.appendChild(empty);
       } else {
-        state.dayEvents.forEach(e=>{
+        state.dayEvents.forEach(e => {
           const row = document.createElement('div');
           row.className = 'flex items-center justify-between p-2 border border-gray-100 rounded hover:bg-gray-50';
           const left = document.createElement('div');
           left.className = 'flex items-center gap-2 min-w-0';
-          const colorBox = document.createElement('span'); colorBox.className='w-3 h-3 rounded'; colorBox.style=`background:${e.color||'#3B82F6'}`;
-          const txt = document.createElement('div'); txt.className='text-sm truncate'; txt.textContent = e.content;
+          const colorBox = document.createElement('span'); colorBox.className = 'w-3 h-3 rounded'; colorBox.style = `background:${e.color || '#3B82F6'}`;
+          const txt = document.createElement('div'); txt.className = 'text-sm truncate'; txt.textContent = e.content;
           left.appendChild(colorBox); left.appendChild(txt);
 
-          const right = document.createElement('div'); right.className='flex items-center gap-2 text-xs text-neutral whitespace-nowrap';
-          const amt = document.createElement('span'); amt.className='tabular-nums'; amt.textContent = e.amount ? `¥${Number(e.amount).toFixed(0)}` : '';
-          const time = document.createElement('span'); time.textContent = new Date(e.created_at).toTimeString().slice(0,5);
-          const edit = document.createElement('button'); edit.className='p-1 text-neutral hover:text-primary'; edit.innerHTML='<i class="fa fa-pencil"></i>';
-          edit.addEventListener('click', ()=>openModal(e));
+          const right = document.createElement('div'); right.className = 'flex items-center gap-2 text-xs text-neutral whitespace-nowrap';
+          const amt = document.createElement('span'); amt.className = 'tabular-nums'; amt.textContent = e.amount ? `¥${Number(e.amount).toFixed(0)}` : '';
+          const time = document.createElement('span'); time.textContent = new Date(e.created_at).toTimeString().slice(0, 5);
+          const edit = document.createElement('button'); edit.className = 'p-1 text-neutral hover:text-primary'; edit.innerHTML = '<i class="fa fa-pencil"></i>';
+          edit.addEventListener('click', () => openModal(e));
 
           right.appendChild(amt); right.appendChild(time); right.appendChild(edit);
 
@@ -392,7 +416,7 @@
       document.getElementById('day-sum').textContent = calcSum(state.dayEvents).toFixed(0);
     }
 
-    function openModal(e){
+    function openModal(e) {
       state.editing = e;
       document.getElementById('md-content').value = e.content;
       document.getElementById('md-amount').value = e.amount ?? '';
@@ -401,40 +425,40 @@
       document.getElementById('modal').classList.add('flex');
     }
 
-    function closeModal(){
+    function closeModal() {
       document.getElementById('modal').classList.add('hidden');
       document.getElementById('modal').classList.remove('flex');
       state.editing = null;
     }
 
-    async function renderTemplates(){
+    async function renderTemplates() {
       state.templates = await fetchTemplates();
       const wrap = document.getElementById('templates');
-      wrap.innerHTML='';
-      if (state.templates.length===0){
-        const hint = document.createElement('div'); hint.className='text-xs text-neutral'; hint.textContent='暂无模板，请下方添加~';
+      wrap.innerHTML = '';
+      if (state.templates.length === 0) {
+        const hint = document.createElement('div'); hint.className = 'text-xs text-neutral'; hint.textContent = '暂无模板，请下方添加~';
         wrap.appendChild(hint);
       } else {
-        state.templates.forEach(t=>{
+        state.templates.forEach(t => {
           const btn = document.createElement('button');
-          btn.className='template-btn';
-          btn.style=`background:${t.color}20;color:${t.color};border:1px solid ${t.color}33;`;
+          btn.className = 'template-btn';
+          btn.style = `background:${t.color}20;color:${t.color};border:1px solid ${t.color}33;`;
           btn.innerHTML = `<i class="fa fa-tag"></i>${t.name}`;
           btn.title = '点击快速添加；长按删除';
 
-          let timer=null;
-          btn.addEventListener('mousedown', ()=>{
-            timer = setTimeout(async ()=>{
-              if (confirm(`删除模板「${t.name}」?`)){
+          let timer = null;
+          btn.addEventListener('mousedown', () => {
+            timer = setTimeout(async () => {
+              if (confirm(`删除模板「${t.name}」?`)) {
                 await deleteTemplateById(t.id);
                 await renderTemplates();
               }
             }, 700);
           });
-          btn.addEventListener('mouseup', ()=>clearTimeout(timer));
-          btn.addEventListener('mouseleave', ()=>clearTimeout(timer));
+          btn.addEventListener('mouseup', () => clearTimeout(timer));
+          btn.addEventListener('mouseleave', () => clearTimeout(timer));
 
-          btn.addEventListener('click', async (ev)=>{
+          btn.addEventListener('click', async (ev) => {
             clearTimeout(timer);
             const e = {
               date: ymd(state.selected),
@@ -443,7 +467,7 @@
               color: t.color
             };
             const created = await insertEvent(e);
-            if (created){ await renderDayList(); await renderCalendar(); }
+            if (created) { await renderDayList(); await renderCalendar(); }
           });
 
           wrap.appendChild(btn);
@@ -454,84 +478,84 @@
     /**************
      * Listeners  *
      **************/
-    document.getElementById('prev-month').addEventListener('click', async ()=>{
-      state.current.setMonth(state.current.getMonth()-1);
+    document.getElementById('prev-month').addEventListener('click', async () => {
+      state.current.setMonth(state.current.getMonth() - 1);
       await renderCalendar();
     });
-    document.getElementById('next-month').addEventListener('click', async ()=>{
-      state.current.setMonth(state.current.getMonth()+1);
+    document.getElementById('next-month').addEventListener('click', async () => {
+      state.current.setMonth(state.current.getMonth() + 1);
       await renderCalendar();
     });
-    document.getElementById('today-btn').addEventListener('click', async ()=>{
+    document.getElementById('today-btn').addEventListener('click', async () => {
       state.current = new Date(); state.selected = new Date();
       await renderCalendar(); await renderDayList();
     });
 
-    document.getElementById('add-event').addEventListener('click', async ()=>{
+    document.getElementById('add-event').addEventListener('click', async () => {
       const content = document.getElementById('ev-content').value.trim();
-      const amount  = document.getElementById('ev-amount').value;
-      const color   = document.getElementById('ev-color').value;
-      if (!content){ alert('请输入事件内容'); return; }
-      const e = { date: ymd(state.selected), content, amount: amount===''?null:Number(amount), color };
+      const amount = document.getElementById('ev-amount').value;
+      const color = document.getElementById('ev-color').value;
+      if (!content) { alert('请输入事件内容'); return; }
+      const e = { date: ymd(state.selected), content, amount: amount === '' ? null : Number(amount), color };
       const created = await insertEvent(e);
-      if (created){
-        document.getElementById('ev-content').value='';
-        document.getElementById('ev-amount').value='';
+      if (created) {
+        document.getElementById('ev-content').value = '';
+        document.getElementById('ev-amount').value = '';
         await renderDayList(); await renderCalendar();
       }
     });
 
-    document.getElementById('add-template').addEventListener('click', async ()=>{
+    document.getElementById('add-template').addEventListener('click', async () => {
       const name = document.getElementById('tpl-name').value.trim();
       const color = document.getElementById('tpl-color').value;
-      if (!name){ alert('请输入模板名'); return; }
+      if (!name) { alert('请输入模板名'); return; }
       const created = await insertTemplate({ name, color });
-      if (created){
-        document.getElementById('tpl-name').value='';
+      if (created) {
+        document.getElementById('tpl-name').value = '';
         await renderTemplates();
       }
     });
 
     document.getElementById('md-cancel').addEventListener('click', closeModal);
-    document.getElementById('md-delete').addEventListener('click', async ()=>{
+    document.getElementById('md-delete').addEventListener('click', async () => {
       if (!state.editing) return;
-      if (confirm('确定删除该事件？')){
-        if (await deleteEventById(state.editing.id)){
+      if (confirm('确定删除该事件？')) {
+        if (await deleteEventById(state.editing.id)) {
           closeModal(); await renderDayList(); await renderCalendar();
         }
       }
     });
-    document.getElementById('md-save').addEventListener('click', async ()=>{
+    document.getElementById('md-save').addEventListener('click', async () => {
       if (!state.editing) return;
       const patch = {
         content: document.getElementById('md-content').value.trim(),
-        amount:  (function(v){ return v===''?null:Number(v) })(document.getElementById('md-amount').value),
-        color:   document.getElementById('md-color').value
+        amount: (function (v) { return v === '' ? null : Number(v) })(document.getElementById('md-amount').value),
+        color: document.getElementById('md-color').value
       };
-      if (!patch.content){ alert('内容不能为空'); return; }
-      if (await updateEventById(state.editing.id, patch)){
+      if (!patch.content) { alert('内容不能为空'); return; }
+      if (await updateEventById(state.editing.id, patch)) {
         closeModal(); await renderDayList(); await renderCalendar();
       }
     });
 
     // settings
-    document.getElementById('save-sb').addEventListener('click', async ()=>{
-      Conf.url = document.getElementById('sb-url').value.trim();
-      Conf.key = document.getElementById('sb-key').value.trim();
-      supabase = null; // reset
-      alert('已保存连接配置');
-      await boot();
-    });
-    document.getElementById('save-user-key').addEventListener('click', async ()=>{
-      Conf.userKey = document.getElementById('user-key').value.trim() || 'public';
-      alert('已保存用户键');
-      await boot();
-    });
+    // document.getElementById('save-sb').addEventListener('click', async () => {
+    //   Conf.url = document.getElementById('sb-url').value.trim();
+    //   Conf.key = document.getElementById('sb-key').value.trim();
+    //   supabase = null; // reset
+    //   alert('已保存连接配置');
+    //   await boot();
+    // });
+    // document.getElementById('save-user-key').addEventListener('click', async () => {
+    //   Conf.userKey = document.getElementById('user-key').value.trim() || 'public';
+    //   alert('已保存用户键');
+    //   await boot();
+    // });
 
     /********
      * Boot *
      ********/
-    async function boot(){
+    async function boot() {
       document.getElementById('user-key').value = Conf.userKey;
       document.getElementById('sb-url').value = Conf.url;
       document.getElementById('sb-key').value = Conf.key;
@@ -542,7 +566,7 @@
     }
 
     // init selected to today
-    (function init(){
+    (function init() {
       const now = new Date();
       state.current = new Date(now.getFullYear(), now.getMonth(), 1);
       state.selected = new Date();
@@ -554,4 +578,5 @@
     <p>部署到 Vercel 时仅需此单文件。为了安全，请在 Supabase 启用 RLS 并按 README 的策略限制 user_key。</p>
   </footer>
 </body>
+
 </html>
