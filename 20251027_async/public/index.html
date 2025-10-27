@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>同期 非同期</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- 同期 -->
+  <section>
+    <h2>同期送信</h2>
+    <form id="syncForm">
+      <input type="text" name="name" placeholder="氏名" required>
+      <button type="button" onclick="submitSync('/submit-sync')">送信</button>
+    </form>
+    <h3>※ポイント：</h3>
+    <h4>　　・応答を待ってから次に進む</h4>
+    <h4>　　・リロードされる</h4>
+    <h4>　　・処理中の操作はできない（ブロック）</h4>
+    <h4>　　・ユーザー体験として遅く感じることがある</h4>
+    <h4>　　・主な例：form 提出、同期 AJAX</h4>
+  </section>
+
+  <!-- 非同期 -->
+  <section>
+    <h2>非同期送信</h2>
+    <form id="asyncForm">
+      <input type="text" name="name" placeholder="氏名" required>
+      <button type="button" onclick="submitAsync('/submit-async')">送信</button>
+    </form>
+    <div class="result" id="asyncResult"></div>
+    <h3>※ポイント：</h3>
+    <h4>　　・リクエスト送信後も次の処理を進められる</h4>
+    <h4>　　・ページをリロードせずに部分的に更新できる</h4>
+    <h4>　　・通信中もボタン操作や入力が可能（ノンブロッキング）</h4>
+    <h4>　　・スムーズで快適なユーザー体験</h4>
+    <h4>　　・主な例：非同期 AJAX</h4>
+  </section>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
