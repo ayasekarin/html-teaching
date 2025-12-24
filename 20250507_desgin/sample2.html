@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>同期/非同期 实战 Workshop - Lab Portal</title>
+
+  <!-- 只保留一份 Bootstrap 引用（你给的 sample1.html 里重复引了两份，这里先做示范） -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <style>
+    body { background: #f4f6f9; }
+    .brand { font-weight: 700; letter-spacing: .5px; }
+    .card:hover { transform: translateY(-1px); transition: .15s; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    pre { max-height: 260px; overflow: auto; }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-white border-bottom">
+    <div class="container-fluid px-4">
+      <span class="navbar-brand brand"><i class="bi bi-lightning-charge"></i> Sync / Async Workshop</span>
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline-secondary btn-sm" id="btnReset">重置本地状态</button>
+        <button class="btn btn-primary btn-sm" id="btnRunSelfCheck">运行自检</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container-fluid px-4 py-4">
+    <div class="row g-3">
+      <!-- 左侧：说明 -->
+      <div class="col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title mb-2">今天怎么玩</h5>
+            <ul class="mb-3">
+              <li>每个 Lab 都是一个“有坑的页面”（多数来自错误示例）。</li>
+              <li>你们的目标：把它改成“可用 + 可观测 + 可维护”的异步实现。</li>
+              <li>你可以先做同步版本，再改成异步版本，对比体验差异。</li>
+            </ul>
+
+            <h6 class="mt-3">统一验收标准（所有 Lab 通用）</h6>
+            <ol class="mb-0">
+              <li>有 loading / error / empty 三态</li>
+              <li>请求可取消（AbortController）</li>
+              <li>超时处理（timeout）</li>
+              <li>失败可重试（retry）</li>
+              <li>日志可追踪（requestId + 时长）</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="card shadow-sm mt-3">
+          <div class="card-body">
+            <h5 class="card-title mb-2">公共函数（你只用这些）</h5>
+            <div class="small text-muted mb-2">入口页会把工具挂到 <span class="mono">window.WS</span> 上，大家在各 Lab 里直接调用。</div>
+            <pre class="bg-light p-2 rounded small"><code class="mono" id="toolPreview"></code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧：Lab 列表 -->
+      <div class="col-lg-8">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <h5 class="mb-0">Labs（从易到难）</h5>
+          <div class="text-muted small">建议 2~3 人/组，每组拿 1~2 个 Lab</div>
+        </div>
+
+        <div class="row g-3" id="labCards"></div>
+
+        <div class="card shadow-sm mt-3">
+          <div class="card-body">
+            <h5 class="card-title">自检输出</h5>
+            <pre class="bg-dark text-light p-3 rounded small mb-0"><code id="consoleArea"></code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // ============ 你负责提供的公共函数（环境&工具） ============
+    const WS = (() => {
+      const now = () => performance.now();
+      const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
+      // 简单 logger：输出到页面 + console
+      const log = (level, msg, meta = {}) => {
+        const line = `[${new Date().toLocaleTimeString()}] ${level.toUpperCase()}: ${msg} ${Object.keys(meta).length ? JSON.stringify(meta) : ""}`;
+        console[level]?.(line);
+        const el = document.getElementById("consoleArea");
+        el.textContent += line + "\n";
+        el.scrollTop = el.scrollHeight;
+      };
+
+      // 超时包装：Promise.race
+      const withTimeout = (promise, ms, { message = "timeout" } = {}) => {
+        let t;
+        const timeout = new Promise((_, rej) => t = setTimeout(() => rej(new Error(message)), ms));
+        return Promise.race([promise.finally(() => clearTimeout(t)), timeout]);
+      };
+
+      // 重试：指数退避（简单版）
+      const retry = async (fn, { retries = 2, baseDelay = 300 } = {}) => {
+        let lastErr;
+        for (let i = 0; i <= retries; i++) {
+          try {
+            return await fn(i);
+          } catch (e) {
+            lastErr = e;
+            if (i === retries) throw e;
+            await sleep(baseDelay * Math.pow(2, i));
+          }
+        }
+        throw lastErr;
+      };
+
+      // 伪 API：模拟随机延迟 + 随机失败，用来练异步处理
+      const fakeApi = async ({ signal, min = 200, max = 1200, failRate = 0.25, payload = {} } = {}) => {
+        const reqId = crypto.randomUUID();
+        const start = now();
+        log("info", "fakeApi start", { reqId });
+
+        const delay = Math.floor(min + Math.random() * (max - min));
+        await sleep(delay);
+
+        if (signal?.aborted) {
+          const err = new DOMException("aborted", "AbortError");
+          log("warn", "fakeApi aborted", { reqId, ms: Math.round(now() - start) });
+          throw err;
+        }
+
+        if (Math.random() < failRate) {
+          const err = new Error("random failure");
+          log("error", "fakeApi failed", { reqId, ms: Math.round(now() - start) });
+          throw err;
+        }
+
+        log("info", "fakeApi success", { reqId, ms: Math.round(now() - start) });
+        return { reqId, data: payload, delay };
+      };
+
+      const reset = () => {
+        localStorage.clear();
+        sessionStorage.clear();
+        document.getElementById("consoleArea").textContent = "";
+        log("info", "state cleared");
+      };
+
+      return { sleep, log, withTimeout, retry, fakeApi, reset };
+    })();
+
+    window.WS = WS;
+
+    // ============ Labs 配置（你只需要改这里） ============
+    const labs = [
+      {
+        id: "lab-01",
+        title: "Lab 01：把同步按钮改成异步可取消",
+        difficulty: "Easy",
+        target: "理解 AbortController + loading 状态",
+        href: "./sample1.html",
+        todo: [
+          "加 loading 禁用按钮",
+          "支持取消（AbortController）",
+          "失败提示 + 重试"
+        ]
+      },
+      {
+        id: "lab-02",
+        title: "Lab 02：并发请求与竞态（race condition）",
+        difficulty: "Medium",
+        target: "理解“后发先至”导致 UI 被旧数据覆盖",
+        href: "./sample1.html",
+        todo: [
+          "快速连点搜索：保证只展示最后一次结果",
+          "旧请求自动取消或忽略",
+          "日志带 requestId"
+        ]
+      },
+      {
+        id: "lab-03",
+        title: "Lab 03：批量任务队列（限流）",
+        difficulty: "Hard",
+        target: "理解 Promise.all vs 队列并发控制",
+        href: "./sample1.html",
+        todo: [
+          "一次导出 N 个请求：限制并发=3",
+          "展示进度条",
+          "可停止/继续"
+        ]
+      }
+    ];
+
+    // ============ 渲染 ============
+    const card = (lab) => `
+      <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-start">
+              <h6 class="mb-1">${lab.title}</h6>
+              <span class="badge text-bg-secondary">${lab.difficulty}</span>
+            </div>
+            <div class="text-muted small mb-2">目标：${lab.target}</div>
+            <ul class="small mb-3">
+              ${lab.todo.map(x => `<li>${x}</li>`).join("")}
+            </ul>
+            <div class="mt-auto d-flex gap-2">
+              <a class="btn btn-outline-primary btn-sm" href="${lab.href}" target="_blank">
+                打开 Lab <i class="bi bi-box-arrow-up-right"></i>
+              </a>
+              <button class="btn btn-primary btn-sm" onclick="copyHint('${lab.id}')">
+                复制验收口径
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById("labCards").innerHTML = labs.map(card).join("");
+
+    function copyHint(id) {
+      const lab = labs.find(x => x.id === id);
+      const text = `【${lab.title}】\n目标：${lab.target}\n验收：\n- ${lab.todo.join("\n- ")}\n通用标准：loading/error/empty + cancel + timeout + retry + log`;
+      navigator.clipboard.writeText(text);
+      WS.log("info", "copied hint", { id });
+    }
+
+    // 工具预览
+    document.getElementById("toolPreview").textContent =
+      "WS.sleep(ms)\nWS.log(level,msg,meta)\nWS.withTimeout(promise, ms)\nWS.retry(fn, {retries, baseDelay})\nWS.fakeApi({signal, failRate, payload})\nWS.reset()";
+
+    // 顶部按钮
+    document.getElementById("btnReset").addEventListener("click", WS.reset);
+    document.getElementById("btnRunSelfCheck").addEventListener("click", async () => {
+      WS.log("info", "self-check start");
+      const ac = new AbortController();
+
+      try {
+        const res = await WS.withTimeout(
+          WS.retry(() => WS.fakeApi({ signal: ac.signal, payload: { hello: "world" }, failRate: 0.3 }), { retries: 2 }),
+          1500
+        );
+        WS.log("info", "self-check ok", res);
+      } catch (e) {
+        WS.log("error", "self-check failed", { name: e.name, message: e.message });
+      }
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

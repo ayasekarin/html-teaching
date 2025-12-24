@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+GRADLE_VERSION="8.10.2"
+DIST_URL="https://services.gradle.org/distributions/gradle-8.10.2-bin.zip"
+
+BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
+GRADLE_DIR="$BASE_DIR/.gradle-lite"
+DIST_ZIP="$GRADLE_DIR/gradle-$GRADLE_VERSION-bin.zip"
+DIST_HOME="$GRADLE_DIR/gradle-$GRADLE_VERSION"
+
+mkdir -p "$GRADLE_DIR"
+
+if [ ! -d "$DIST_HOME" ]; then
+  echo "[gradlew-lite] Gradle $GRADLE_VERSION not found. Downloading..."
+  if command -v curl >/dev/null 2>&1; then
+    curl -L "$DIST_URL" -o "$DIST_ZIP"
+  elif command -v wget >/dev/null 2>&1; then
+    wget "$DIST_URL" -O "$DIST_ZIP"
+  else
+    echo "ERROR: curl or wget is required to download Gradle."
+    exit 1
+  fi
+
+  echo "[gradlew-lite] Unzipping..."
+  if command -v unzip >/dev/null 2>&1; then
+    unzip -q "$DIST_ZIP" -d "$GRADLE_DIR"
+  else
+    echo "ERROR: unzip is required to extract Gradle."
+    exit 1
+  fi
+fi
+
+exec "$DIST_HOME/bin/gradle" "$@"

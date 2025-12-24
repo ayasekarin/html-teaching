@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>同期 vs 非同期 - Lab</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>body{background:#f4f6f9;} code{background:#fff3cd;padding:.1rem .25rem;border-radius:.25rem;}</style>
+</head>
+<body>
+<div class="container py-4">
+  <h3 class="mb-3">同期（串行） vs 非同期（并发）对比实验</h3>
+  <div class="alert alert-secondary">
+    后端提供 <code>/api/sleep?ms=xxx</code> 接口（固定返回 + 延迟）。这里用它来模拟 DB/外部服务。
+  </div>
+
+  <div class="row g-3">
+    <div class="col-md-6">
+      <div class="card p-3 h-100">
+        <div class="h5">串行（同步感觉）</div>
+        <div class="text-muted mb-2">await A → await B → await C（总耗时 ≈ 叠加）</div>
+        <button id="btnSeq" class="btn btn-primary">运行串行</button>
+        <pre id="outSeq" class="mt-3 mb-0 small bg-light p-2 rounded">-</pre>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card p-3 h-100">
+        <div class="h5">并发（异步并行）</div>
+        <div class="text-muted mb-2">Promise.all([A,B,C])（总耗时 ≈ 最大值）</div>
+        <button id="btnPar" class="btn btn-success">运行并发</button>
+        <pre id="outPar" class="mt-3 mb-0 small bg-light p-2 rounded">-</pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { sleep } from "./api.js";
+
+  const delays = [600, 800, 1000];
+
+  function now(){ return performance.now(); }
+
+  async function runSeq(){
+    const t0 = now();
+    const a = await sleep(delays[0]);
+    const b = await sleep(delays[1]);
+    const c = await sleep(delays[2]);
+    const t1 = now();
+    return { mode:"seq", elapsedMs: Math.round(t1-t0), results:[a,b,c], delays };
+  }
+
+  async function runPar(){
+    const t0 = now();
+    const results = await Promise.all(delays.map(d => sleep(d)));
+    const t1 = now();
+    return { mode:"par", elapsedMs: Math.round(t1-t0), results, delays };
+  }
+
+  document.querySelector("#btnSeq").addEventListener("click", async ()=>{
+    document.querySelector("#outSeq").textContent = "running...";
+    const res = await runSeq();
+    document.querySelector("#outSeq").textContent = JSON.stringify(res, null, 2);
+  });
+
+  document.querySelector("#btnPar").addEventListener("click", async ()=>{
+    document.querySelector("#outPar").textContent = "running...";
+    const res = await runPar();
+    document.querySelector("#outPar").textContent = JSON.stringify(res, null, 2);
+  });
+</script>
+</body>
+</html>
