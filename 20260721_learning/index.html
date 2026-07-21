@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Knowledge Space</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box
+            }
+
+            body {
+                font-family: Inter, sans-serif;
+                background: radial-gradient(circle at top, #dbeafe 0%, #f8fafc 35%, #fff 100%);
+                color: #111827;
+                padding: 40px
+            }
+
+            .container {
+                max-width: 1100px;
+                margin: auto
+            }
+
+            nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 18px 30px;
+                border-radius: 18px;
+                background: rgba(255, 255, 255, .7);
+                backdrop-filter: blur(18px);
+                box-shadow: 0 8px 30px rgba(0, 0, 0, .05);
+                margin-bottom: 60px
+            }
+
+            .logo {
+                font-size: 26px;
+                font-weight: 700
+            }
+
+            nav a {
+                text-decoration: none;
+                margin-left: 20px;
+                color: #555
+            }
+
+            nav a:hover {
+                color: #2563eb
+            }
+
+            .hero {
+                text-align: center;
+                margin-bottom: 45px
+            }
+
+            .hero h1 {
+                font-size: 54px;
+                margin-bottom: 16px
+            }
+
+            .hero p {
+                color: #666;
+                margin-bottom: 28px
+            }
+
+            .search {
+                width: 520px;
+                max-width: 90%;
+                padding: 16px 20px;
+                border: none;
+                border-radius: 16px;
+                background: #fff;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, .05)
+            }
+
+            .tags {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 12px;
+                margin: 40px 0
+            }
+
+            .tag {
+                padding: 10px 20px;
+                border-radius: 999px;
+                background: #fff;
+                cursor: pointer;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, .05);
+                transition: .2s
+            }
+
+            .tag:hover,
+            .tag.active {
+                background: #2563eb;
+                color: #fff
+            }
+
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 25px
+            }
+
+            .card-link {
+                text-decoration: none;
+                color: inherit
+            }
+
+            .card {
+                background: rgba(255, 255, 255, .75);
+                backdrop-filter: blur(20px);
+                padding: 28px;
+                border-radius: 22px;
+                box-shadow: 0 12px 30px rgba(0, 0, 0, .05);
+                transition: .25s
+            }
+
+            .card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 20px 40px rgba(37, 99, 235, .15)
+            }
+
+            .icon {
+                font-size: 40px;
+                margin-bottom: 15px
+            }
+
+            .card h2 {
+                margin-bottom: 12px
+            }
+
+            .card p {
+                color: #666;
+                line-height: 1.8;
+                min-height: 58px
+            }
+
+            .read {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 18px;
+                color: #777
+            }
+
+            .hidden {
+                display: none !important
+            }
+
+            footer {
+                text-align: center;
+                color: #888;
+                margin-top: 70px
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <nav>
+                <div class="logo">なんでもメモ場</div>
+                <div>
+                    <a href="#">Home</a>
+                    <a href="#articles">Articles</a>
+                    <a href="#tags">Tags</a>
+                    <a href="about.html">About</a>
+                </div>
+            </nav>
+
+            <section class="hero">
+                <h1>なんでもメモ場</h1>
+                <p>なんでもある、とりあえずメモする</p>
+                <input id="search" class="search" placeholder="搜索文章、分类...">
+            </section>
+
+            <div class="tags" id="tags">
+                <div class="tag active" data-tag="all">全部</div>
+                <div class="tag" data-tag="AWS">AWS</div>
+                <div class="tag" data-tag="Java">Java</div>
+                <div class="tag" data-tag="Linux">Linux</div>
+                <!-- <div class="tag" data-tag="Python">Python</div> -->
+            </div>
+
+            <section class="grid" id="articles">
+
+                <a href="aws/saa.html" class="card-link card-item" data-tag="AWS" data-title="AWS SAA 学习笔记">
+                    <div class="card">
+                        <div class="icon">☁</div>
+                        <h2>AWSあるある</h2>
+                        <!-- <p>VPC Endpoint、IAM、CloudFront、Lambda 等知识整理。</p> -->
+                        <div class="read"><span>AWS</span><span>→</span></div>
+                    </div>
+                </a>
+
+                <a href="java/thread.html" class="card-link card-item" data-tag="Java" data-title="Java 并发编程">
+                    <div class="card">
+                        <div class="icon">☕</div>
+                        <h2>Javaあるある</h2>
+                        <!-- <p>线程池、CompletableFuture、锁机制完整总结。</p> -->
+                        <div class="read"><span>Java</span><span>→</span></div>
+                    </div>
+                </a>
+
+                <a href="linux/command.html" class="card-link card-item" data-tag="Linux" data-title="Linux 常用命令">
+                    <div class="card">
+                        <div class="icon">🐧</div>
+                        <h2>Linux</h2>
+                        <p>これから。。。。</p>
+                        <div class="read"><span>Linux</span><span>→</span></div>
+                    </div>
+                </a>
+
+                <!-- <a href="python/automation.html" class="card-link card-item" data-tag="Python" data-title="Python 自动化">
+                    <div class="card">
+                        <div class="icon">🐍</div>
+                        <h2>Python 自动化</h2>
+                        <p>利用 Python 提高办公和开发效率。</p>
+                        <div class="read"><span>Python</span><span>→</span></div>
+                    </div>
+                </a> -->
+
+            </section>
+
+            <footer>© 2026 Knowledge Space</footer>
+        </div>
+
+        <script>
+            const cards = [...document.querySelectorAll('.card-item')];
+            const tags = [...document.querySelectorAll('.tag')];
+            const search = document.getElementById('search');
+            let current = 'all';
+
+            function filter() {
+                const kw = search.value.toLowerCase();
+                cards.forEach(c => {
+                    const okTag = current === 'all' || c.dataset.tag === current;
+                    const okText = c.dataset.title.toLowerCase().includes(kw) || c.dataset.tag.toLowerCase().includes(kw);
+                    c.classList.toggle('hidden', !(okTag && okText));
+                });
+            }
+            tags.forEach(t => {
+                t.onclick = () => {
+                    tags.forEach(x => x.classList.remove('active'));
+                    t.classList.add('active');
+                    current = t.dataset.tag;
+                    filter();
+                };
+            });
+            search.addEventListener('input', filter);
+        </script>
+    </body>
+
+</html>

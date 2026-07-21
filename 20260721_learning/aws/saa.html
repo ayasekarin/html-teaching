@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AWSなんでもメモ場</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box
+            }
+
+            body {
+                font-family: Inter, sans-serif;
+                background: radial-gradient(circle at top, #dbeafe 0%, #f8fafc 40%, #fff 100%);
+                color: #1f2937;
+            }
+
+            header {
+                position: sticky;
+                top: 0;
+                z-index: 10;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 18px 40px;
+                background: rgba(255, 255, 255, .65);
+                backdrop-filter: blur(18px);
+                border-bottom: 1px solid rgba(255, 255, 255, .5);
+            }
+
+            .logo {
+                text-decoration: none;
+                font-weight: 700;
+                font-size: 24px;
+                color: #111827;
+            }
+
+            .search {
+                padding: 12px 18px;
+                border: none;
+                border-radius: 14px;
+                background: #fff;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, .05);
+                width: 260px;
+            }
+
+            .layout {
+                display: grid;
+                grid-template-columns: 260px minmax(0, 1fr) 240px;
+                gap: 28px;
+                max-width: 1500px;
+                margin: 35px auto;
+                padding: 0 25px;
+            }
+
+            .card {
+                background: rgba(255, 255, 255, .65);
+                backdrop-filter: blur(20px);
+                border-radius: 22px;
+                padding: 24px;
+                box-shadow: 0 12px 30px rgba(0, 0, 0, .05);
+            }
+
+            .sidebar a,
+            .toc a {
+                display: block;
+                padding: 10px 14px;
+                margin: 6px 0;
+                text-decoration: none;
+                color: #4b5563;
+                border-radius: 12px;
+                transition: .25s;
+            }
+
+            .sidebar a:hover,
+            .toc a:hover {
+                background: #2563eb;
+                color: #fff;
+                transform: translateX(4px);
+            }
+
+            .badge {
+                display: inline-block;
+                background: #dbeafe;
+                color: #2563eb;
+                padding: 6px 12px;
+                border-radius: 999px;
+                font-size: 13px;
+                font-weight: 600;
+                margin-bottom: 18px;
+            }
+
+            .back {
+                display: inline-block;
+                margin-bottom: 18px;
+                text-decoration: none;
+                color: #2563eb;
+                font-weight: 600;
+            }
+
+            h1 {
+                font-size: 44px;
+                margin-bottom: 12px
+            }
+
+            .meta {
+                color: #6b7280;
+                margin-bottom: 35px
+            }
+
+            h2 {
+                margin: 40px 0 16px
+            }
+
+            p {
+                line-height: 1.9;
+                color: #4b5563;
+                margin-bottom: 16px
+            }
+
+            pre {
+                background: #111827;
+                color: #e5e7eb;
+                padding: 18px;
+                border-radius: 16px;
+                overflow: auto;
+                margin: 20px 0;
+            }
+
+            .bottom-nav {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 40px;
+            }
+
+            .bottom-nav a {
+                text-decoration: none;
+                color: #2563eb;
+                font-weight: 600;
+            }
+
+            @media(max-width:1100px) {
+                .layout {
+                    grid-template-columns: 1fr
+                }
+
+                .toc {
+                    display: none
+                }
+            }
+
+            .page {
+                display: none;
+            }
+
+            .page.active {
+                display: block;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <header>
+            <a class="logo" href="../index.html">なんでもメモ場</a>
+            <input class="search" placeholder="Search...">
+        </header>
+
+        <div class="layout">
+
+            <div class="sidebar card">
+                <h3>AWS</h3>
+                <a href="#" onclick="showPage('CLF');return false;">・CLF</a>
+                <a href="#" onclick="showPage('SAA');return false;">・SAA</a>
+            </div>
+
+            <main class="card">
+                <div id="CLF" class="page active">
+                    <span class="badge">AWS</span>
+                    <h1>CLF</h1>
+                    <p><label><input type="checkbox">・Amazon Snowball Edge Amazon Snowball Edge
+                            是一个“寄给你用的离线数据传输设备”，用来把大量数据搬到 AWS（或从 AWS 搬出来）。</label></p>
+                    <p><label><input type="checkbox">・Amazon Inspector Amazon Inspector 是一个自动帮你检查 AWS 资源安全漏洞的服务，主要用来发现
+                            EC2、容器、Lambda 里的安全问题。</label></p>
+                    <p><label><input type="checkbox">・AWS Config AWS Config 是一个用来记录 AWS
+                            资源配置变化，并检查是否符合规则（合规性）的服务。</label></p>
+                    <p><label><input type="checkbox">・Amazon GuardDuty Amazon GuardDuty 是一个持续监控 AWS
+                            环境安全威胁的智能检测服务，主要用来发现“正在发生的攻击或异常行为”。</label></p>
+                    <p><label><input type="checkbox">・AWS Trusted Advisor AWS Trusted Advisor = 帮你检查 AWS
+                            资源是否符合“最佳实践”的工具（发现问题 + 给建议）。</label></p>
+                    <p><label><input type="checkbox">・Amazon S3 Amazon S3 = 一个“无限容量的云端对象存储”，不是硬盘，也不是传统文件系统</label></p>
+                    <p><label><input type="checkbox">・AWS Storage Gateway AWS Storage Gateway =
+                            把“本地存储”和“AWS云存储”连起来的桥梁（本地用起来像硬盘/共享盘，背后其实在用云）</label></p>
+                    <p><label><input type="checkbox">・Amazon WorkSpaces 👉 Amazon WorkSpaces = AWS
+                            提供的“云端电脑（虚拟桌面）”，你可以远程登录使用，就像一台在云里的 Windows/Mac。</label></p>
+                    <p><label><input type="checkbox">・Amazon Elastic Block Store（EBS) 👉 Amazon Elastic Block
+                            Store（EBS）= 挂在云服务器（EC2）上的“云硬盘”</label></p>
+                    <p><label><input type="checkbox">・IAM User AWS Identity and Access Management 中的 IAM User（IAM 用户）
+                            是一个代表“具体个人或程序”的身份实体，用于在 AWS 里进行登录和访问资源。</label></p>
+                    <p><label><input type="checkbox">・IAM Role AWS Identity and Access Management 中的 IAM Role（IAM 角色）
+                            是一个**“临时权限身份”**，用于让 AWS 服务或用户“暂时获得某些权限”，而不是长期绑定账号。</label></p>
+                    <p><label><input type="checkbox">・Shared Responsibility Model 👉 Shared Responsibility
+                            Model（共享责任模型）= AWS 和你“分工负责安全”的规则：AWS 管云本身，你管你在云里用的东西</label></p>
+                    <p><label><input type="checkbox">・DynamoDB 👉 Amazon DynamoDB = AWS 提供的“全托管 NoSQL
+                            数据库”，特点是：超快、自动扩展、几乎不用运维</label></p>
+                    <p><label><input type="checkbox">・AWS Cloud Adoption Framework (AWS CAF) AWS Cloud Adoption
+                            Framework 是 AWS 提供的一套帮助企业“规划 + 推进上云”的方法论框架，用来指导组织从传统IT转向云架构。</label></p>
+                    <p><label><input type="checkbox">・AWS Fargate 👉 AWS Fargate = 一个“无需管理服务器的容器运行平台”，你只管跑 Docker，其他 AWS
+                            全帮你搞定</label></p>
+                    <p><label><input type="checkbox">・Amazon Athena 👉 Amazon Athena = 一个“直接在 S3 上查数据的服务”，不用建数据库，用 SQL
+                            就能查</label></p>
+                    <p><label><input type="checkbox">・AWS Lambda 👉 AWS Lambda = 让你“只写代码就能运行”的服务，不用管服务器（真正的
+                            Serverless）</label></p>
+                    <p><label><input type="checkbox">・AWS Cost Explorer 👉 AWS Cost Explorer = 一个“可视化分析 AWS
+                            花钱情况的工具”，帮你看钱花在哪、还能怎么省</label></p>
+                    <p><label><input type="checkbox">・AWS Compute Optimizer 👉 AWS Compute Optimizer =
+                            一个用机器学习帮你“调资源规格（省钱+提性能）”的工具</label></p>
+                    <p><label><input type="checkbox">・AWS Billing Conductor 👉 AWS Billing Conductor =
+                            用来“自定义和分摊账单”的工具，主要给企业做内部成本管理（不是用来省钱的）</label></p>
+                    <p><label><input type="checkbox">・Amazon CodeGuru 👉 Amazon CodeGuru = 一个“帮你审代码、找性能问题”的 AI
+                            工具（不是用来管基础设施的）</label></p>
+                    <p><label><input type="checkbox">・Amazon SageMaker 👉 Amazon SageMaker = 一个“从训练到部署一条龙的机器学习平台”，帮你快速做
+                            AI 模型</label></p>
+                    <p><label><input type="checkbox">・AWS Resource Explorer 👉 AWS Resource Explorer = 一个“帮你快速搜索所有 AWS
+                            资源”的工具</label></p>
+                    <p><label><input type="checkbox">・AWS Service Catalog 👉 AWS Service Catalog =
+                            一个“公司内部应用/基础设施模板商店”，用来统一发布 + 控制谁能部署什么**</label></p>
+                    <p><label><input type="checkbox">・AWS Organizations 👉 AWS Organizations = 用来“统一管理多个 AWS
+                            账号”的服务（集中管账号、权限和账单）</label></p>
+                    <p><label><input type="checkbox">・AWS Systems Manager 👉 AWS Systems Manager =
+                            一个“统一管理和运维服务器（EC2/本地）的工具”，帮你自动化操作、打补丁、远程控制</label></p>
+                    <p><label><input type="checkbox">・AWS Pricing Calculator 👉 AWS Pricing Calculator = 一个“帮你预估 AWS
+                            使用成本”的工具（上云前算钱用的）</label></p>
+                    <p><label><input type="checkbox">・AWS Glue 👉 AWS Glue = 一个“自动做数据清洗和转换（ETL）的服务”，帮你把数据整理好再分析</label>
+                    </p>
+                    <p><label><input type="checkbox">・Amazon Elastic File System（EFS） 👉 Amazon Elastic File
+                            System（EFS）= 一个“可以被多台服务器同时访问的共享文件系统”Linux共享文件系统（最省心</label></p>
+                    <p><label><input type="checkbox">・Amazon Redshift 👉 Amazon Redshift = 一个“专门做大数据分析的数据库（数据仓库）”，适合跑复杂
+                            SQL 分析</label></p>
+                    <p><label><input type="checkbox">・Amazon QuickSight 👉 Amazon QuickSight = AWS
+                            的“数据可视化工具”，把数据变成图表和仪表盘（BI）</label></p>
+                    <p><label><input type="checkbox">・Amazon Quantum Ledger Database (Amazon QLDB) 👉 Amazon Quantum
+                            Ledger Database（QLDB）= 一个“数据不可篡改、可追溯”的账本数据库（类似区块链，但更简单）</label></p>
+                    <p><label><input type="checkbox">・AWS Support 👉 AWS Support = AWS
+                            提供的“官方技术支持服务”，帮你解决故障、性能、账单等问题</label></p>
+                    <p><label><input type="checkbox">・AWS Professional Services 👉 AWS Professional Services = AWS
+                            提供的“专家咨询与落地实施服务”，帮企业设计、迁移和优化云架构</label></p>
+                    <p><label><input type="checkbox">・AWS Launch Wizard 👉 AWS Launch Wizard = 一个“帮你一步步自动部署复杂应用（如
+                            SAP）的向导工具”</label></p>
+                    <p><label><input type="checkbox">・AWS Managed Services (AMS) 👉 AWS Managed Services = AWS
+                            帮企业“代管云环境”的服务，相当于把日常运维外包给 AWS</label></p>
+                    <p><label><input type="checkbox">・Reserved Instances 👉 Reserved Instances（预留实例，RI）= 提前承诺使用 EC2
+                            等资源，换取更低价格（最高可省约 75%）</label></p>
+                    <p><label><input type="checkbox">・Dedicated Hosts 👉 Dedicated Hosts = 把“一整台物理服务器”租给你用的 EC2
+                            选项（硬件独占）</label></p>
+                    <p><label><input type="checkbox">・Spot Instances 👉 Amazon EC2 Spot Instances = 用“超低价格”使用 AWS
+                            闲置计算资源，但可能会被随时回收的 EC2 实例</label></p>
+                    <p><label><input type="checkbox">・On-Demand Instances 👉 Amazon EC2 On-Demand Instances = 按需付费的 EC2
+                            实例，用多少算多少，没有长期承诺</label></p>
+                    <p><label><input type="checkbox">・AWS Elastic Beanstalk 👉 AWS Elastic Beanstalk =
+                            一个“帮你自动部署和管理应用的PaaS服务”，你只管代码，AWS帮你搞定服务器</label></p>
+                    <p><label><input type="checkbox">・AWS CodeBuild 👉 AWS CodeBuild =
+                            一个“自动编译、测试代码的CI服务”，把代码构建过程完全自动化</label></p>
+                    <p><label><input type="checkbox">・Amazon Personalize 👉 Amazon Personalize =
+                            一个“帮你给用户做个性化推荐”的机器学习服务（类似电商推荐系统）</label></p>
+                    <p><label><input type="checkbox">・S3 Lifecycle rules 👉 S3 Lifecycle Rules = 用规则“自动管理 S3
+                            对象的存储方式和生命周期”（比如自动转存、删除）</label></p>
+                    <p><label><input type="checkbox">・S3 Versioning 👉 Amazon S3 Versioning = 给 S3
+                            文件开启“历史版本管理”，避免误删或误覆盖</label></p>
+                    <p><label><input type="checkbox">・S3 bucket policies 👉 Amazon S3 Bucket Policy = 用 JSON
+                            写的“桶级权限规则”，用来控制谁能访问整个 S3 bucket 或其中的对象</label></p>
+                    <p><label><input type="checkbox">・S3 server-side encryption 👉 Amazon S3 Server-Side Encryption =
+                            AWS 在服务器端帮你自动把 S3 数据加密存储，用户不用自己处理加密细节</label></p>
+                    <p><label><input type="checkbox">・AWS CodePipeline 结论：AWS CodePipeline 是 AWS
+                            的持续交付（CI/CD）服务，用来自动化代码从构建、测试到发布的整个流程。</label></p>
+                    <p><label><input type="checkbox">・AWS CodeDeploy 结论：AWS CodeDeploy 是一个“自动部署工具”，专门负责把应用安全、可控地发布到 EC2
+                            / Lambda / 本地服务器等目标环境。</label></p>
+                    <p><label><input type="checkbox">・AWS Direct Connect 结论：AWS Direct Connect 是一条“专用物理网络线路”，用来把本地数据中心和
+                            AWS 直接连接起来，比公网 VPN 更稳定、更低延迟、更安全。</label></p>
+                    <p><label><input type="checkbox">・AWS CloudFormation 结论：AWS CloudFormation 是“用代码创建和管理 AWS
+                            资源”的基础设施即代码（IaC）服务，可以把整套云环境一键部署、更新和回滚。</label></p>
+                    <p><label><input type="checkbox">・Spot Fleet 结论：Spot Fleet 是 AWS 用来“批量管理 Spot
+                            实例”的服务，可以自动帮你以最低成本组合多种实例类型和可用区来满足容量需求。</label></p>
+                    <p><label><input type="checkbox">・Amazon VPC Peering VPC Peering 是一种让两个 VPC 私网直接通信的连接方式，不经过公网、无需
+                            VPN，适合简单、低延迟的网络互通。</label></p>
+                    <p><label><input type="checkbox">・AWS VPN AWS VPN 是用来实现加密的网络连接（通常是本地数据中心 ↔ AWS），核心就是：安全打通“外部网络”和 AWS
+                            VPC。</label></p>
+                    <p><label><input type="checkbox">・Amazon Route 53 Amazon Route 53 是 AWS 的托管 DNS 服务 +
+                            流量调度工具，核心作用就是：👉 把域名解析到资源，并智能地把流量分配到最合适的地方</label></p>
+                    <p><label><input type="checkbox">・AWS DataSync AWS DataSync 是一个高速、自动化的数据迁移服务，用于在本地存储 ↔ AWS（或 AWS ↔
+                            AWS）之间传输大量数据，比手写脚本或 rsync 更快、更省心。</label></p>
+                    <p><label><input type="checkbox">・Amazon Connect Amazon Connect 是 AWS
+                            提供的云呼叫中心（客服系统）服务，可以用来快速搭建电话/在线客服系统，支持语音、聊天、自动语音应答（IVR）等。</label></p>
+                    <p><label><input type="checkbox">・AWS Region AWS Region 是 AWS 在全球划分的独立地理区域，每个 Region
+                            都是一个相互隔离的云环境。</label></p>
+                    <p><label><input type="checkbox">・Amazon Internet Gateway Amazon Internet Gateway 是一个让 VPC
+                            能直接访问公网（Internet）的网关组件，本质就是：👉 VPC 的公网入口 + 出口</label></p>
+                    <p><label><input type="checkbox">・Loose Coupling（松耦合） 👉 Loose Coupling（松耦合）=
+                            各个系统/模块之间“依赖很少、互相独立”，一个出问题不会影响其他。</label></p>
+                    <p><label><input type="checkbox">・IAM Access Analyzer IAM Access Analyzer
+                            是一个帮你发现“资源是否被外部访问”的安全分析工具，核心作用：👉 检测是否有“意外的对外访问权限”</label></p>
+                    <p><label><input type="checkbox">・AWS Artifact AWS Artifact 是一个提供 AWS 合规与审计文档的服务，核心作用：👉 下载 AWS
+                            的安全/合规报告（给审计或合规用）</label></p>
+                    <p><label><input type="checkbox">・IAM credential report 👉 IAM Credential Report = 查看账号里所有 IAM
+                            用户“凭证安全状态”的报表</label></p>
+                    <p><label><input type="checkbox">・AWS Audit Manager 👉 AWS Audit Manager
+                            是一个自动收集证据、帮助你做合规审计的服务，核心作用：👉 让审计从“人工收集”变成“自动生成报告”</label></p>
+                    <p><label><input type="checkbox">・Amazon Simple Queue Service (Amazon SQS) Amazon SQS
+                            是一个消息队列服务，核心作用：👉 解耦系统，让不同服务通过“消息”而不是直接调用来通信</label></p>
+                    <p><label><input type="checkbox">・AWS Budgets 👉 AWS Budgets 是用来监控成本/使用量并在超出预算时发出告警的服务。</label></p>
+                    <p><label><input type="checkbox">・Amazon CloudWatch 👉 Amazon CloudWatch 是 AWS 的监控与告警服务，核心作用：👉 收集指标
+                            + 日志 + 触发报警</label></p>
+                    <p><label><input type="checkbox">・AWS Cost and Usage Report 👉 AWS Cost and Usage Report
+                            是一个最详细的成本与使用数据导出服务，核心作用：👉 生成“超细粒度”的费用明细（用于分析/对账）</label></p>
+                    <p><label><input type="checkbox">・AWS Chatbot 👉 AWS Chatbot 是一个把 AWS 通知和操作集成到聊天工具（Slack /
+                            Teams）里的服务，核心作用：👉 在聊天软件里接收 AWS 告警并执行操作</label></p>
+                    <p><label><input type="checkbox">・AWS Knowledge Center 👉 AWS Knowledge Center 是一个官方问题解答库（FAQ /
+                            Troubleshooting 文档集合），核心作用：👉 帮你快速查找 AWS 常见问题的解决方案</label></p>
+                    <p><label><input type="checkbox">・Availability Zone（AZ） 👉 一个独立的数据中心（或一组数据中心）</label></p>
+                    <p><label><input type="checkbox">・AWS Well-Architected Framework 的 6 大支柱 👉 AWS Well-Architected
+                            Framework 是一套 AWS 官方架构最佳实践指南，用来帮你设计安全、稳定、高性能、低成本的系统。</label></p>
+                    <p><label><input type="checkbox">・Amazon Simple Notification Service（SNS Amazon Simple Notification
+                            Service（SNS）是一个消息通知服务，用于把消息快速推送给多个接收方（人或系统）。</label></p>
+                    <p><label><input type="checkbox">・Amazon Simple Email Service (Amazon SES) Amazon Simple Email
+                            Service（SES）是一个发送和接收邮件的云服务，主要用于批量发邮件（营销/通知）和系统邮件（验证码、确认邮件）。</label></p>
+                    <p><label><input type="checkbox">・AWS Command Line Interface（AWS CLI） AWS Command Line Interface（AWS
+                            CLI）是一个命令行工具，让你可以在终端里用命令直接操作 AWS（创建资源、管理服务等）。</label></p>
+                    <p><label><input type="checkbox">・AWS API AWS API 是一组程序接口，让你的代码可以直接控制 AWS
+                            各种服务（创建资源、查询状态、删除资源等）。</label></p>
+                    <p><label><input type="checkbox">・Access keys **Access keys（访问密钥）**是用来让程序（CLI / SDK / API）安全访问 AWS
+                            的一对凭证（类似“账号+密码”）。</label></p>
+                    <p><label><input type="checkbox">・AWS Key Management Service (AWS KMS) keys AWS Key Management
+                            Service（KMS）里的 KMS keys 是用来加密和解密数据的“密钥”，由 AWS 帮你安全管理。</label></p>
+                    <p><label><input type="checkbox">・SSH public keys SSH public
+                            keys（SSH公钥）是用来实现无密码登录服务器的认证方式，通常和私钥（private key）配对使用。</label></p>
+                    <p><label><input type="checkbox">・AWS Batch AWS Batch
+                            是一个批处理计算服务，用于自动运行大量任务（job），比如数据处理、计算任务等。</label></p>
+                    <p><label><input type="checkbox">・AWS WAF AWS Web Application
+                            Firewall（WAF）是一个Web应用防火墙，用来保护你的网站/API免受常见攻击（如SQL注入、XSS等）。</label></p>
+                    <p><label><input type="checkbox">・AWS Shield AWS Shield 是 AWS 提供的DDoS 防护服务，用于保护你的系统免受大规模流量攻击。 AWS
+                            Shield Standard = 免费基础防护（自动开启）AWS Shield Advanced = 付费高级防护（更强 + 有人工支持 + 有赔付）</label></p>
+                    <p><label><input type="checkbox">・Network ACLs Network Access Control List（Network
+                            ACLs）是一个子网级别的网络防火墙，用于控制进出子网的流量（允许或拒绝）。</label></p>
+                    <p><label><input type="checkbox">・Security groups Security Group 是 AWS 中的实例级防火墙，用于控制进出
+                            EC2（或其他资源）的流量。</label></p>
+                    <p><label><input type="checkbox">・Amazon Macie Amazon Macie 是一个数据安全服务，用于自动发现和保护 S3
+                            中的敏感数据（比如身份证号、信用卡号等）。</label></p>
+                    <p><label><input type="checkbox">・AWS CloudTrail AWS CloudTrail 是一个审计日志服务，用于记录谁在什么时候对 AWS
+                            做了什么操作。</label></p>
+                    <p><label><input type="checkbox">・AWS X-Ray AWS X-Ray
+                            是一个分布式追踪（Tracing）服务，用于分析应用请求在系统中的完整路径和性能瓶颈。</label></p>
+                    <p><label><input type="checkbox">・Amazon RDS Amazon Relational Database
+                            Service（RDS）是一个托管的关系型数据库服务，用于在云上运行 MySQL、PostgreSQL、Oracle 等数据库，而不用自己运维。</label></p>
+                    <p><label><input type="checkbox">・Amazon Kinesis Amazon Kinesis
+                            是一个实时数据流处理服务，用于收集、处理和分析实时数据（streaming data）。</label></p>
+                    <p><label><input type="checkbox">・AWS Savings Plans AWS Savings Plans 是一种节省云成本的定价方式：👉 你承诺在一定时间内持续使用
+                            AWS（按小时消费），就能获得折扣。</label></p>
+                    <p><label><input type="checkbox">・AWS Wavelength AWS Wavelength 是一种把 AWS 服务部署到 5G
+                            网络边缘的服务，用于实现超低延迟（毫秒级）应用。</label></p>
+                    <p><label><input type="checkbox">・AWS Free Tier AWS Free Tier（免费套餐）= AWS
+                            提供的一系列“免费用额度”，让你在一定范围内免费使用云服务，用来学习、测试最合适。</label></p>
+                    <p><label><input type="checkbox">・AWS Pricing Calculator AWS Pricing Calculator = 用来“提前算钱”的工具，避免你在
+                            AWS 上被意外收费。</label></p>
+                    <p><label><input type="checkbox">・AWS Billing and Cost Management AWS Billing and Cost Management =
+                            实际“看账单 + 控成本”的系统（不是预估，是已经花了多少钱）。</label></p>
+                    <p><label><input type="checkbox">・Amazon CloudFront Amazon CloudFront = AWS 的
+                            CDN（内容分发网络），用来让你的网站“全球加速 + 降低延迟 + 减少源站压力”。</label></p>
+                    <p><label><input type="checkbox">・AWS PrivateLink AWS PrivateLink = 在 AWS
+                            内部用“私有网络”访问服务（不走公网、不暴露IP，更安全）。</label></p>
+                    <p><label><input type="checkbox">・AWS Developer Center AWS Developer Center = AWS 给开发者准备的“学习 + 上手 +
+                            找资料”的入口网站（相当于开发者导航站）。</label></p>
+                    <p><label><input type="checkbox">・AWS Cloud Development Kit (AWS CDK) AWS Cloud Development Kit（AWS
+                            CDK）= 用“写代码”的方式创建和管理云资源（比写配置文件更高级、更工程化）。</label></p>
+                    <p><label><input type="checkbox">・AWS CodeStar AWS CodeStar = 一个“一键帮你搭好开发环境 +
+                            CI/CD流水线”的工具（现在基本被新服务取代，不太推荐新项目用）。</label></p>
+                    <p><label><input type="checkbox">・AWS Security Token Service (AWS STS) AWS Security Token
+                            Service（STS）= 用来获取“临时凭证”的服务，让你安全地访问 AWS 资源（不需要长期账号密码）。</label></p>
+                    <p><label><input type="checkbox">・IAM instance profiles IAM Instance Profile = 给 EC2 绑定 IAM Role
+                            的“桥梁”，让实例自动拿到临时凭证（不用写死 Access Key）。</label></p>
+                    <p><label><input type="checkbox">・cloud security posture management (CSPM) Cloud Security Posture
+                            Management（CSPM）= 持续检查你云环境是否“安全配置正确”的一类安全管理方案。</label></p>
+                    <p><label><input type="checkbox">・AWS Security Hub AWS Security Hub = AWS
+                            的“安全总控台”，把各个安全服务的结果统一汇总、分析和告警。</label></p>
+                    <p><label><input type="checkbox">・Amazon EventBridge Amazon EventBridge = AWS
+                            的“事件总线”，用来让不同服务通过“事件”自动触发动作（解耦 + 自动化）。</label></p>
+                    <p><label><input type="checkbox">・Elastic Load Balancers Elastic Load Balancers（ELB）=
+                            把流量“分摊”到多台服务器上的服务，让系统更稳定、更抗压。</label></p>
+                    <p><label><input type="checkbox">・Amazon Aurora Amazon Aurora = AWS 自研的高性能关系型数据库（兼容 MySQL /
+                            PostgreSQL，比传统 RDS 更快、更可扩展）。</label></p>
+                    <p><label><input type="checkbox">・Amazon Detective Amazon Detective =
+                            用来“事后调查安全事件”的服务，帮你快速分析是谁、从哪儿、怎么入侵的。</label></p>
+                    <p><label><input type="checkbox">・Amazon VPC Flow Logs Amazon VPC Flow Logs =
+                            用来“记录网络流量”的日志服务（能看谁在访问谁，但不能拦截）。</label></p>
+                    <p><label><input type="checkbox">・AWS Identity and Access Management (IAM) AWS Identity and Access
+                            Management（IAM）= AWS 的权限系统，用来控制“谁（Who）能对什么资源（What）做什么操作（Action）”。</label></p>
+                    <p><label><input type="checkbox">・AWS Outposts AWS Outposts = 把 AWS 的一部分基础设施“搬到你本地机房”，实现本地 +
+                            云的一体化（混合云）。</label></p>
+                    <p><label><input type="checkbox">・AWS Local Zones AWS Local Zones = 把 AWS
+                            的计算资源放到“离用户更近的城市”，用于降低延迟（但仍属于 AWS 云的一部分）。</label></p>
+                    <p><label><input type="checkbox">・Amazon EMR (Amazon Elastic MapReduce) Amazon EMR = AWS
+                            上的“大数据处理平台”，用来跑海量数据分析（基于 Hadoop / Spark）。</label></p>
+                    <p><label><input type="checkbox">・Amazon AppStream 2.0 Amazon AppStream 2.0 =
+                            把桌面应用“流式传输”到浏览器，让用户无需安装软件就能使用。</label></p>
+                    <p><label><input type="checkbox">・Amazon Elastic Container Service (Amazon ECS) Amazon Elastic
+                            Container Service（ECS）= AWS 的容器管理服务，用来运行和管理 Docker 容器。</label></p>
+                    <p><label><input type="checkbox">・Amazon DocumentDB (with MongoDB compatibility) Amazon DocumentDB =
+                            AWS 的文档型数据库（存 JSON 数据，兼容 MongoDB API）。</label></p>
+                    <p><label><input type="checkbox">・Amazon Neptune Amazon Neptune = AWS
+                            的图数据库，用来处理“关系特别复杂的数据”（比如社交网络、推荐系统）。</label></p>
+                    <p><label><input type="checkbox">・Amazon Machine Images（AMIs 👉 Amazon Machine Images（AMI）= EC2
+                            的“系统镜像模板”，用来快速创建一模一样的服务器。</label></p>
+                    <p><label><input type="checkbox">・Amazon EBS snapshots 👉 Amazon EBS snapshots = EBS
+                            磁盘的“备份快照”，用于保存和恢复硬盘数据。</label></p>
+                    <p><label><input type="checkbox">・AWS CloudHSM AWS CloudHSM 是一个提供专用硬件加密模块（HSM）的云服务，让你在 AWS
+                            上自己掌控加密密钥（比 KMS 控制权更高）。</label></p>
+                    <p><label><input type="checkbox">・AWS CloudShell AWS CloudShell 是一个浏览器里直接用的命令行终端，让你不用配置本地环境，就能直接操作
+                            AWS。</label></p>
+                    <p><label><input type="checkbox">・AWS Cloud Map AWS Cloud Map 是一个服务发现（Service
+                            Discovery）工具，让你的应用可以通过“名字”找到彼此（而不用写死 IP）。</label></p>
+                    <p><label><input type="checkbox">・Amazon VPC Endpoints Amazon VPC Endpoints 是用来**让你在 VPC 内“私网访问 AWS
+                            服务”**的功能，不走公网、不需要 NAT、也不用 Internet Gateway。</label></p>
+                    <p><label><input type="checkbox">・AWS Transit Gateway AWS Transit Gateway
+                            是一个**“云上网络中转中心（Hub）”**，用来把多个 VPC 和本地网络统一连接起来，避免复杂的点对点 VPC 互联。</label></p>
+                    <p><label><input type="checkbox">・AWS Secrets Manager AWS Secrets Manager
+                            是一个用来**安全存储和自动轮换“敏感信息（Secrets）”**的服务，比如数据库密码、API Key 等。</label></p>
+                    <p><label><input type="checkbox">・AWS Business Support AWS Business Support 是 AWS
+                            的生产级支持方案，面向正在运行线上业务的公司，提供 7×24 技术支持 + 更快响应 + 基础架构建议工具。</label></p>
+                    <p><label><input type="checkbox">・AWS Basic Support AWS Basic Support 是 AWS 的免费基础支持层，所有 AWS
+                            账户默认自带，提供账号/账单支持 + 基础资源信息，但不提供技术问题解决。</label></p>
+                    <p><label><input type="checkbox">・AWS Developer Support AWS Developer Support
+                            是面向开发阶段用户的支持方案，提供邮件技术支持 + 基础最佳实践指导，但不适用于生产级快速响应需求。</label></p>
+                    <p><label><input type="checkbox">・AWS Enterprise Support AWS Enterprise Support 是 AWS
+                            最高级别的支持计划，面向大型企业关键业务系统，提供 最快响应 + 专属架构师 + 主动式优化建议。</label></p>
+                    <p><label><input type="checkbox">・AWS License Manager AWS License Manager 是一个用来帮助你在 AWS
+                            上集中管理软件许可证（license）并确保合规使用的服务。</label></p>
+                    <p><label><input type="checkbox">・AWS Certificate Manager AWS Certificate
+                            Manager（ACM）是用来申请、存储、部署和自动续期 SSL/TLS 证书的服务，用于给网站和应用开启 HTTPS 加密。</label></p>
+                    <p><label><input type="checkbox">・AWS Management Console AWS Management Console 是 AWS
+                            提供的基于浏览器的图形化管理界面（GUI），让你可以不用命令行，直接点击操作所有 AWS 资源。</label></p>
+                    <p><label><input type="checkbox">・AWS Software Development Kit(SDK) AWS Software Development Kit
+                            是一组让开发者在代码里直接调用 AWS 服务的工具包，用于在应用程序中集成 AWS 功能（比如访问 S3、DynamoDB 等）。</label></p>
+                    <p><label><input type="checkbox">・AWS Cloud9 AWS Cloud9 是一个基于云的开发环境（IDE），让你在浏览器里就能写代码、调试、运行 AWS
+                            应用，不需要在本地配置开发环境。</label></p>
+                    <p><label><input type="checkbox">・AWS Ground Station AWS Ground Station 是一个让你可以直接在 AWS
+                            上控制卫星通信的服务，用来接收和处理卫星数据（不用自己建地面站）。</label></p>
+                    <p><label><input type="checkbox">・AWS IoT Device Defender AWS IoT Device Defender 是一个用于保护 IoT
+                            设备安全的服务，它会持续监控设备行为，发现异常并帮助你防止 IoT 被攻击或滥用。</label></p>
+                    <p><label><input type="checkbox">・AWS Global Accelerator AWS Global Accelerator 是一个通过 AWS
+                            全球网络来加速用户访问应用、提升稳定性和容灾能力的服务，让用户始终连接到“最优入口点”。</label></p>
+                    <p><label><input type="checkbox">・Amazon Kinesis Data Streams Amazon Kinesis Data Streams
+                            是一个用来实时收集、处理和传输大量“流式数据”的服务，比如日志、点击流、IoT 数据等。</label></p>
+                    <p><label><input type="checkbox">・AWS Organizations 里的 Consolidated Billing（合并账单） AWS Organizations
+                            里的 Consolidated Billing（合并账单） 是一种机制：把多个 AWS 账号的费用合并到一张账单里，并可能获得更低的整体费用（折扣）。</label></p>
+                    <p><label><input type="checkbox">・Amazon S3 Multi-Region Access Points Amazon S3 Multi-Region Access
+                            Points 是一个让你可以通过一个统一的访问入口，自动路由到多个 AWS Region 中最合适的 S3 bucket 的功能，用来提升全球访问性能和容灾能力。</label>
+                    </p>
+                    <p><label><input type="checkbox">・Amazon S3 Storage Lens Amazon S3 Storage Lens 是一个用来分析和可视化 S3
+                            存储使用情况、成本和访问趋势的分析工具，帮助你“看清楚 S3 里到底发生了什么”。</label></p>
+                    <p><label><input type="checkbox">・AWS IAM Identity Center (AWS Single Sign-On) AWS IAM Identity
+                            Center（原 AWS Single Sign-On）是一个统一登录入口（SSO）服务，可以让用户用一个账号登录多个 AWS 账号以及支持 SAML 2.0
+                            的第三方应用。</label></p>
+                    <p><label><input type="checkbox">・AWS Marketplace AWS Marketplace 是一个在 AWS
+                            上购买第三方软件和服务的在线市场，可以直接部署到你的 AWS 环境里使用。</label></p>
+                    <p><label><input type="checkbox">・AWS AppSync AWS AppSync 是一个托管的 GraphQL API 服务，用于让前端应用（Web /
+                            Mobile）可以高效获取和同步数据。</label></p>
+                    <p><label><input type="checkbox">・Amazon FSx Amazon FSx 是一个完全托管的文件系统服务，让你在 AWS 上使用像 Windows、Linux
+                            高性能文件系统一样的“共享文件存储”。</label></p>
+                    <p><label><input type="checkbox">・Amazon S3 Glacier Amazon S3 Glacier
+                            是一种低成本的长期归档存储服务，用于存放很少访问但必须长期保存的数据（如备份、合规数据）。</label></p>
+                    <p><label><input type="checkbox">・Amazon Elastic Kubernetes Service (Amazon EKS) Amazon Elastic
+                            Kubernetes Service（EKS）是 AWS 提供的托管 Kubernetes 服务，用来部署、管理和扩展容器化应用。</label></p>
+                    <p><label><input type="checkbox">・Amazon S3 File Gateway Amazon S3 File Gateway 是一种 混合云存储服务，让你在本地用
+                            NFS/SMB 文件系统方式访问数据，但实际数据存储在 AWS S3。</label></p>
+                    <p><label><input type="checkbox">・Amazon Polly 结论：Amazon Polly = 文本转语音（Text-to-Speech,
+                            TTS）服务</label></p>
+                    <p><label><input type="checkbox">・Amazon Comprehend Amazon Comprehend
+                            是一个“文本分析（自然语言处理）服务”，用来自动理解文本里的含义，比如情感、关键词、语言等。</label></p>
+                    <p><label><input type="checkbox">・Amazon Rekognition Amazon Rekognition
+                            是一个“图像/视频分析服务”，用来识别图片或视频里的内容（人脸、物体、场景等）。</label></p>
+                    <p><label><input type="checkbox">・cloud transformation journey 👉 cloud transformation
+                            journey（云转型之旅） = 企业从“本地/传统IT”一步步迁移到云上的全过程方法论（AWS给你的一条标准路线）。</label></p>
+                    <p><label><input type="checkbox">・EC2 Image Builder 👉 EC2 Image Builder 是一个**自动化创建、维护和更新
+                            AMI（镜像）**的服务。</label></p>
+                    <p><label><input type="checkbox">・Amazon Cognito 👉 Amazon Cognito
+                            是一个用户身份认证与管理服务，用来实现：注册、登录、权限控制（尤其是给Web/App用户用）。</label></p>
+                    <p><label><input type="checkbox">・VPC Flow Logs 👉 VPC Flow Logs =
+                            记录VPC里网络流量信息的日志功能（谁和谁通信、是否被允许）</label></p>
+                    <p><label><input type="checkbox">・AWS Systems Manager Parameter Store AWS Systems Manager Parameter
+                            Store 是一个用来安全存储和管理配置数据和密钥的服务（比如数据库密码、API Key、环境变量等），并且可以被你的应用程序按需读取。</label></p>
+                    <p><label><input type="checkbox">・AWS Transfer Family AWS Transfer Family 是一个托管文件传输服务，让你可以用传统协议（SFTP
+                            / FTPS / FTP）安全地把文件传到 AWS（通常是 S3 或 EFS），而且不用自己搭服务器。</label></p>
+                    <p><label><input type="checkbox">・EC2 Placement Groups EC2 Placement Groups 是用来控制 EC2
+                            实例在物理硬件上的“摆放方式”，从而优化性能（低延迟）或可用性（避免同时宕机）。</label></p>
+                    <p><label><input type="checkbox">・AWS Graviton processor AWS Graviton Processor 是 AWS 自研的 ARM 架构
+                            CPU，用于 Amazon EC2 等服务，主打 更高性价比（性能/价格比）和更低功耗。</label></p>
+                    <p><label><input type="checkbox">・AWS Step Functions AWS Step Functions 是一个无服务器工作流编排服务，用来把多个 AWS
+                            服务（尤其是 Lambda）按步骤串起来执行，并自动处理重试、错误和流程控制。</label></p>
+                    <p><label><input type="checkbox">・AWS Cost Allocation Tags AWS Cost Allocation Tags
+                            是一种给资源打标签并按标签统计费用的功能，用于实现成本归类、分析和分摊（chargeback）。</label></p>
+                    <p><label><input type="checkbox">・S3 Transfer Acceleration Amazon S3 Transfer Acceleration
+                            是一个加速跨地域上传/下载到 S3 的功能，通过 AWS 全球边缘节点（类似 CDN）让数据更快进入 S3。</label></p>
+                    <p><label><input type="checkbox">・S3 Intelligent-Tiering Amazon S3 Intelligent-Tiering
+                            是一种自动根据访问频率在不同存储层之间切换，从而降低成本的 S3 存储类型，你不用手动管理生命周期。</label></p>
+                    <p><label><input type="checkbox">・应用迁移策略（Migration Strategies / 7R 模型） 👉 AWS Migration
+                            Strategies（7R 模型）是 AWS 用来指导应用如何迁移到云上的决策框架，核心就是：根据业务情况选择“改多少、怎么搬”</label></p>
+                    <p><label><input type="checkbox">・AWS Database Migration Service（DMS） AWS Database Migration
+                            Service（DMS）是一个用于把数据库迁移到 AWS 的托管服务，支持不停机（低停机甚至零停机）迁移。</label></p>
+                    <p><label><input type="checkbox">・AWS Snowmobile 👉 AWS Snowmobile 是 AWS
+                            提供的超大规模离线数据迁移方案，用**卡车运输数据中心级数据（EB 级）**到 AWS。</label></p>
+                    <p><label><input type="checkbox">・Amazon WorkLink Amazon WorkLink 是一个让员工用手机安全访问公司内部网页应用的服务，不需要
+                            VPN，也不会把公司数据下载到手机本地。</label></p>
+                    <p><label><input type="checkbox">・AWS Snow Family 👉 AWS Snow Family 是 AWS 提供的一组用于大规模数据迁移 +
+                            边缘计算的“物理设备家族”，用来在网络不够快或数据量太大时，把数据安全搬到云上。</label></p>
+                    <p><label><input type="checkbox">・AWS Lake Formation 👉 AWS Lake Formation 是一个用来快速构建、安全管理和治理数据湖（Data
+                            Lake）的服务，本质是：👉 帮你把分散的数据集中到 S3，并统一权限和管理</label></p>
+                    <p><label><input type="checkbox">・Amazon Kendra 👉 Amazon Kendra
+                            是一个企业级智能搜索服务，可以让你像用搜索引擎一样，在公司内部数据（文档、Wiki、数据库等）里进行语义搜索（理解问题含义）。</label></p>
+                    <p><label><input type="checkbox">・AWS Health Dashboard AWS Health Dashboard 是用来查看 AWS
+                            服务健康状态和故障信息的工具，包括是否宕机、是否影响你账号。</label></p>
+                    <p><label><input type="checkbox">・AWS Control Tower AWS Control Tower 是用来**快速搭建和治理多 AWS 账号环境（Landing
+                            Zone）**的服务，帮你把企业级云环境“一次性搭好 + 持续管好”。</label></p>
+                    <p><label><input type="checkbox">・AWS Application Migration Service AWS Application Migration
+                            Service（MGN）是用来把本地服务器或其他云上的应用“整机搬到 AWS”的服务，支持最少改动（lift-and-shift）迁移。</label></p>
+                    <p><label><input type="checkbox">・AWS Application Discovery Service AWS Application Discovery
+                            Service 是用来**在迁移前收集本地环境信息（服务器、依赖关系、性能数据）**的服务，帮助你制定上云方案。</label></p>
+                    <p><label><input type="checkbox">・Inbound data 从互联网 → AWS（进来） ⇒免费</label></p>
+                    <p><label><input type="checkbox">・Outbound data 从 AWS → 互联网（出去）⇒收费</label></p>
+                    <p><label><input type="checkbox">・AWS OpsWorks AWS OpsWorks 是一个配置管理服务，用来用代码自动化管理服务器（类似 Chef /
+                            Puppet）。</label></p>
+                    <p><label><input type="checkbox">・AWS Lightsail 结论：AWS Lightsail = 简化版云服务器服务（适合新手/小项目）👉 AWS
+                            Lightsail 就是 AWS 给你打包好的“一键建服务器套餐”，把复杂的 AWS（EC2、VPC、EBS 等）都隐藏起来了。</label></p>
+                    <p><label><input type="checkbox">・AWS IoT Core AWS IoT Core 是一个用来连接、管理和处理物联网设备数据的云服务，让设备可以安全地和 AWS
+                            云端通信。</label></p>
+                    <p><label><input type="checkbox">・Amazon Elastic Transcoder Amazon Elastic Transcoder
+                            是一个把视频转成不同格式和分辨率的云端转码服务，用于适配手机、网页、电视等不同设备播放。</label></p>
+                    <p><label><input type="checkbox">・AWS Resource Access Manager AWS Resource Access Manager（RAM）是用来在多个
+                            AWS 账户之间共享资源的服务，不用复制资源。</label></p>
+                    <p><label><input type="checkbox">・AWS Firewall Manager AWS Firewall Manager 是一个集中式安全管理服务，用于在多个 AWS
+                            账户和资源之间统一管理防火墙规则（比如 WAF、Shield、Security Group 等）。</label></p>
+                    <p><label><input type="checkbox">・S3 One Zone-Infrequent Access (S3 One Zone-IA) Amazon S3 One
+                            Zone-Infrequent Access 是一种低频访问 + 单可用区存储 + 成本更低但可靠性略低的存储类型。</label></p>
+                    <p><label><input type="checkbox">・S3 Standard-Infrequent Access (S3 Standard-IA) Amazon S3
+                            Standard-Infrequent Access 是一种低频访问 + 多AZ高可靠 + 成本比Standard低的存储类型，适合不常访问但不能丢的数据。</label></p>
+                    <p><label><input type="checkbox">・AWS Identity and Access Management Access Analyzer 结论：AWS Identity
+                            and Access Management Access Analyzer 是用来发现“资源是否被外部访问”的安全分析工具。</label></p>
+                    <p><label><input type="checkbox">・AWS Partner Network (APN) 结论：AWS Partner Network (APN) 是 AWS
+                            的“合作伙伴生态体系”，让第三方公司一起卖、做、支持 AWS 相关服务。</label></p>
+                    <p><label><input type="checkbox">・AWS Cost Anomaly Detection 结论：AWS Cost Anomaly Detection
+                            是用来“自动发现费用异常并报警”的工具（基于机器学习）。</label></p>
+                    <p><label><input type="checkbox">・Network Load Balancer 结论：Network Load Balancer
+                            是一个“超高性能、超低延迟”的四层负载均衡器（L4），适合处理海量并发和 TCP/UDP 流量。</label></p>
+                    <p><label><input type="checkbox">・Application Load Balancer 结论：Application Load Balancer
+                            是一个“应用层（L7）负载均衡器”，专门处理 HTTP/HTTPS，并能根据请求内容做智能路由。</label></p>
+                    <p><label><input type="checkbox">・IAM user groups 结论：IAM user groups = 给“人分组”，把权限绑定到组上</label></p>
+                    <p><label><input type="checkbox">・TDE（Transparent Data Encryption） 👉 TDE（Transparent Data
+                            Encryption）= 数据库“自动在后台加密数据”的功能，对应用透明（不用改代码）</label></p>
+                    <p><label><input type="checkbox">・Amazon EC2 的计费规则 👉 Amazon EC2
+                            默认按秒计费（Linux），最少60秒；其他类型基本按小时或有特殊规则</label></p>
+                    <p><label><input type="checkbox">・Migration Evaluator 👉 Migration Evaluator = 帮你评估“本地环境迁移到 AWS
+                            要花多少钱”的工具</label></p>
+                    <p><label><input type="checkbox">・AWS Personal Health Dashboard (Account) 👉 AWS Personal Health
+                            Dashboard = 只针对“你自己的 AWS 资源”的健康状态通知面板</label></p>
+                    <p><label><input type="checkbox">・Cloud Adoption Readiness Tool 👉 Cloud Adoption Readiness Tool =
+                            评估公司“是否准备好上云”的工具（偏组织/流程，不是算钱）</label></p>
+                    <p><label><input type="checkbox">・AWS Migration Hub 👉 AWS Migration Hub =
+                            用来“统一跟踪和管理迁移进度”的中控台（不是做迁移本身）</label></p>
+                    <p><label><input type="checkbox">・Amazon OpenSearch Service 👉 Amazon OpenSearch Service = AWS
+                            提供的“托管搜索 + 日志分析”服务（不用自己维护集群）</label></p>
+                    <p><label><input type="checkbox">・AWS App Runner 👉 AWS App Runner = 把你的 Web
+                            应用（代码或容器）一键部署成在线服务的全托管平台</label></p>
+                    <p><label><input type="checkbox">・AWS Infrastructure Event Management (IEM) 👉 AWS Infrastructure
+                            Event Management（IEM）= AWS 在“重大活动/上线前后”为你提供的专属护航服务（评估 + 实时支持）</label></p>
+                    <p><label><input type="checkbox">・Amazon Timestream 👉 Amazon Timestream =
+                            专门存“时间序列数据”的数据库（按时间不断产生的数据）</label></p>
+                    <p><label><input type="checkbox">・Amazon Forecast 👉 Amazon Forecast =
+                            用机器学习来预测未来趋势的服务（比如销量、需求、流量）</label></p>
+                    <p><label><input type="checkbox">・Convertible Reserved Instances ✅ 结论：Convertible Reserved Instances
+                            = 灵活但折扣较低的长期折扣方案</label></p>
+                    <p><label><input type="checkbox">・AWS Systems Manager Agent (SSM Agent) ✅ 结论：AWS Systems Manager
+                            Agent 是安装在实例上的“控制代理”，让你无需登录服务器也能远程管理。</label></p>
+                    <p><label><input type="checkbox">・AWS Enterprise Support Concierge team ✅ 结论：AWS Enterprise Support
+                            Concierge = 专门帮你处理“账单 & 账户问题”的团队（不负责技术）</label></p>
+                    <p><label><input type="checkbox">・S3 Object Lock ✅ 结论：Amazon S3 Object Lock =
+                            防止对象被删除或修改（WORM：写一次读多次）</label></p>
+                    <p><label><input type="checkbox">・S3 Inventory ✅ 结论：Amazon S3 Inventory = 定期生成你桶里所有对象的“清单报表”</label>
+                    </p>
+                    <p><label><input type="checkbox">・Amazon EC2 Accelerated Computing Instances ✅ 结论：Amazon EC2
+                            Accelerated Computing Instances = 提供 GPU/硬件加速，用来处理高性能计算任务</label></p>
+                    <p><label><input type="checkbox">・Amazon EC2 Compute Optimized Instances ✅ 结论：Amazon EC2 Compute
+                            Optimized Instances = CPU 很强，适合“纯计算型”任务（但不含 GPU）</label></p>
+                    <p><label><input type="checkbox">・Amazon EC2 Storage Optimized Instances ✅ 结论：Amazon EC2 Storage
+                            Optimized Instances = 专门为“高磁盘 I/O”设计的实例类型</label></p>
+                    <p><label><input type="checkbox">・Amazon EC2 General Purpose Instances ✅ 结论：Amazon EC2 General
+                            Purpose Instances = 各方面均衡，适合大多数普通业务</label></p>
+                    <p><label><input type="checkbox">・Amazon EC2 instance store 结论：Amazon EC2 Instance Store
+                            是“临时、本地存储”，跟 EC2 实例绑定，数据不持久。</label></p>
+                    <p><label><input type="checkbox">・AWS re:Post 结论：AWS re:Post 是一个“官方版技术问答社区（类似 Stack
+                            Overflow）”，用来帮助开发者解决 AWS 问题。</label></p>
+                    <p><label><input type="checkbox">・AWS IQ 结论：AWS IQ 是一个“按需雇佣 AWS 专家来帮你做项目/解决问题的平台”。</label></p>
+                    <p><label><input type="checkbox">・Amazon Transcribe 结论：Amazon Transcribe
+                            是“语音转文字（Speech-to-Text）”服务。</label></p>
+                    <p><label><input type="checkbox">・Amazon Textract 结论：Amazon Textract 是“从文档/图片中自动提取文字和结构信息（OCR +
+                            表格/表单识别）”的服务。</label></p>
+                    <p><label><input type="checkbox">・Amazon CloudSearch 结论：Amazon CloudSearch
+                            是一个“托管式全文搜索服务”，用来在应用里实现搜索功能（类似网站搜索框）。</label></p>
+                    <p><label><input type="checkbox">・EC2 Instance Connect 结论：EC2 Instance Connect 是 AWS
+                            提供的一种“通过控制台快速安全登录 Linux EC2 的 SSH 方式”，不需要长期保存私钥。</label></p>
+                    <p><label><input type="checkbox">・AWS Systems Manager Session Manager 结论：AWS Systems Manager Session
+                            Manager 是一种“无需 SSH / RDP / 开端口”的安全远程登录 EC2 方式，通过 IAM 控制权限，直接在 AWS 上管理实例。</label></p>
+                    <p><label><input type="checkbox">・AWS 权限一览表 -</label></p>
+                    <p><label><input type="checkbox">・Dedicated Instances 👉 运行在只属于你账户的物理服务器上的虚拟机实例</label></p>
+                    <p><label><input type="checkbox">・AWS Auto Scaling 👉 AWS Auto Scaling = 自动帮你“加机器 / 减机器 /
+                            换坏机器”的服务</label></p>
+                    <p><label><input type="checkbox">・AWS CodeCommit 👉 AWS CodeCommit = AWS 自带的“GitHub私服”，用来存代码 +
+                            做版本管理</label></p>
+                    <p><label><input type="checkbox">・AWS Backup 👉 AWS Backup 是一个集中式备份服务，用来帮你自动备份 + 统一管理 +
+                            恢复数据。</label></p>
+                    <p><label><input type="checkbox">・AWS Enterprise On-Ramp Support ✅ 结论：AWS Enterprise On-Ramp Support
+                            = 企业级支持的“入门版”（比 Business 高，比 Enterprise 低）</label></p>
+                    <p><label><input type="checkbox">・AWS Architecture Center ✅ 结论：AWS Architecture Center =
+                            官方架构“参考答案库”（拿来直接抄最佳实践的地方）</label></p>
+                    <p><label><input type="checkbox">・Read replicas ✅ 结论：Read Replicas = 专门用来“分担读请求”的只读副本，提高性能</label>
+                    </p>
+                    <p><label><input type="checkbox">・Blue/green deployment ✅ 结论：Blue/Green Deployment =
+                            用两套环境无缝切换，实现“几乎零停机发布”</label></p>
+                    <p><label><input type="checkbox">・Multi-AZ deployment ✅ 结论：Multi-AZ deployment = 跨可用区的“主库 +
+                            备用库”高可用方案（自动同步 + 自动切换）</label></p>
+                    <p><label><input type="checkbox">・Amazon AppFlow ✅ 结论：Amazon AppFlow = 在 SaaS 应用和 AWS
+                            之间“自动搬数据”的服务（不用写代码）</label></p>
+                    <p><label><input type="checkbox">・Amazon EKS Distro ✅ 结论：Amazon EKS Distro = AWS
+                            官方打包好的“Kubernetes基础组件合集”（允许你在自己的基础设施（如本地服务器或其他云平台）上运行与 Amazon EKS 完全相同的 Kubernetes
+                            版本）</label></p>
+                    <p><label><input type="checkbox">・On-Demand Capacity Reservations 👉 On-Demand Capacity Reservations
+                            = “帮你提前占好EC2容量，但按 On-Demand 正常收费”</label></p>
+                    <p><label><input type="checkbox">・Memory optimized instances 结论：Memory Optimized Instances =
+                            “内存特别大的EC2”，适合吃内存的应用（比如缓存、内存数据库）。</label></p>
+                    <p><label><input type="checkbox">・URL下载方式 </label></p>
+                    <p><label><input type="checkbox">・AWS Schema Conversion Tool 👉 AWS Schema Conversion
+                            Tool（SCT）是用来“转换数据库结构”的工具</label></p>
+                    <p><label><input type="checkbox">・6R迁移策略 👉 6R = 6种上云搬家方式
+                            Rehost,Replatform,Refactor,Repurchase,Retire,Retain</label></p>
+                    <p><label><input type="checkbox">・AWS customer carbon footprint tool 👉 AWS Customer Carbon
+                            Footprint Tool 是用来查看你在 AWS 上产生的碳排放（CO₂）的工具，不是用来优化或自动减少的。</label></p>
+                    <p><label><input type="checkbox">・S3 Glacier Vault Lock 👉 S3 Glacier Vault Lock =
+                            “把数据锁死的功能（合规锁）”，一旦锁定，连管理员都改不了或删不了数据。</label></p>
+                    <p><label><input type="checkbox">・Partial Upfront Reserved Instances（部分预付）
+                            购买时先支付一部分费用（upfront），剩余费用在 RI 期限内按月或按小时支付 </label></p>
+                    <p><label><input type="checkbox">・No Upfront Reserved Instances（无预付） 开始时不用付钱，整个 RI
+                            周期内按月/按小时付款</label></p>
+                    <p><label><input type="checkbox">・Amazon Fraud Detector Amazon Fraud Detector是 AWS
+                            提供的一个“自动识别欺诈行为”的服务。</label></p>
+                    <p><label><input type="checkbox">・Amazon Pinpoint Amazon Pinpoint是 AWS 的“用户消息推送/营销通知平台”。</label></p>
+                    <p><label><input type="checkbox">・AWS Site-to-Site VPN AWS Site-to-Site VPN是：“把公司内部网络（办公室/机房）安全地连接到
+                            AWS VPC”的一种加密网络通道。</label></p>
+                    <p><label><input type="checkbox">・Amazon MQ 结论：Amazon MQ 是“托管的消息队列中间件服务”，用来在 AWS 上运行传统的消息队列（ActiveMQ
+                            / RabbitMQ）。</label></p>
+                    <p><label><input type="checkbox">・AWS Copilot 结论：AWS Copilot 是一个“帮助你快速部署容器应用到 AWS 的命令行工具”。</label>
+                    </p>
+                    <p><label><input type="checkbox">・All Upfront = 一次性全付清（最便宜） </label></p>
+                    <p><label><input type="checkbox">・Partial Upfront = 先付一部分 + 后面分摊（中等） </label></p>
+                    <p><label><input type="checkbox">・AWS 网络核心知识点总表 </label></p>
+                    <p><label><input type="checkbox">・Amazon Managed Streaming for Apache Kafka AWS 帮你托管的 Apache Kafka
+                            服务.Kafka 本质是：“超高速实时消息流平台”</label></p>
+                    <p><label><input type="checkbox">・S3 Express One Zone Amazon S3 Express One Zone 是 AWS 在 2023 年推出的一种
+                            超低延迟、高性能、单可用区（AZ） 的 S3 存储类别。</label></p>
+                    <p><label><input type="checkbox">・Amazon ElastiCache Amazon ElastiCache 是 AWS 提供的 内存缓存服务（in-memory
+                            cache），用来让应用“更快读取数据、减轻数据库压力”。</label></p>
+
+                </div>
+
+                <div id="SAA" class="page">
+                    <span class="badge">AWS</span>
+                    <h1>SAA</h1>
+                    <p><label><input
+                                type="checkbox">・S3Cross-RegionReplication（CRR）——把一个Region里的S3Bucket文件，自动复制到另一个Region的Bucket。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・PrincipalOrgIDPrincipalOrgID是AWSIAMPolicy里的一个“条件键（ConditionKey）”，用来限制“只有属于某个AWSOrganizations组织里的账号”才能访问资源。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・PrincipalOrgPaths它不仅能判断：“是不是我组织里的账号”还能判断：“是不是组织里某个OU（OrganizationalUnit）下面的账号”</label>
+                    </p>
+                    <p><label><input type="checkbox">・StandardQueueFIFOQueue</label></p>
+                    <p><label><input
+                                type="checkbox">・IAMpolicyAWSIdentityandAccessManagement的IAMPolicy本质上就是：“权限说明书”.它定义：谁（Who）能对什么资源（What）做什么操作（Action）</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・GatewayLoadBalancer它是AWS专门为了：第三方防火墙，IDS/IPS，DeepPacketInspection，安全Appliance设计的。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AmazonEBSMulti-Attach一个EBSVolume同时挂载到多个EC2</label></p>
+                    <p><label><input type="checkbox">・FastSnapshotRestore（FSR）让Snapshot恢复出来的EBS立刻满性能运行</label></p>
+                    <p><label><input type="checkbox">・CostExplorergranularfiltering“非常细粒度地筛选AWS花费数据”。</label></p>
+                    <p><label><input type="checkbox">・AmazonCloudWatchDashboard的共享功能“把监控仪表盘分享给别人看”。</label></p>
+                    <p><label><input type="checkbox">・RDSStop</label></p>
+                    <p><label><input type="checkbox">・Snapshot</label></p>
+                    <p><label><input type="checkbox">・AmazonKinesisDataStreams“大量数据持续不断地产生，并且需要实时处理”</label></p>
+                    <p><label><input type="checkbox">・AmazonKinesisDataFirehose“自动把实时数据送到目标存储的搬运工”</label></p>
+                    <p><label><input
+                                type="checkbox">・multi-RegionKMSkeyMulti-RegionKMSkey（多区域KMS密钥）是AWSKMS提供的一种“可以跨Region复制、并且保持相同身份”的加密密钥。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AWSSystemsManagerSessionManager结论：AWSSystemsManagerSessionManager是一种“无需SSH/RDP/开端口”的安全远程登录EC2方式，通过IAM控制权限，直接在AWS上管理实例。</label>
+                    </p>
+                    <p><label><input type="checkbox">・EC2serialconsole即使EC2网络坏了、SSH连不上，也能直接进入系统“底层终端”的救援功能。</label></p>
+                    <p><label><input type="checkbox">・BastionHost放在公网中的“中转EC2”，管理员先登录它，再通过它进入私有EC2。</label></p>
+                    <p><label><input type="checkbox">・ProvisionedIOPSSSD专门提供“超高、稳定磁盘性能”的SSD磁盘。</label></p>
+                    <p><label><input
+                                type="checkbox">・AmazonAppFlow✅结论：AmazonAppFlow=在SaaS应用和AWS之间“自动搬数据”的服务（不用写代码）</label>
+                    </p>
+                    <p><label><input type="checkbox">・AWSSystemsManagerPatchManager“自动给服务器打补丁（patch）”的服务。</label></p>
+                    <p><label><input type="checkbox">・AWSSystemsManagerMaintenanceWindows“规定什么时候执行运维任务”的功能。</label></p>
+                    <p><label><input type="checkbox">・AWSSystemsManagerRunCommand“远程批量执行命令”的服务。</label></p>
+                    <p><label><input type="checkbox">・APIGatewayendpoint给外部/内部调用API用的网址入口</label></p>
+                    <p><label><input type="checkbox">・AWSCertificateManager</label></p>
+                    <p><label><input
+                                type="checkbox">・FSxFileGateway让本地办公室像访问本地共享盘一样低延迟访问AWS上的FSxforWindowsFileServer</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・ChangeMessageVisibilityAPIChangeMessageVisibility是AmazonWebServices的AmazonSimpleQueueService提供的一个API，用来：“临时修改某条消息对其他消费者不可见的时间（VisibilityTimeout）”</label>
+                    </p>
+                    <p><label><input type="checkbox">・ReceiveMessageAPI“从Queue取消息”的API。</label></p>
+                    <p><label><input type="checkbox">・AWSBackup👉AWSBackup是一个集中式备份服务，用来帮你自动备份+统一管理+恢复数据。</label></p>
+                    <p><label><input type="checkbox">・DynamoDB模式和功能</label></p>
+                    <p><label><input
+                                type="checkbox">・AMI的launchPermission属性结论：AMI的launchPermission属性，是用来控制“谁可以使用这个AMI创建EC2实例”的权限设置。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AWSConfig</label></p>
+                    <p><label><input
+                                type="checkbox">・AWSSystemsManagerOpsCenter结论：AWSSystemsManagerOpsCenter，是AWS提供的“运维问题集中管理中心”。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AuroraReplica</label></p>
+                    <p><label><input type="checkbox">・AuroraClone</label></p>
+                    <p><label><input type="checkbox">・Multi-AZstandby</label></p>
+                    <p><label><input type="checkbox">・NATGateway必须放在PublicSubnet。</label></p>
+                    <p><label><input type="checkbox">・AWSDataSync</label></p>
+                    <p><label><input type="checkbox">・AWSGlueJobBookmark只处理“新增”或“变化”的数据</label></p>
+                    <p><label><input type="checkbox">・AWSGlueJobNumberOfWorkersWorker（工作节点）数量</label></p>
+                    <p><label><input type="checkbox">・s3:PutObjectLegalHold是一个IAM权限。允许用户给S3Object设置或修改LegalHold。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AmazonS3ObjectLock的Governancemode</label></p>
+                    <p><label><input type="checkbox">・PresignedURLAWS临时生成的“带权限的特殊链接”</label></p>
+                    <p><label><input type="checkbox">・AWSSnowconeAWSSnowcone是AWS提供的一种“超小型离线数据搬运+边缘计算设备”。</label></p>
+                    <p><label><input type="checkbox">・CloudFront不适合DNS服务</label></p>
+                    <p><label><input type="checkbox">・AmazonRDS的加密：不能直接对“已经存在的未加密RDS”开启。</label></p>
+                    <p><label><input type="checkbox">・TargetTrackingPolicyTargetTrackingPolicy=“自动维持某个目标值”</label></p>
+                    <p><label><input type="checkbox">・SimpleScalingPolicy</label></p>
+                    <p><label><input
+                                type="checkbox">・OAI（OriginAccessIdentity）OAI（OriginAccessIdentity）是一种让AmazonCloudFront可以“私下访问”AmazonS3的机制。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AmazonRDSCustomforOracle“能让你高度自定义Oracle数据库底层环境”的RDS</label></p>
+                    <p><label><input type="checkbox">・Cross-RegionReadReplica是AWS里常见的DR（灾难恢复）方案</label></p>
+                    <p><label><input type="checkbox">・VPCPeering：是VPC到VPC网络互通</label></p>
+                    <p><label><input type="checkbox">・PrivateLink用于“不同公司之间”</label></p>
+                    <p><label><input
+                                type="checkbox">・ongoingreplicationtask持续复制任务，是AWSDatabaseMigrationService里的一个功能。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AWSSchemaConversionTool（AWSSCT）用于“转换数据库结构”的工具。主要用于：不同数据库类型之间迁移</label>
+                    </p>
+                    <p><label><input type="checkbox">・S3Replication</label></p>
+                    <p><label><input
+                                type="checkbox">・S3EventNotificationS3EventNotification=“S3发生事件时自动通知别人”。一个notificationrule只能有一个destination</label>
+                    </p>
+                    <p><label><input type="checkbox">・CloudFront还能加速动态内容</label></p>
+                    <p><label><input
+                                type="checkbox">・AWSAmplifyAmazonWebServices的AWSAmplify，本质上是一个“帮前端开发者快速做全栈应用”的平台。</label>
+                    </p>
+                    <p><label><input type="checkbox">・WAF能限制“谁访问网站”，但不能阻止“VPC上网”。</label></p>
+                    <p><label><input
+                                type="checkbox">・SCP（ServiceControlPolicy）AWSOrganizations里的“最高级权限边界策略”。它不是给用户“授予权限”的。而是：用来“禁止”账号里的人做某些事。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AWSControlTowerAWSControlTower是AWS提供的“多账号统一治理服务”。</label></p>
+                    <p><label><input
+                                type="checkbox">・AWSSystemsManagerSessionManager结论：AWSSystemsManagerSessionManager是一种“无需SSH/RDP/开端口”的安全远程登录EC2方式，通过IAM控制权限，直接在AWS上管理实例。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AWSLakeFormation</label></p>
+                    <p><label><input
+                                type="checkbox">・Aurora的“自动备份（AutomatedBackup）就是AWS自动帮你做的数据库备份机制。你不用自己执行backup。</label>
+                    </p>
+                    <p><label><input type="checkbox">・DeadLetterQueue,DLQ“正常处理失败很多次后，被丢进去的问题消息仓库”。</label></p>
+                    <p><label><input type="checkbox">・WAF：不是一个会直接访问S3的服务</label></p>
+                    <p><label><input
+                                type="checkbox">・CloudFrontField-LevelEncryption（字段级加密）用户提交表单时，CloudFront会把“指定字段”立即加密。只有拥有私钥的后端应用才能解密。</label>
+                    </p>
+                    <p><label><input type="checkbox">・RDSProxyRDSProxy=数据库连接中介/连接池</label></p>
+                    <p><label><input type="checkbox">・AmazonDynamoDBAccelerator(DAX)DAX=DynamoDB专用高速缓存（Cache）</label>
+                    </p>
+                    <p><label><input type="checkbox">・Multi-AZRDSMulti-AZ本质上就是：“RDS的高可用（HA）方案”</label></p>
+                    <p><label><input type="checkbox">・普通RDSReadReplica</label></p>
+                    <p><label><input type="checkbox">・AmazonAurora</label></p>
+                    <p><label><input type="checkbox">・AuroraAutoScaling自动增加/减少Reader实例</label></p>
+                    <p><label><input type="checkbox">・lambda配置VPC</label></p>
+                    <p><label><input type="checkbox">・ECSTasktaskRoleArn“容器运行时所使用的IAMRole”</label></p>
+                    <p><label><input type="checkbox">・S3FileGateway支持NFS/SMB,不支持SFTP协议</label></p>
+                    <p><label><input
+                                type="checkbox">・AWSTransferFamilyAWSTransferFamily是一个托管文件传输服务，让你可以用传统协议（SFTP/FTPS/FTP）安全地把文件传到AWS（通常是S3或EFS），而且不用自己搭服务器。</label>
+                    </p>
+                    <p><label><input type="checkbox">・客户提供的密钥需要手动管理密钥轮换，不支持自动轮换。</label></p>
+                    <p><label><input type="checkbox">・ElasticBeanstalkSwapEnvironmentURLs</label></p>
+                    <p><label><input type="checkbox">・AmazonComprehend</label></p>
+                    <p><label><input type="checkbox">・提到Region故障Multi-Region⇒灾难恢复</label></p>
+                    <p><label><input type="checkbox">・DynamoDBTTL（TimeToLive）给数据设置“过期时间”，到时间后DynamoDB自动删除数据。</label></p>
+                    <p><label><input type="checkbox">・Cognito+APIGatewayAuthorizer</label></p>
+                    <p><label><input
+                                type="checkbox">・AmazonPinpointjourneyAmazonPinpoint里的Journey（旅程），本质上就是一种“自动化营销流程”。</label>
+                    </p>
+                    <p><label><input type="checkbox">・最新版本的SSE-S3可以加密，且1年轮换</label></p>
+                    <p><label><input
+                                type="checkbox">・AmazonAPIGatewayAPIAmazonAPIGatewayAPI是AWS提供的“API网关服务”，作用是：把你的后端服务（Lambda、EC2、Docker、内部系统等）统一暴露成HTTPAPI给外部访问。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AWSLakeFormation“数据湖（DataLake）管理服务”。统一收集、管理、权限控制、分析海量数据</label>
+                    </p>
+                    <p><label><input type="checkbox">・DAX主要用于加速读取操作，而不是写入操作。</label></p>
+                    <p><label><input type="checkbox">・GatewayEndpoint专门访问S3/DynamoDB</label></p>
+                    <p><label><input type="checkbox">・GatewayEndpoint只是RouteTable里的路由规则，不能附加安全组</label></p>
+                    <p><label><input type="checkbox">・InterfaceEndpoint：可以加SecurityGroup</label></p>
+                    <p><label><input
+                                type="checkbox">・AmazonElastiCacheAmazonElastiCache是AWS提供的内存缓存服务（in-memorycache），用来让应用“更快读取数据、减轻数据库压力”。</label>
+                    </p>
+                    <p><label><input type="checkbox">・分布式会话（DistributedSession）多个服务器共享同一份登录状态（Session）</label></p>
+                    <p><label><input type="checkbox">・开启SSE-KMS后：只会影响之后新上传的对象,不会自动把“已经存在”的对象重新加密</label></p>
+                    <p><label><input type="checkbox">・Active-Active（双活）</label></p>
+                    <p><label><input type="checkbox">・Active-Passive（主备）</label></p>
+                    <p><label><input type="checkbox">・443是HTTPS服务端口（Web服务器监听的端口）</label></p>
+                    <p><label><input type="checkbox">・32768-65535是客户端临时端口（ephemeralport）</label></p>
+                    <p><label><input type="checkbox">・EC2实例类型（InstanceType）:M系列（通用型）,R系列（内存型）,T系列（突发型）</label></p>
+                    <p><label><input type="checkbox">・AutoScaling不适用Stateful应用</label></p>
+                    <p><label><input
+                                type="checkbox">・CloudWatch默认只有：CPU，Network，Disk。Memorymetrics需要CloudWatchAgent来采集。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AmazonRoute53的“路由策略（RoutingPolicy）</label></p>
+                    <p><label><input type="checkbox">・SimpleRouting（简单路由）</label></p>
+                    <p><label><input type="checkbox">・WeightedRouting（加权路由）</label></p>
+                    <p><label><input type="checkbox">・LatencyRouting（低延迟路由）</label></p>
+                    <p><label><input type="checkbox">・FailoverRouting（故障转移）</label></p>
+                    <p><label><input type="checkbox">・GeolocationRouting（地理位置路由）</label></p>
+                    <p><label><input type="checkbox">・GeoproximityRouting（地理接近路由）</label></p>
+                    <p><label><input type="checkbox">・MultivalueAnswerRouting（多值应答）</label></p>
+                    <p><label><input type="checkbox">・IP-basedRouting（基于IP路由）</label></p>
+                    <p><label><input
+                                type="checkbox">・开启了Versioning后：删除currentobject≠真正删除文件,而是：生成deletemarker.旧版本（previousversions）还在。</label>
+                    </p>
+                    <p><label><input type="checkbox">・NATInstance里的“应用程序”通常不是业务程序。它只是：一个流量转发机器</label></p>
+                    <p><label><input type="checkbox">・VPCPeering不走公网</label></p>
+                    <p><label><input
+                                type="checkbox">・EC2InstanceState-changeNotificationEC2InstanceState-changeNotification是AmazonWebServices里一种“EC2状态变化通知机制”，当EC2实例状态发生变化时，会自动发送事件通知。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AmazonSSMManagedInstanceCore策略AmazonSSMManagedInstanceCore是AmazonWebServices提供的一个IAMManagedPolicy，用来让EC2能被SystemsManager（SSM）管理。</label>
+                    </p>
+                    <p><label><input type="checkbox">・ACM不用于静态存储加密，EBS和Aurora的静态存储加密要使用AWSKMS</label></p>
+                    <p><label><input
+                                type="checkbox">・AWSKMS不用于传输中的数据加密，ALB的传输加密要使用AWSCertificateManager(ACM)提供的证书。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・PrivateVirtualInterface（PrivateVIF）PrivateVirtualInterface（PrivateVIF）是AmazonWebServicesDirectConnect里的“私有连接通道”，用于：本地数据中心↔VPC私网通信不走公网。</label>
+                    </p>
+                    <p><label><input type="checkbox">・LambdafunctionURLAWS直接给Lambda分配一个HTTPS地址。</label></p>
+                    <p><label><input type="checkbox">・Lambda@Edge在CloudFront边缘节点运行Lambda。</label></p>
+                    <p><label><input
+                                type="checkbox">・CloudFrontFunctions在CloudFront边缘节点执行的“超轻量JavaScript”。不支持复杂的身份验证逻辑（如IAM）</label>
+                    </p>
+                    <p><label><input type="checkbox">・ReadReplica本身不是“高可用（HA）”功能。它主要是：读扩展+跨Region灾备</label></p>
+                    <p><label><input type="checkbox">・snapshot本身不是数据库实例只是备份文件。灾难恢复是还需要恢复。</label></p>
+                    <p><label><input type="checkbox">・如果ALB要被互联网访问，那么它必须部署在publicsubnet。</label></p>
+                    <p><label><input type="checkbox">・PrivateSubnet不能直接连接InternetGateway（IGW）。</label></p>
+                    <p><label><input type="checkbox">・privatesubnet通过NATGateway连接InternetGateway</label></p>
+                    <p><label><input type="checkbox">・NATGateway必须依赖InternetGateway（IGW）才能真正访问互联网。</label></p>
+                    <p><label><input
+                                type="checkbox">・binlogreplication主数据库把“数据变更记录”写进日志，从库再读取这些日志进行同步。在RDS里创建ReadReplica时，AWS会帮你自动处理replication。不需要手动配binlog。</label>
+                    </p>
+                    <p><label><input type="checkbox">・Backupretentionperiod>0=自动备份（AutomatedBackups）开启</label></p>
+                    <p><label><input type="checkbox">・Backupretentionperiod=0=自动备份关闭</label></p>
+                    <p><label><input
+                                type="checkbox">・GlobalTable（全局表）结论：GlobalTable（全局表）是AmazonDynamoDB的一种“多Region自动同步”的表。</label>
+                    </p>
+                    <p><label><input type="checkbox">・安全组ID作为source=允许“某个安全组里的机器”访问你</label></p>
+                    <p><label><input type="checkbox">・VPCCIDR整个VPC可用IP范围</label></p>
+                    <p><label><input type="checkbox">・SubnetCIDR你会把大网切成小网。VPC里的“小区域”</label></p>
+                    <p><label><input
+                                type="checkbox">・FSxforWindowsFileServer本质就是AWS托管的WindowsFileServer。它天然支持：MicrosoftAD</label>
+                    </p>
+                    <p><label><input type="checkbox">・SMB/Windows文件共享权限是：NTFSACL+ActiveDirectory.不是IAM。</label></p>
+                    <p><label><input type="checkbox">・HostHeaderHostHeader属于：HTTP(L7)内容</label></p>
+                    <p><label><input type="checkbox">・VPCPeering本身没有SecurityGroup</label></p>
+                    <p><label><input type="checkbox">・AmazonElastiCache主要用于缓存数据以加速应用程序性能，而不是处理复杂的SQL查询</label></p>
+                    <p><label><input type="checkbox">・数据在上传之前就已经加密⇒客户端加密（Client-sideencryption）</label></p>
+                    <p><label><input type="checkbox">・Aurora不兼容OraclePL/SQL。</label></p>
+                    <p><label><input type="checkbox">・RDS的storageautoscaling数据库磁盘空间快满时，AWS自动帮你扩容磁盘。</label></p>
+                    <p><label><input type="checkbox">・EBS适合临时高性能处理，不能当长期存储</label></p>
+                    <p><label><input type="checkbox">・DynamoDB是一个NoSQL数据库，不支持直接使用标准SQL查询分析存储在S3中的数据</label></p>
+                    <p><label><input type="checkbox">・ApplicationLoadBalancer（ALB）可以绑定SecurityGroup。</label></p>
+                    <p><label><input type="checkbox">・AmazonFSxforNetAppONTAP</label></p>
+                    <p><label><input type="checkbox">・AWSStorageGateway三种模式</label></p>
+                    <p><label><input type="checkbox">・S3ObjectLambda</label></p>
+                    <p><label><input type="checkbox">・VPC的CIDR规则:最小范围/28,最大/16</label></p>
+                    <p><label><input type="checkbox">・VPCPeering的路由规则:CIDR不能重叠</label></p>
+                    <p><label><input type="checkbox">・一个Subnet（子网）只能属于一个AvailabilityZone（AZ，可用区）。</label></p>
+                    <p><label><input type="checkbox">・RI预留的是：RDS/Aurora/EC2实例,不是：容量</label></p>
+                    <p><label><input type="checkbox">・AWSDataSync支持：本地文件服务器→FSx，BandwidthThrottling（带宽限制）</label></p>
+                    <p><label><input
+                                type="checkbox">・AmazonElasticTranscoder是AWS的视频转码服务（VideoTranscodingService）</label></p>
+                    <p><label><input
+                                type="checkbox">・ClusterPlacementGroupClusterPlacementGroup（集群放置组）是AWS提供的一种EC2部署方式，它会把多个EC2实例尽可能放在同一个机架或相邻机架上，从而获得最低网络延迟和最高网络吞吐量。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・PartitionPlacementGroup（分区放置组）PartitionPlacementGroup（分区放置组）会把EC2实例分散到多个独立的硬件分区（Partition）中。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・InternetSmallComputerSystemsInterface（iSCSI）iSCSI（InternetSmallComputerSystemsInterface）是一种通过IP网络提供块存储（BlockStorage）的协议。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AmazonS3StorageLensAmazonS3StorageLens是一个用来分析和可视化S3存储使用情况、成本和访问趋势的分析工具，帮助你“看清楚S3里到底发生了什么”。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AWSBackup</label></p>
+                    <p><label><input type="checkbox">・Inspector，Config,GuardDuty,TrustedAdvisor,Cloudwatch</label></p>
+                    <p><label><input type="checkbox">・AWSSystemsManagerRunCommand是一种远程执行命令的服务。</label></p>
+                    <p><label><input
+                                type="checkbox">・AmazonRedshift本质上就是一个数据库，用来存储数据。但它不是OLTP数据库（像MySQL、PostgreSQL那种），而是数据仓库（DataWarehouse）。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AWSSystemsManagerSessionManager是一种“无需SSH/RDP/开端口”的安全远程登录EC2方式，通过IAM控制权限，直接在AWS上管理实例。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・x-amz-server-side-encryption是S3上传对象时使用的HTTPHeader，用来告诉AmazonS3要不要在服务端加密（Server-SideEncryption，SSE）。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・s3:x-amz-acl是S3BucketPolicy中用于检查上传请求里的ACL（AccessControlList，访问控制列表）的条件键。</label>
+                    </p>
+                    <p><label><input type="checkbox">・Cognito+S3的标准做法：修改IdentityPool⇒关联正确IAMRole⇒赋予S3读取权限</label></p>
+                    <p><label><input type="checkbox">・AWSWAF不支持控制EC2的出站流量。</label></p>
+                    <p><label><input type="checkbox">・ALB是入站设备，不能做互联网出口</label></p>
+                    <p><label><input
+                                type="checkbox">・SecretsManager：负责管理敏感信息（密码、APIKey、数据库凭证等），内部通常会使用KMS来加密这些数据。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AWSTransferFamily支持SFTP协议</label></p>
+                    <p><label><input type="checkbox">・👉AmazonMachineImages（AMI）=EC2的“系统镜像模板”，用来快速创建一模一样的服务器。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AuroraGlobalDatabase是AWS提供的一个跨Region（跨地区）数据库复制方案，用于实现全球读写、灾难恢复（DR）、低延迟访问。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・LakeFormationBlueprint（蓝图）是AWSLakeFormation提供的一个数据导入模板，用于自动把数据库中的数据定期导入到数据湖（通常是S3）。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・如果是AWS的数据湖架构，使用AWSLakeFormation可以实现：表级（Table-level）,列级（Column-level）,行级（Row-level）单元格级（Cell-level，部分场景）</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AmazonSQSExtendedClientLibrary是一个扩展库，用来解决SQS消息大小限制（256KB）的问题。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・DynamoDB的RCU（ReadCapacityUnit）和WCU（WriteCapacityUnit）就是你为表预留的“读写性能额度”。</label>
+                    </p>
+                    <p><label><input type="checkbox">・RCU/WCU主要是ProvisionedCapacity（预置容量模式）才需要关心的概念。</label></p>
+                    <p><label><input type="checkbox">・AWSKMS支持跨账户（Cross-Account）使用KMSKey，但需要同时满足权限配置。</label></p>
+                    <p><label><input type="checkbox">・AWSStepFunctions管理流程（Workflow）</label></p>
+                    <p><label><input type="checkbox">・AmazonEventBridge传递事件（EventRouting），只负责通知，不负责执行</label></p>
+                    <p><label><input type="checkbox">・EBS常见类型gp3、gp2、io2、io2BlockExpress、st1、sc1</label></p>
+                    <p><label><input type="checkbox">・io2BlockExpressEBS卷</label></p>
+                    <p><label><input type="checkbox">・CPU密集型,运行时间间隔⇒AWSBatch</label></p>
+                    <p><label><input type="checkbox">・Lambda最大限制</label></p>
+                    <p><label><input type="checkbox">・SSE-S3密钥AWS自动管理，用户不能自己管理。</label></p>
+                    <p><label><input type="checkbox">・SSE-KMS使用AWSKMS管理，用户可以自己控制密钥</label></p>
+                    <p><label><input
+                                type="checkbox">・KinesisDataStreams写入数据时必须指定PartitionKey。Kinesis保证同一个Shard内的数据顺序不变。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・应用程序产生消息后，先写入KinesisDataStream。Consumer（Lambda、ECS、EC2等）再从Stream中读取并处理消息。</label>
+                    </p>
+                    <p><label><input type="checkbox">・EBS的默认加密就是KMS加密</label></p>
+                    <p><label><input type="checkbox">・SSE（Server-SideEncryption）就是“数据上传到AWS后，由AWS帮你完成加密”。</label></p>
+                    <p><label><input type="checkbox">・CSE（客户端加密）AWS只负责存储</label></p>
+                    <p><label><input
+                                type="checkbox">・SSE的叫法一般用于SSE-S3，SSE-KMS，SSE-C。EBS，RDS，EFS等静态加密直接写EBSEncryption等</label>
+                    </p>
+                    <p><label><input type="checkbox">・图片不应该放数据库，最好放在无限容量的S3</label></p>
+                    <p><label><input
+                                type="checkbox">・AutoScalingLifecycleHook（生命周期挂钩）：控制EC2实例在启动或终止过程中“暂停一下”，先执行你指定的操作。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AutoScalingLaunchConfiguration（启动配置）：定义AutoScaling创建EC2时使用什么AMI、实例类型、安全组等参数。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・ProvisionedConcurrency=提前把Lambda运行环境准备好并保持待命状态，避免ColdStart（冷启动）。提前启动多少个实例</label>
+                    </p>
+                    <p><label><input type="checkbox">・WAF过滤恶意请求，不能给传输加密。</label></p>
+                    <p><label><input type="checkbox">・软件采用基于CPUSocket和Core的软件授权模式⇒专属host</label></p>
+                    <p><label><input type="checkbox">・同一VPC内的子网默认可以互相通信</label></p>
+                    <p><label><input type="checkbox">・VPC创建时自带的DefaultNACL：✅入站、出战允许所有流量</label></p>
+                    <p><label><input type="checkbox">・执行顺序NACL：按规则编号从小到大匹配，匹配到立即停止。SG：没有规则顺序，只要有一个Allow就放行</label></p>
+                    <p><label><input type="checkbox">・客户会话管理,Session不是订单数据。这种临时会话数据非常适合Redis。</label></p>
+                    <p><label><input type="checkbox">・StickySession（粘性会话）就是让同一个用户始终被转发到同一台服务器。</label></p>
+                    <p><label><input type="checkbox">・AmazonTranscribe</label></p>
+                    <p><label><input type="checkbox">・AmazonTextract</label></p>
+                    <p><label><input type="checkbox">・AWSConfig不会直接显示哪个IAM用户进行了更改</label></p>
+                    <p><label><input
+                                type="checkbox">・AWSCloudTrail是一项日志记录服务，可以跟踪用户和API调用的活动，包括IAM用户的操作。它能够提供详细的日志，帮助确认哪个用户进行了哪些更改。</label>
+                    </p>
+                    <p><label><input type="checkbox">・KinesisDataStreams的默认数据保留时间是：24小时（1天）</label></p>
+                    <p><label><input type="checkbox">・安全组是允许规则的集合，默认拒绝所有流量，因此无需添加拒绝规则</label></p>
+                    <p><label><input type="checkbox">・KMS要对EBS进行加密的流程:KMS不是直接给EBS加密，而是作为EBS加密时使用的密钥。</label></p>
+                    <p><label><input type="checkbox">・AmazonS3FileGateway的核心作用就是把S3变成一个可共享的文件系统。</label></p>
+                    <p><label><input
+                                type="checkbox">・Lambda有两种网络配置方式：默认运行在AWS管理的Lambda网络环境中，或者配置到用户自己的VPC中。只有配置到用户VPC中的Lambda，才能直接访问该VPC内的私有资源（如PrivateEC2、RDS、ElastiCache等）。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・PermissionBoundary（权限边界）就是“权限上限”。IAMUser或IAMRole最多能拥有什么权限。PermissionBoundary只能附加给：IAMUser，IAMRole</label>
+                    </p>
+                    <p><label><input type="checkbox">・Cluster支持自动故障转移,且具有1个writer和2个Reader</label></p>
+                    <p><label><input
+                                type="checkbox">・AmazonRDSMulti-AZDBCluster的readendpoint（读取端点）是一个专门用于**读请求（SELECT）**的连接地址，它会自动把流量分配到可用的Reader实例上，从而减轻Writer实例的压力。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AWSDataSync是专门设计用于高效、安全地迁移数据到AWS的服务，适合处理频繁变化的数据（持续同步）</label></p>
+                    <p><label><input type="checkbox">・AmazonS3TransferAcceleration适用于从全球各地高速上传数据到S3。</label></p>
+                    <p><label><input type="checkbox">・AWSStorageGateway适用于混合云存储场景</label></p>
+                    <p><label><input
+                                type="checkbox">・AmazonElastiCacheforMemcached本质上就是AWS托管版的Memcached缓存集群。Memcached=一个超快的“临时字典(HashMap)”，放在内存里，专门帮数据库减压，丢了也无所谓。</label>
+                    </p>
+                    <p><label><input type="checkbox">・Redis=功能强+高可用+持久化</label></p>
+                    <p><label><input type="checkbox">・SnowFamily容量一览</label></p>
+                    <p><label><input type="checkbox">・KMS是AWS少数天然支持Cross-Account（跨账号）授权的服务之一。</label></p>
+                    <p><label><input type="checkbox">・AWSDataExchange=AWS官方的数据市场（DataMarketplace）。</label></p>
+                    <p><label><input
+                                type="checkbox">・TransferAcceleration不是S3跨Region复制加速，而是“用户到S3Bucket”的长距离传输加速。</label>
+                    </p>
+                    <p><label><input type="checkbox">・S3BatchOperations（S3批量操作）就是一次性对大量S3对象执行同一个操作的服务。</label></p>
+                    <p><label><input
+                                type="checkbox">・开启S3ObjectLock后，已有对象不会自动受到保护。已有对象要受到保护，必须对对象执行PutObjectRetention（设置Retention）或LegalHold。对象一旦设置了Retention（如Compliance7年），立即受到保护。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・S3BatchOperations本身不是锁，也没有特殊能力，本质上只是批量执行PutObjectRetention。对象少时手动设置即可；对象成千上万时，用S3BatchOperations批量设置，运维成本最低</label>
+                    </p>
+                    <p><label><input type="checkbox">・跨region服务一览</label></p>
+                    <p><label><input type="checkbox">・AWSSystemsManagerInventory=自动收集服务器配置信息的服务。</label></p>
+                    <p><label><input type="checkbox">・WorkloadDiscoveryonAWS=自动生成AWS架构图的工具。</label></p>
+                    <p><label><input type="checkbox">・AWSX-Ray=分布式链路追踪（DistributedTracing）服务。</label></p>
+                    <p><label><input
+                                type="checkbox">・AWSTransferFamily支持AS2，FTP协议。面向外部合作伙伴上传/下载文件。身份认证方面，AWSTransferFamily支持：ActiveDirectory，ServiceManaged，自定义身份提供商（CustomIdP）</label>
+                    </p>
+                    <p><label><input type="checkbox">・CustomIdP最常见实现方式就是Lambda做认证桥接</label></p>
+                    <p><label><input type="checkbox">・Lambda函数最大10GB存储和10GB内存</label></p>
+                    <p><label><input type="checkbox">・通过RDS快照恢复出来的RDS实例是一个全新的实例，它的Endpoint会重新生成，因此需要手动切换连接地址。</label>
+                    </p>
+                    <p><label><input type="checkbox">・EBSMulti-Attach只支持：✅ProvisionedIOPSSSD</label></p>
+                    <p><label><input
+                                type="checkbox">・ReservedInstance（标准RI）可以在RIMarketplace出售。而👉ComputeSavingsPlan根本不能卖。</label>
+                    </p>
+                    <p><label><input type="checkbox">・在AWSOrganizations中：SavingsPlan折扣可以共享给其他成员账户。</label></p>
+                    <p><label><input type="checkbox">・APIGateway访问私有资源必须通过：VPCLink</label></p>
+                    <p><label><input type="checkbox">・NATGateway：只支持IPv4NAT。不支持IPv6。</label></p>
+                    <p><label><input
+                                type="checkbox">・VirtualPrivateGateway（VGW）是AWSVPN的AWS侧网关。连接本地机房（On-Premises）和AWSVPC的入口。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・Egress-OnlyInternetGateway是专门给IPv6用的“只允许出站，不允许从互联网主动发起入站连接”的网关。</label>
+                    </p>
+                    <p><label><input type="checkbox">・各类gateway一览</label></p>
+                    <p><label><input type="checkbox">・ECS容器访问共享文件系统最常搭配的是：EFS，FSx</label></p>
+                    <p><label><input
+                                type="checkbox">・EFS本质上是一个区域级（Regional）文件系统。它的数据同时存储在多个AZ中，通过每个AZ的MountTarget提供访问。</label>
+                    </p>
+                    <p><label><input type="checkbox">・缓存策略：Write-Through（直写）、TTL（TimeToLive）、LazyLoading（懒加载）</label>
+                    </p>
+                    <p><label><input type="checkbox">・DataSync自动加密传输，自动校验，自动重试，自动并行传输，自动监控</label></p>
+                    <p><label><input type="checkbox">・Lambda不支持WindowsContainer</label></p>
+                    <p><label><input
+                                type="checkbox">・DynamoDBExporttoS3的特点：不扫描表，不消耗RCU，不影响生产流量，基于PITR快照导出，几乎不用写代码。DynamoDBExporttoS3的前提是：Point-in-TimeRecovery(PITR)必须开启</label>
+                    </p>
+                    <p><label><input type="checkbox">・AmazonPolly结论：AmazonPolly=文本转语音（Text-to-Speech,TTS）服务</label></p>
+                    <p><label><input
+                                type="checkbox">・AmazonComprehendAmazonComprehend是一个“文本分析（自然语言处理）服务”，用来自动理解文本里的含义，比如情感、关键词、语言等。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AmazonRekognitionAmazonRekognition是一个“图像/视频分析服务”，用来识别图片或视频里的内容（人脸、物体、场景等）。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AmazonLex=AWS的聊天机器人服务。</label></p>
+                    <p><label><input type="checkbox">・当S3开启Versioning后，你可以通过S3LifecycleRule自动管理旧版本。</label></p>
+                    <p><label><input
+                                type="checkbox">・托管连接（HostedConnection）就是由AWSDirectConnect合作伙伴代替AWS给你提供的DirectConnect专线。</label>
+                    </p>
+                    <p><label><input type="checkbox">・普通DirectConnect：可选带宽最小就是1Gbps。</label></p>
+                    <p><label><input type="checkbox">・SecurityGroup（安全组）不能配置Deny（拒绝）规则。</label></p>
+                    <p><label><input type="checkbox">・封禁特定IP：NACL能防住，而SecurityGroup防不住</label></p>
+                    <p><label><input
+                                type="checkbox">・redshift核心用途：数据分析（OLAP），PB级数据分析，列式存储（ColumnarStorage），与数据湖集成，支持DataAPI，数据加密</label>
+                    </p>
+                    <p><label><input type="checkbox">・AmazonAPIGateway和AWSLambda是无服务器服务，几乎不需要运维开销。</label></p>
+                    <p><label><input
+                                type="checkbox">・启用预置并发（ProvisionedConcurrency）可以确保Lambda函数始终有预热实例，减少冷启动时间，保证低延迟。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AWSSystemsManagerSessionManager是一种“无需SSH/RDP/开端口”的安全远程登录EC2方式，通过IAM控制权限，直接在AWS上管理实例。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AmazonRDS支持存储自动扩展功能，可以在数据库存储空间不足时自动增加存储容量，而无需停机</label></p>
+                    <p><label><input type="checkbox">・👉AWSServiceCatalog=一个“公司内部应用/基础设施模板商店”，用来统一发布+控制谁能部署什么**</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・👉AWSSystemsManager=一个“统一管理和运维服务器（EC2/本地）的工具”，帮你自动化操作、打补丁、远程控制</label>
+                    </p>
+                    <p><label><input type="checkbox">・流量不可预测或吞吐突然变高→改成On-Demand（按需模式）</label></p>
+                    <p><label><input type="checkbox">・AmazonEKS工作负载自动扩容和缩容</label></p>
+                    <p><label><input type="checkbox">・1.Pod层面的自动扩缩容：HorizontalPodAutoscaler(HPA)</label></p>
+                    <p><label><input type="checkbox">・2.Node层面的自动扩缩容：ClusterAutoscaler</label></p>
+                    <p><label><input type="checkbox">・AWSAppSyncPipelineResolver</label></p>
+                    <p><label><input type="checkbox">・不用写Lambda，就能把多个数据源的查询串联起来，并最终返回一个结果。</label></p>
+                    <p><label><input
+                                type="checkbox">・QuickSight是：数据可视化，通常流程：Athena⇒QuickSight。QuickSight自己不会直接高效分析日志。</label>
+                    </p>
+                    <p><label><input type="checkbox">・RDSProxy可以用于Aurora</label></p>
+                    <p><label><input
+                                type="checkbox">・Aurora故障转移时，只读副本（Reader）会被提升为新的写入实例（Writer），在切换过程中会产生短暂的停机时间。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・虽然AuroraClusterEndpoint会自动指向新的Writer，但应用程序原有的数据库连接会失效，需要重新建立连接。通过在Aurora前面部署RDSProxy，应用始终连接ProxyEndpoint，由Proxy自动管理和重建后端数据库连接，从而减少故障转移期间的中断时间。</label>
+                    </p>
+                    <p><label><input type="checkbox">・Macie只负责S3中的数据</label></p>
+                    <p><label><input type="checkbox">・ACM必须和APIGateway在同一区域。</label></p>
+                    <p><label><input type="checkbox">・APIGateway默认域名是：https://***.**-api.u*-*-1.amazonaws.com</label>
+                    </p>
+                    <p><label><input type="checkbox">・S3GlacierFlexibleRetrieval存储类成本低，适合长期存储和备份需求</label></p>
+                    <p><label><input
+                                type="checkbox">・ReadReplica本身就是一个数据库实例（DBInstance）。"创建ReadReplica"="创建新的数据库实例"</label>
+                    </p>
+                    <p><label><input type="checkbox">・Multi-AZ集群部署=1写+2读（共3个实例），可读扩展，故障恢复更快。</label></p>
+                    <p><label><input type="checkbox">・Multi-AZ实例部署,Standby不能连接</label></p>
+                    <p><label><input type="checkbox">・CognitoUserPool负责用户认证（Authentication）</label></p>
+                    <p><label><input type="checkbox">・IdentityPool（身份池）给已经登录的用户分配AWS临时凭证（IAM权限）。</label></p>
+                    <p><label><input type="checkbox">・AWSAmplify是一个用于快速开发和托管Web/Mobile应用的服务，可以理解为AWS提供的全家桶开发平台。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・S3SignedCookie（准确地说是CloudFrontSignedCookie）是一种访问控制机制，它允许用户在一段时间内访问多个受保护的S3文件，而不用给每个文件都生成一个单独的签名URL。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・SignedURL（签名URL）就是一个带有签名和过期时间的临时链接，只有拿到这个链接的人才能在有效期内访问指定的资源。</label>
+                    </p>
+                    <p><label><input type="checkbox">・OpenAPIYAML/json就是用YAML格式编写的OpenAPIAPI定义文件。</label></p>
+                    <p><label><input
+                                type="checkbox">・CanaryDeployment（金丝雀发布）就是先让极少数用户使用新版本，确认没问题后，再逐步让所有用户都使用新版本。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AWSServiceCatalog控制的是“允许用户用什么已批准的AWS资源/配置”，不是直接做IAM级别的细粒度服务访问控制。</label>
+                    </p>
+                    <p><label><input type="checkbox">・ServiceCatalog控制的创建资源的方式</label></p>
+                    <p><label><input type="checkbox">・Lambdafunctionpolicy就是“资源策略（resource-basedpolicy）”的一种。</label></p>
+                    <p><label><input type="checkbox">・大数据并行计算→EMR</label></p>
+                    <p><label><input type="checkbox">・Redshift结构化数据（表）</label></p>
+                    <p><label><input type="checkbox">・Accountdrift（账户漂移）</label></p>
+                    <p><label><input
+                                type="checkbox">・SecurityGroup本质上就是绑定到ENI（ElasticNetworkInterface，弹性网卡）上的。GatewayEndpoint没有ENI,所以没有SecurityGroup</label>
+                    </p>
+                    <p><label><input type="checkbox">・AmazonEKSConnector</label></p>
+                    <p><label><input type="checkbox">・把已经存在的Kubernetes集群（尤其是非EKS集群）接入AWSEKS控制台统一查看。</label></p>
+                    <p><label><input type="checkbox">・AmazonEKSAnywhere=把AmazonEKS搬到你自己的机房运行。</label></p>
+                    <p><label><input type="checkbox">・S3Glacier是归档存储。</label></p>
+                    <p><label><input type="checkbox">・ElastiCache缓存的是数据（Key-Value），不是静态文件CDN。</label></p>
+                    <p><label><input
+                                type="checkbox">・EventBridge的CloudWatchMetrics，就是EventBridge自动向CloudWatch上报的运行指标（Metrics）。</label>
+                    </p>
+                    <p><label><input type="checkbox">・CloudWatchMetrics=看健康体检报告（统计数字）</label></p>
+                    <p><label><input type="checkbox">・CloudWatchLogs（日志）作用：告诉你"到底发生了什么"。</label></p>
+                    <p><label><input
+                                type="checkbox">・EventBridge不会自动把事件写入CloudWatchLogs。只有你把CloudWatchLogs配置为Target，事件才会进入Logs。</label>
+                    </p>
+                    <p><label><input type="checkbox">・ACM自己不能创建(public)第三方CA签发的证书。</label></p>
+                    <p><label><input
+                                type="checkbox">・ACM能做两件事：1.Request（申请）AWSACM公共证书（AmazonTrustServices签）。2.Import（导入）外部CA签发证书</label>
+                    </p>
+                    <p><label><input type="checkbox">・locallyattachedstorage说明现在应用使用的是本地块存储（BlockStorage）。</label></p>
+                    <p><label><input type="checkbox">・1Gbps要换成Byte:1Gbps÷8=125MB/s。平均1Gbps≈10.8TB/天</label></p>
+                    <p><label><input type="checkbox">・1PB=1000TB=1000000GB</label></p>
+                    <p><label><input type="checkbox">・SpreadPlacementGroup</label></p>
+                    <p><label><input
+                                type="checkbox">・结论：SpreadPlacementGroup（分散放置组）的作用就是：把EC2尽可能放到不同的物理服务器上，避免一台服务器故障导致多个实例一起挂掉。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・PartitionPlacementGroup（分区放置组）就是把EC2分成多个“隔离分区（Partition）”，同一个分区里的实例可能在同一机架，但不同分区之间不会共享机架，因此一个机架故障最多影响一个分区。</label>
+                    </p>
+                    <p><label><input type="checkbox">・DedicatedTenancy：VPC/账户级设置，决定默认使用专用硬件。</label></p>
+                    <p><label><input type="checkbox">・DedicatedInstance：运行在专用硬件上的EC2实例，但看不到物理主机。</label></p>
+                    <p><label><input type="checkbox">・DedicatedHost：一整台物理主机都分配给你，还能看到和管理Host，适合许可证绑定（BYOL）。</label></p>
+                    <p><label><input
+                                type="checkbox">・APIGatewayLambda授权器（LambdaAuthorizer）就是：把“是否允许访问API”的判断，交给你自己写的Lambda来决定。</label>
+                    </p>
+                    <p><label><input type="checkbox">・EKS不负责“流量分配”.EKS（Kubernetes）本质是：管容器运行</label></p>
+                    <p><label><input type="checkbox">・Multi-AZRedis复制组（ReplicationGroups）</label></p>
+                    <p><label><input
+                                type="checkbox">・“节点（node）”就是Redis的一个运行实例（ElastiCache节点），可以理解为“一台运行Redis的虚拟机器”。</label>
+                    </p>
+                    <p><label><input type="checkbox">・Multi-AZRedis集群</label></p>
+                    <p><label><input
+                                type="checkbox">・“Multi-AZRedis集群”本质是指Redis以cluster/replication形态部署，并且主从节点分布在多个AZ，通过自动故障转移实现高可用的一种部署方式。</label>
+                    </p>
+                    <p><label><input type="checkbox">・👉RedisCluster保证的是“分片后整体可用”，但不是“单点/单副本的完整复制关系”。</label></p>
+                    <p><label><input type="checkbox">・FileGateway本质就是“共享文件网关”，支持多客户端共享访问文件。</label></p>
+                    <p><label><input type="checkbox">・S3FileGateway本质给你一个文件共享入口（NFS/SMB），背后自动转换成S3Object</label></p>
+                    <p><label><input
+                                type="checkbox">・AWSOutposts是把AWS云的基础设施“搬到你本地机房”的一体化托管硬件，让你在本地也能用几乎一样的AWS服务。</label></p>
+                    <p><label><input
+                                type="checkbox">・Outposts的设计是：AWS把一整套“托管机柜”送到你机房。所以：机柜内部（rackinside），服务器，交换机，电源模块，硬件故障更换👉全部属于AWS管理范围</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・跨引擎只读副本（AuroraReadReplica）RDSPostgreSQL可以用Aurorareadreplica做迁移+读扩展</label>
+                    </p>
+                    <p><label><input type="checkbox">・StepFunctions的Map状态=并行批处理循环执行器，用来对“一组数据”里的每个元素执行相同的工作流。</label>
+                    </p>
+                    <p><label><input type="checkbox">・👉类似for-each+并行执行+状态机</label></p>
+                    <p><label><input
+                                type="checkbox">・两种模式（SAA重点）：1）InlineMap（内联）⇒数据直接在输入里、适合小批量。2）DistributedMap（分布式Map）⇒数据来自S3（大数据）、支持超大规模并行</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AWSFirewallManager=“统一管理安全策略的控制台”，本身不做拦截，只负责“批量下发/管理规则”。FirewallManager不能“直接防住流量”，真正拦截的是WAF/SG/Shield，它只是“帮你批量下发规则”。</label>
+                    </p>
+                    <p><label><input type="checkbox">・NACL可以写CIDR，但它不适合“成千上万动态公网IP白名单”，因为无法有效聚合。</label></p>
+                    <p><label><input
+                                type="checkbox">・防火墙（这里指AWSWAF）能处理“动态IP”，是因为它支持“集中化IP集合（IPSet）+API更新”，不是因为它天然理解动态性。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・KinesisDataStreams可以摄取数据（ingestion）,“实时流式”而不是批处理，数据保留（默认24小时，可延长），支持多消费者读取同一流，不是存储数据库（只是临时流存储）</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・流量突发（spike），后端处理速度慢/不稳定，有503/超时/丢请求风险，数据允许延迟处理（nearreal-time/async）必须加缓冲层</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・流量稳定（steadytraffic），API本身就够强（已经AutoScaling+LB），要求同步返回结果（syncAPI），不能接受延迟（payment/auth）不需要缓冲层</label>
+                    </p>
+                    <p><label><input type="checkbox">・EC2之间的互相访问不能通过VPCEndpoint来实现。</label></p>
+                    <p><label><input
+                                type="checkbox">・EC2互相访问VPC内直接访问（最常见）+SecurityGroup放行，或者VPCPeering/TransitGateway</label>
+                    </p>
+                    <p><label><input type="checkbox">・多个EC2/ECS实例或者需要AutoScaling则需要配置ALB</label></p>
+                    <p><label><input
+                                type="checkbox">・AWSAppMesh是“服务间通信管理工具（ServiceMesh）”，用来统一管理微服务之间的流量控制、可观测性和安全。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・CloudWatchAgent是安装在EC2（或本地服务器）上的“数据采集器”，用来把操作系统层面的指标和日志发到CloudWatch。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・ContainerInsights是CloudWatch用来“监控容器运行状态”的功能，专门看ECS/EKS/Kubernetes/容器级别指标。</label>
+                    </p>
+                    <p><label><input type="checkbox">・DynamoDB自动扩展不适用瞬时爆炸流量（spike），极端不可预测流量。因为扩容有延迟</label></p>
+                    <p><label><input type="checkbox">・AWSWAF可以直接挂在APIGateway上，不需要额外架CloudFront（更省运维）</label></p>
+                    <p><label><input type="checkbox">・distributionrights（版权/发行权）</label></p>
+                    <p><label><input type="checkbox">・某些地区有权播放，某些地区没有。并不是cloudfront的CDN</label></p>
+                    <p><label><input type="checkbox">・AWSDataSync会自动验证数据传输的完整性（DataIntegrity）。</label></p>
+                    <p><label><input type="checkbox">・Route53HostedZone</label></p>
+                    <p><label><input
+                                type="checkbox">・创建200个HostedZone并不是手工一个一个敲记录，而是创建200个空的HostedZone，然后把原来的ZoneFile导入即可。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・IncompleteMultipartUpload（未完成的分段上传）：它还不是一个完整的S3Object、但这些分段（parts）已经占用了S3存储空间，并会产生费用</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AmazonRDSBlue/GreenDeployments=用于数据库版本升级、补丁升级等变更时，实现几乎零停机（near-zerodowntime）切换的功能。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・Blue/GreenDeployments靠的是持续数据复制（ContinuousReplication），不是升级完成后再复制一次。只要还没有切换，Blue的数据会一直同步到Green。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AmazonQuantumLedgerDatabase（AmazonQLDB）</label></p>
+                    <p><label><input
+                                type="checkbox">・结论：AmazonQLDB是一种不可篡改（Immutable）的账本数据库（LedgerDatabase），用于保存完整、可验证的历史记录。</label>
+                    </p>
+                    <p><label><input type="checkbox">・数据库里的每一次修改都会永久记录，谁也不能偷偷改历史。</label></p>
+                    <p><label><input type="checkbox">・AmazonNeptune</label></p>
+                    <p><label><input type="checkbox">・AmazonNeptune=AWS的图数据库，用来处理“关系特别复杂的数据”（比如社交网络、推荐系统）。</label></p>
+                    <p><label><input
+                                type="checkbox">・AmazonNeptuneStreams=记录Neptune数据变化（增删改）的变更流（ChangeStream），方便其他应用实时感知数据库变化。</label>
+                    </p>
+                    <p><label><input type="checkbox">・NetAppSnapMirror</label></p>
+                    <p><label><input
+                                type="checkbox">・结论：NetAppSnapMirror=NetApp自带的数据复制（Replication）技术，用于把一个ONTAP存储的数据同步到另一个ONTAP存储，常用于灾难恢复（DR）。</label>
+                    </p>
+                    <p><label><input type="checkbox">・SnapMirror=FSxforNetAppONTAP的跨Region/跨机房复制功能。</label></p>
+                    <p><label><input type="checkbox">・SnapMirror一直同步：主Region⇒副Region</label></p>
+                    <p><label><input type="checkbox">・Lambda可以应对突发流量，但不是无限大，也不是完全没有延迟。Lambda的核心优势就是自动应对突发流量。</label></p>
+                    <p><label><input type="checkbox">・NLB本身不提供“粘性会话（StickySession）”</label></p>
+                    <p><label><input type="checkbox">・WAF=只支持L7（HTTP/HTTPS）</label></p>
+                    <p><label><input type="checkbox">・stickysession=通常是HTTPcookie级别</label></p>
+                    <p><label><input type="checkbox">・</label></p>
+                    <p><label><input type="checkbox">・PrefixList=“一组IPCIDR的集合（可复用的地址清单）”，用来在AWS里统一管理和引用IP段。</label></p>
+                    <p><label><input type="checkbox">・AWSResourceAccessManager（RAM）是用来在多个AWS账户之间共享资源的服务，不用复制资源。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AWS托管KMSKey（AWSmanagedkey）是AWS自动帮你创建和管理的KMS密钥，主要用于加密数据，但控制权限的能力有限。不能修改KeyPolicy来实现这种精细控制。S3：SSE-KMS（AWSManagedKeyaws/s3）RDS：KMS加密（AWSManagedKeyaws/rds）</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・TaskExecutionRole：ECS服务自己用的。TaskRole：你的应用程序（容器）用的。ExecutionRole给ECS，TaskRole给代码。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・VPCEndpoint只能绑定在API型服务（资源不在你的VPC里），不能绑定在部署到你VPC里的服务（实例本身就在你的VPC中。）</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・突发性能实例（BurstableInstances）就是：平时性能一般，但可以把平时没用掉的CPU"存起来"，需要的时候瞬间爆发。AWS的代表就是AmazonEC2T系列实例。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・无限模式（UnlimitedMode）就是：CPUCredits用完后，实例仍然可以继续爆发性能，不会被限制CPU，只是超出的部分需要额外收费。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・GatewayEndpoint：只能供同一个VPC内的资源使用，不能从本地网络通过VPN/DirectConnect访问。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・InterfaceEndpoint（PrivateLink）：不仅VPC内可以访问，还可以通过VPN、DirectConnect，甚至VPCPeering（有条件）、TransitGateway（支持时）等从其他网络访问。</label>
+                    </p>
+                    <p><label><input type="checkbox">・IAMGroup只能管理：一个Account</label></p>
+                    <p><label><input type="checkbox">・AWSResourceGroups就是一个"资源分类器"。</label></p>
+                    <p><label><input
+                                type="checkbox">・按照条件（最常见是Tag）把分散在AWS各个服务中的资源归类到一起，方便查看和管理。它不会创建资源、不会限制资源、也不会修改资源。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・DynamoDB的ProvisionedCapacity（预置容量）就是你提前告诉AWS：这张表每秒最多需要处理多少次读、多少次写。预留资源通常比按次计费便宜。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AWSCostAnomalyDetection是一个自动监控AWS费用的服务，当你的费用出现异常增长时，它会主动通知你。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AWSGlueCrawler（爬虫）是一个自动扫描数据源，推断数据结构（Schema），并把元数据写入GlueDataCatalog的工具。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AmazonEBSSnapshotLock是一种防止EBSSnapshot被删除的功能。即使有人拥有删除权限，只要Snapshot被锁定，在锁定期内也不能删除（取决于锁定模式）。</label>
+                    </p>
+                    <p><label><input type="checkbox">・“最少的工作量+完全控制创建、轮换、禁用密钥”👉说明：公司必须有完整控制权</label></p>
+                    <p><label><input type="checkbox">・AutoScaling组（ASG）的实例是无状态（stateless）的。</label></p>
+                    <p><label><input
+                                type="checkbox">・AmazonForecast是AWS提供的一个**时间序列预测（TimeSeriesForecasting）**服务。它最大的特点就是：不会机器学习也能做预测。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・S3BucketAccessPoint它是S3Bucket的一个专用访问入口（Endpoint），每个入口都可以有自己独立的访问策略（Policy）。</label>
+                    </p>
+                    <p><label><input type="checkbox">・ByteRange（字节范围）就是：不下载整个对象，只下载对象的一部分字节。</label></p>
+                    <p><label><input type="checkbox">・EBS：一个Volume只能挂一个AZ。另外：EBS默认EC2⇒EBS不能让ASG里很多机器共享。</label></p>
+                    <p><label><input type="checkbox">・Cache-Control:no-cache的作用:缓存可以保留，但每次使用之前必须去源站确认。</label></p>
+                    <p><label><input
+                                type="checkbox">・S3存内容，CloudFront加速，Cache-Control:no-cache让CloudFront每次验证S3是否有更新，从而尽快返回最新内容。</label>
+                    </p>
+                    <p><label><input type="checkbox">・ACM证书不能拿来：加密解密S3文件，做Client-sideEncryption</label></p>
+                    <p><label><input
+                                type="checkbox">・NATGateway不能让Internet主动访问PrivateEC2。NATGateway只出不进。连接只能由PrivateEC2发起，Internet不能主动发起连接到PrivateEC2。</label>
+                    </p>
+                    <p><label><input type="checkbox">・S3不能挂载成DockerVolume。</label></p>
+                    <p><label><input type="checkbox">・容器里面通常：/data需要：Linux文件系统。</label></p>
+                    <p><label><input type="checkbox">・EFS=容器的持久化共享文件系统。</label></p>
+                    <p><label><input type="checkbox">・SchemaConversion：只负责转Schema。不会创建ReadReplica。</label></p>
+                    <p><label><input type="checkbox">・CDC（ChangeDataCapture）=持续同步源数据库后续发生的变化。</label></p>
+                    <p><label><input
+                                type="checkbox">・Athena可以创建表，但创建的是"外部表（ExternalTable）"。数据始终存放在S3，Athena只保存表的定义（通常保存在GlueDataCatalog中）。</label>
+                    </p>
+                    <p><label><input type="checkbox">・PublicNATGateway（公网NATGateway）</label></p>
+                    <p><label><input type="checkbox">・PrivateNATGateway（私有NATGateway）</label></p>
+                    <p><label><input
+                                type="checkbox">・SCP（ServiceControlPolicy）不能限制Organizations的ManagementAccount（管理账户）。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AWS→本地DNS查询=OutboundEndpoint</label></p>
+                    <p><label><input type="checkbox">・本地→AWSPrivateHostedZone查询=InboundEndpoint</label></p>
+                    <p><label><input type="checkbox">・Route53Resolver它就是AWS的DNS服务器。</label></p>
+                    <p><label><input type="checkbox">・PrivateHostedZone（私有托管区域）可以理解成：只能在VPC内部使用的DNS。</label></p>
+                    <p><label><input type="checkbox">・PrivateHostedZone给VPC内部解析域名</label></p>
+                    <p><label><input
+                                type="checkbox">・RoundRobin（轮询）是最简单的一种负载均衡算法。请求按顺序一个一个分配给后端服务器。RoundRobin不会考虑服务器状态。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・LeastOutstandingRequests（最少未完成请求）是ElasticLoadBalancing（主要是ALB）的默认路由算法之一。把新的请求发给"当前正在处理请求最少"的服务器。</label>
+                    </p>
+                    <p><label><input type="checkbox">・RequestCount（请求数量）</label></p>
+                    <p><label><input type="checkbox">・TargetResponseTime（目标响应时间）</label></p>
+                    <p><label><input type="checkbox">・RequestCountPerTarget平均每个Target（EC2/ECS/Lambda）处理了多少请求。</label>
+                    </p>
+                    <p><label><input type="checkbox">・ActiveConnectionCount当前还有多少TCP连接没有关闭。</label></p>
+                    <p><label><input
+                                type="checkbox">・SavingsPlans的AlertSubscription通知的是：购买成功,即将到期,状态变化。不是CoverageAlert。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AWSBudgets不仅可以监控花费（Cost），还可以监控：Utilization（利用率）Coverage（覆盖率）</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・ElasticBeanstalk虽然帮你部署：实际上底层还是EC2+AutoScaling+LoadBalancer。仍然需要管理EC2。</label>
+                    </p>
+                    <p><label><input type="checkbox">・DefaultHostConfigurationManagement（DHMC）</label></p>
+                    <p><label><input type="checkbox">・开启DHMC后，整个账号的EC2默认就能被SystemsManager管理，不需要每台机器单独配置SSMRole</label>
+                    </p>
+                    <p><label><input type="checkbox">・EC2一个实例只能关联一个IAMRole（InstanceProfile）。不能同时挂两个IAMRole。</label></p>
+                    <p><label><input
+                                type="checkbox">・EventuallyConsistentRead（最终一致性读取）是DynamoDB默认的读取方式。写入成功后，数据会很快同步，但不是立刻同步，所以短时间内可能读到旧数据。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・StronglyConsistentRead（强一致性读取）是指：DynamoDB保证读取到的数据一定是最新写入成功的数据。只要Write成功，下一次Read一定能读到最新值。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・GlobalSecondaryIndex（GSI，全局二级索引）就是：主表只能按主键查询，GSI可以让你按其他字段查询。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・DirectConnectGateway（DXGateway）的作用是：让一条AWSDirectConnect连接，可以访问多个Region的多个VPC。</label>
+                    </p>
+                    <p><label><input type="checkbox">・DirectConnect本来只能连接一个Region，DXGateway可以跨Region。</label></p>
+                    <p><label><input type="checkbox">・S3Same-RegionReplication，SRR同Region自动备份。</label></p>
+                    <p><label><input type="checkbox">・自动把一个S3Bucket中的对象复制到同一个AWSRegion的另一个S3Bucket。</label></p>
+                    <p><label><input type="checkbox">・SNS可以根据消息属性（MessageAttributes）进行过滤。</label></p>
+                    <p><label><input type="checkbox">・EventBridge自动根据EventPattern过滤事件</label></p>
+                    <p><label><input type="checkbox">・Route53Resolver主要用于混合云环境中的DNS解析，与公共DNS服务无关。</label></p>
+                    <p><label><input
+                                type="checkbox">・CloudFormation管理的是AWSResource，而不是只管理基础设施。权限、策略、共享配置，只要AWS提供对应的资源类型，CloudFormation都可以创建和管理。</label>
+                    </p>
+                    <p><label><input type="checkbox">・没有叫SystemAdministrator权限</label></p>
+                    <p><label><input type="checkbox">・AWSWAF不能关联NLB。WAF支持关联：ALB，CloudFront，APIGateway，AppSync</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・创建一个AWSGlobalAccelerator后，AWS会分配：2个静态AnycastIPv4地址（默认）。这些IP不会因为后端资源变化而改变</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・S3ObjectLambdaAccessPoint就是：用户读取S3对象时，可以先经过一段Lambda，对对象内容进行实时处理，然后再返回给用户。</label>
+                    </p>
+                    <p><label><input type="checkbox">・EC2没有Multi-AZ部署这种功能。</label></p>
+                    <p><label><input type="checkbox">・LDAP=用户数据库（存用户名、密码）LDAP负责验证用户名密码。</label></p>
+                    <p><label><input
+                                type="checkbox">・SAML（SecurityAssertionMarkupLanguage）是一种单点登录（SSO）协议。它不是存密码的。它负责告诉AWS："我已经帮这个用户验证过身份了，你可以相信他。"</label>
+                    </p>
+                    <p><label><input type="checkbox">・LDAP不会产生SAMLAssertion。不兼容SAML。</label></p>
+                    <p><label><input type="checkbox">・Snowcone→TB级，SnowballEdge→数十TB级，Snowmobile→100PB（一辆卡车）</label></p>
+                    <p><label><input type="checkbox">・Resource-basedPolicy（资源策略）可以直接授权其他AWSAccount访问你的资源。</label></p>
+                    <p><label><input
+                                type="checkbox">・・Policy的名字如果带着资源名（Bucket、Queue、Topic、Key、Repository……），几乎就是Resource-basedPolicy；如果带IAMUser/Group/Role，就是Identity-basedPolicy。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AWSSystemsManagerSessionManager是一种“无需SSH/RDP/开端口”的安全远程登录EC2方式，通过IAM控制权限，直接在AWS上管理实例。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AWSBackup：统一备份管理，按备份点恢复（RecoveryPoint）</label></p>
+                    <p><label><input type="checkbox">・PITR：连续记录变化，恢复到任意时间点（PointinTime）</label></p>
+                    <p><label><input
+                                type="checkbox">・ComputeSavingsPlans不会影响EC2是否稳定，也不会导致中断。它不是一种实例类型，而是一种计费方式（BillingDiscount）。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・VPCLattice=AWS官方提供的"微服务通信平台"。专门解决"不同VPC、不同AWSAccount、不同计算服务（EC2/ECS/EKS/Lambda）之间如何互相调用"的问题。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AmazonQLDB（QuantumLedgerDatabase）=一个不可篡改的数据库。它像MySQL一样可以存数据，但所有修改历史都会永久保存，而且任何人都无法偷偷修改历史记录。</label>
+                    </p>
+                    <p><label><input type="checkbox">・Ledger（账本）就是QLDB里的"数据库"。不可篡改（Immutable）的账本数据库。</label></p>
+                    <p><label><input type="checkbox">・AWSGlueDataBrew=不用写代码的数据清洗工具（No-CodeDataPreparation）。</label></p>
+                    <p><label><input type="checkbox">・DataBrew是给数据分析师、业务人员用Excel一样的界面清洗数据的。</label></p>
+                    <p><label><input
+                                type="checkbox">・AWSControlTowerAccountFactory=自动创建AWS账户的工厂。它的作用就是按照公司的标准，一键创建新的AWSAccount，而不是让管理员手动去创建。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AWSControlTowerLandingZone=AWS帮你自动搭建好的多账号AWS环境（多账号基础架构）。"一键搭建一个符合AWS最佳实践的Organizations环境。"</label>
+                    </p>
+                    <p><label><input type="checkbox">・ApacheParquet是一种列式（Columnar）数据文件格式，专门用于大数据分析。</label></p>
+                    <p><label><input type="checkbox">・AWSControlTower有三种Guardrails</label></p>
+                    <p><label><input
+                                type="checkbox">・①ProactiveControls（主动）部署之前检查CloudFormation模板。②PreventiveControl（预防控制）限制用户执行某些操作。③DetectiveControl（侦测控制）检测资源是否符合规范</label>
+                    </p>
+                    <p><label><input type="checkbox">・AWSSystemsManagerAutomationRunbook=一本自动执行操作的“剧本（脚本）”。</label></p>
+                    <p><label><input type="checkbox">・AWSConfig：负责的是检查资源是否合规。不能调用CancelKeyDeletion。</label></p>
+                    <p><label><input
+                                type="checkbox">・ElasticFabricAdapter（EFA）=AWS给EC2提供的一种超高速、超低延迟的网络接口。EFA工作在网络接口（网卡）这一层。</label>
+                    </p>
+                    <p><label><input type="checkbox">・HPC的通信是EC2与EC2之间的超低延迟通信</label></p>
+                    <p><label><input type="checkbox">・AWSStorageGatewayVolumeGateway：iSCSI。FileGateway：NFS、SMB</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・EventBridgeAPIDestination可以理解成：让EventBridge直接调用外部HTTPAPI，不需要写Lambda。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・ProxyIntegration（代理集成）是AmazonAPIGateway的一种集成方式。APIGateway不解析请求、不转换数据，收到什么就原封不动地转发给后端，后端自己负责处理。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AWSBatch本身就是EventBridge的事件源（EventSource）。当Job状态变化时：都会自动发送事件到EventBridge。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AmazonMQ</label></p>
+                    <p><label><input
+                                type="checkbox">・结论：AmazonMQ是“托管的消息队列中间件服务”，用来在AWS上运行传统的消息队列（ActiveMQ/RabbitMQ）。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AMQP（AdvancedMessageQueuingProtocol）就是一种"消息队列通信协议"。</label></p>
+                    <p><label><input
+                                type="checkbox">・EventBridgeScheduler就是AWS官方的新一代定时服务，可以：cron,rate,一次性未来某个时间（One-timeschedule）</label>
+                    </p>
+                    <p><label><input type="checkbox">・Salesforce已经支持通过PrivateLink提供服务。</label></p>
+                    <p><label><input
+                                type="checkbox">・查询字符串（QueryString）：QueryString就是URL中?后面的参数，ALB可以根据这些参数把请求转发到不同的TargetGroup。</label>
+                    </p>
+                    <p><label><input type="checkbox">・ALB可以使用ACM:对于HTTPS：ALB会先完成TLS解密。这里就要用到ACM证书。</label></p>
+                    <p><label><input
+                                type="checkbox">・NLB能用ACM:NLB也支持TLSListener,可以使用ACM证书来终止TLS。但是：NLB解密以后不会解析HTTP内容。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AuroraI/O-Optimized是Aurora的一种计费模式（StorageConfiguration），专门针对高I/O数据库。它最大的特点只有一句话：I/O不收费。</label>
+                    </p>
+                    <p><label><input type="checkbox">・SecurityHub合规检查（PCI、NIST、CIS）</label></p>
+                    <p><label><input type="checkbox">・AmazonNeptune=AWS的图数据库，用来处理“关系特别复杂的数据”（比如社交网络、推荐系统）。</label></p>
+                    <p><label><input type="checkbox">・Site-to-SiteVPN最快建立连接，但延迟不稳定</label></p>
+                    <p><label><input
+                                type="checkbox">・ADConnector=一个"认证代理（Proxy）"。把AWS服务的登录请求转发给你的本地ActiveDirectory。它不保存用户，不保存密码，不同步AD。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AmazonEBSSnapshotsArchive就是专门给这种"长期保存EBSSnapshot"设计的。</label></p>
+                    <p><label><input
+                                type="checkbox">・EBSSnapshot是AWS自己管理的数据，不是S3Object。EBSSnapshot不能直接存到S3Glacier。</label>
+                    </p>
+                    <p><label><input type="checkbox">・CloudFront如果使用ACM证书，那么证书必须创建在us-east-1（N.Virginia）Region。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・ACM的私有证书（PrivateCertificate）通常是收费的；公有证书（PublicCertificate）通常是免费的。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AWSSecretsManager是一个用来**安全存储和自动轮换“敏感信息（Secrets）”**的服务，比如数据库密码、APIKey等。</label>
+                    </p>
+                    <p><label><input type="checkbox">・CloudFront如果使用ACM证书，那么证书必须创建在us-east-1（N.Virginia）Region。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・ACM的私有证书（PrivateCertificate）通常是收费的；公有证书（PublicCertificate）通常是免费的。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AWSDirectConnect（DX）的高可用：两个数据中心×两个DXLocation×两个Device</label></p>
+                    <p><label><input
+                                type="checkbox">・AWSComputeOptimizer=根据CloudWatch的历史监控数据，分析EC2、EBS、Lambda等资源的使用情况，推荐更合适的资源规格，以降低成本或提升性能。</label>
+                    </p>
+                    <p><label><input type="checkbox">・CloudFront+Lambda@Edge=全球边缘节点进行授权。</label></p>
+                    <p><label><input type="checkbox">・RootUserEmail（根用户邮箱）就是创建AWSAccount时填写的邮箱。</label></p>
+                    <p><label><input type="checkbox">・QuickSight可以通过Athena作为数据源来创建可视化仪表板。</label></p>
+                    <p><label><input type="checkbox">・TTL=TimeToLive（生存时间）</label></p>
+                    <p><label><input type="checkbox">・CloudFront本质就是：全球CDN（内容分发网络）。CDN最重要的功能就是：缓存（Cache）</label></p>
+                    <p><label><input
+                                type="checkbox">・HTTP有一个Header：Cache-Control。它告诉缓存：这东西应该怎么缓存。只能用户自己的浏览器缓存。不允许cloudfront缓存</label>
+                    </p>
+                    <p><label><input type="checkbox">・ExpiresHeader什么时候缓存失效。</label></p>
+                    <p><label><input type="checkbox">・Lambda@Edge的四个触发阶段</label></p>
+                    <p><label><input type="checkbox">・①ViewerRequest（用户请求）:用户请求刚到CloudFront时。</label></p>
+                    <p><label><input type="checkbox">・②OriginRequest（源站请求）：</label></p>
+                    <p><label><input type="checkbox">・③OriginResponse（源站响应）：这是唯一能影响CloudFront缓存策略的重要阶段。</label></p>
+                    <p><label><input type="checkbox">・④ViewerResponse（用户响应）：CloudFront的缓存已经决定好了。</label></p>
+                    <p><label><input
+                                type="checkbox">・BudgetActions是AWSBudgets的一个功能。预算达到某个金额时，AWS自动执行预先定义好的动作。它不是只发邮件，而是真的可以自动控制资源或权限。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・BudgetActions功能：①应用IAMPolicy　②操作AWSOrganizations　③操作ServiceControlPolicy（SCP）</label>
+                    </p>
+                    <p><label><input type="checkbox">・EC2InstanceSavingsPlans:工作负载固定，实例基本不会变</label></p>
+                    <p><label><input
+                                type="checkbox">・ComputeSavingsPlans(折扣最高):工作负载可能变化（实例类型、Region、OS、甚至Lambda/Fargate）</label>
+                    </p>
+                    <p><label><input type="checkbox">・AmazonSageMaker现在也有自己的SavingsPlans</label></p>
+                    <p><label><input
+                                type="checkbox">・Babelfish=让AuroraPostgreSQL能"听懂"SQLServer。帮助SQLServer应用几乎不用改代码，就迁移到AmazonAuroraPostgreSQL。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AccountAttributes:EC2服务的一些账户级（Region级）的默认开关。</label></p>
+                    <p><label><input type="checkbox">・①EBSencryptionbydefault②DefaultKMSKey</label></p>
+                    <p><label><input type="checkbox">・S3Multi-RegionAccessPoints（MRAP）</label></p>
+                    <p><label><input type="checkbox">・给多个Region的S3Bucket提供一个全球统一入口（GlobalEndpoint）。</label></p>
+                    <p><label><input type="checkbox">・Min=1,Desired=1,Max=1：不是为了扩容，而是为了保证始终有1台EC2存活（自动恢复）。</label></p>
+                    <p><label><input
+                                type="checkbox">・Guardrails（护栏）=帮你自动执行和检查安全规范，防止账户偏离公司规定。AWSControlTower给整个Organization加的一层"公司制度"。</label>
+                    </p>
+                    <p><label><input type="checkbox">・①PreventiveGuardrails（预防性）:事情还没发生，就阻止。</label></p>
+                    <p><label><input type="checkbox">・②DetectiveGuardrails（检测性）:事情已经发生，再检查。</label></p>
+                    <p><label><input
+                                type="checkbox">・ControlTower：本质就是LandingZone。自动：帮你建Organization、建OU、建Account、建Guardrails、配日志、配审计</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・AWSFargate是容器的无服务器（Serverless）运行环境。可以运行长期任务（Long-runningtasks），也可以运行短任务（Batch/Job）。</label>
+                    </p>
+                    <p><label><input type="checkbox">・S3AccessPoints:给同一个Bucket创建多个"独立入口"，每个入口都有自己的权限。</label></p>
+                    <p><label><input type="checkbox">・固定搭配:一个大型DataLakeBucket+多个AccessPoints。</label></p>
+                    <p><label><input
+                                type="checkbox">・AWSIAMIdentityCenter（以前叫AWSSingleSign-On，AWSSSO）是AWS提供的统一登录和权限管理服务。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AWSSystemsManagerAgent是安装在实例上的“控制代理”，让你无需登录服务器也能远程管理。</label></p>
+                    <p><label><input
+                                type="checkbox">・①创建EC2⇒　②安装SSMAgent⇒③给EC2挂InstanceProfile→④InstanceProfile内有IAMRole→⑤IAMRole有AmazonSSMManagedInstanceCore→⑥EC2主动连接SystemsManager</label>
+                    </p>
+                    <p><label><input type="checkbox">・AWSLambda通常与APIGateway集成，很少与NetworkLoadBalancer集成。</label></p>
+                    <p><label><input
+                                type="checkbox">・需要固定IP，需要TCP/TLS负载均衡，已有基于NLB的架构，希望部分流量交给Lambda的适合与NetworkLoadBalancer集成</label>
+                    </p>
+                    <p><label><input type="checkbox">・大文件=请求次数更少、管理开销更低，在某些场景下还能减少与对象数量相关的存储管理成本，因此整体成本可能下降。✅</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・StorageOptimized（I、D、H系列）最大的特点是：它们自带很快的本地磁盘（InstanceStore）而不是EBS</label>
+                    </p>
+                    <p><label><input type="checkbox">・LVM（LogicalVolumeManagement）可以把多块磁盘组合成一块逻辑磁盘。</label></p>
+                    <p><label><input type="checkbox">・而Stripe（条带化）是LVM的一种工作方式：把数据平均分散写到多块磁盘上，让多块磁盘同时工作，从而提升性能。</label>
+                    </p>
+                    <p><label><input type="checkbox">・HTTPAPI：RESTAPI的轻量版，更便宜、更快，适合大多数HTTP服务。</label></p>
+                    <p><label><input type="checkbox">・只要出现微服务，SimpleAPI，HTTPendpoint基本都是HTTPAPI</label></p>
+                    <p><label><input type="checkbox">・AWSComputeOptimizer=分析资源利用率，推荐更合适的资源规格（主要是纵向扩展）。</label></p>
+                    <p><label><input type="checkbox">・CapacityProviderECS的"用什么机器来运行Task"的策略。</label></p>
+                    <p><label><input
+                                type="checkbox">・ComputeOptimizer：✅推荐EC2、EBS、Lambda、ECS/Fargate的CPU、内存配置,解决"资源配置过大（Over-provisioning）"❌不负责处理突发流量❌不会自动用Spot来降低扩容成本</label>
+                    </p>
+                    <p><label><input type="checkbox">・SecurityGroup（SG）只能绑定到支持ENI（ElasticNetworkInterface）的资源上。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・包括EC2，ENI（网卡），ALB，NLB，RDS，Aurora，ElastiCache，Redshift，EFS，Lambda，ECS</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・NLB可以使用SecurityGroup(最新）必须在创建NLB时关联SecurityGroup。以后不能再添加SecurityGroup。</label>
+                    </p>
+                    <p><label><input type="checkbox">・AWSWAF是HTTP层</label></p>
+                    <p><label><input type="checkbox">・ARN=AWSResource的唯一名称（身份证），主要用于IAM权限控制和资源引用。</label></p>
+                    <p><label><input type="checkbox">・ARN本身不是权限。ARN只是资源的唯一标识（资源地址）。</label></p>
+                    <p><label><input type="checkbox">・员工门户（WebPortal）本质上就是一个Web网站（WebApplication）。</label></p>
+                    <p><label><input type="checkbox">・Lambda能直接调用SNS</label></p>
+                    <p><label><input
+                                type="checkbox">・Pod是Kubernetes里面最小的运行单位。你可以先把它近似理解为：Pod≈一个Docker容器。Pod就是运行程序的地方。</label>
+                    </p>
+                    <p><label><input type="checkbox">・在EKS中，Pod是运行在EC2（Node）上的。</label></p>
+                    <p><label><input
+                                type="checkbox">・AmazonVPCCNIPlugin它负责：给Pod分配VPCIP，配置Pod网络，支持Pod使用指定的Subnet（CustomNetworking）</label>
+                    </p>
+                    <p><label><input type="checkbox">・Layer确实是共享的依赖包，但它并不是共享Secret。</label></p>
+                    <p><label><input
+                                type="checkbox">・AWSComputeOptimizer专门设计用于提供优化建议，包括EC2实例、AutoScaling组和EBS卷。不需要再用AWSCostandUsageReport</label>
+                    </p>
+                    <p><label><input type="checkbox">・AmazonEBS是块存储服务，设计为单个EC2实例使用，不能直接跨多个实例共享。</label></p>
+                    <p><label><input type="checkbox">・EFS本来就是部署在VPC内部的</label></p>
+                    <p><label><input type="checkbox">・IRSA给KubernetesServiceAccount分配IAMRole。让每个Pod都有自己的IAM权限。</label>
+                    </p>
+                    <p><label><input type="checkbox">・ServiceAccount=Pod的身份（Identity），有了这个身份，才能给Pod分配权限（例如IRSA）。</label>
+                    </p>
+                    <p><label><input type="checkbox">・Annotate（注释）不是代码里的//注释，而是Kubernetes的Annotation（元数据）</label></p>
+                    <p><label><input
+                                type="checkbox">・Annotation的实质不是IAMRole本身，而是保存了IAMRole的ARN（地址），用来告诉EKS："这个ServiceAccount应该使用哪个IAMRole。"</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・OIDC（OpenIDConnect）是一种"身份认证协议"。证明"你是谁"（Authentication），而不是决定"你能做什么"（Authorization）。</label>
+                    </p>
+                    <p><label><input type="checkbox">・当你要使用：IRSA（IAMRolesforServiceAccounts）时，需要OIDC</label></p>
+                    <p><label><input
+                                type="checkbox">・TrustRelationship（信任关系）=IAMRole定义："我允许谁来使用我。"满足条件的ServiceAccount就可以"扮演（Assume）"这个IAMRole，获得临时AWS凭证。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・NetworkPolicy=Kubernetes世界里的"Pod级防火墙"，它控制的是Pod的网络通信，而不是Node的网络通信，更不是AWS服务访问权限。NetworkPolicy是Kubernetes（K8s）特有的概念</label>
+                    </p>
+                    <p><label><input type="checkbox">・NetworkPolicy关心的是Pod之间的网络通信，而不是实例（EC2）内部的通信。Pod不一定在同一台EC2上</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・EKSClusterIAMRole=EKS控制平面（ControlPlane）的IAMRole。让EKS自己能够调用AWS服务来管理集群。它不是给Pod用的，也不是给应用程序用的。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・KubernetesRole=Kubernetes集群内部的权限。能不能操作Kubernetes（Pod、Deployment、Service...）</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・KubernetesRole不是"程序权限"，而是"访问KubernetesAPI的权限"；IAMRole才是"访问AWS服务的权限"。</label>
+                    </p>
+                    <p><label><input type="checkbox">・账单(Bill)不是：按Tag分类的分析报告。</label></p>
+                    <p><label><input
+                                type="checkbox">・GatewayLoadBalancer（GWLB）就是专门给网络安全设备（Firewall、IDS、IPS）用的负载均衡器。</label>
+                    </p>
+                    <p><label><input type="checkbox">・CustomEndpoint就是自己指定的一组Reader（自动负载均衡）</label></p>
+                    <p><label><input type="checkbox">・ReaderEndpoint会自动LB。随机分发到所有Reader。</label></p>
+                    <p><label><input
+                                type="checkbox">・DMSServerless自动扩缩容（autoscalingcapacity）不用管理ReplicationInstance，自动分配容量（allocateonlyrequiredcapacity）</label>
+                    </p>
+                    <p><label><input type="checkbox">・DMSReplicationInstance根本不能放进EC2AutoScaling。</label></p>
+                    <p><label><input type="checkbox">・AWSSite-to-SiteVPN提供网络层和会话层的加密</label></p>
+                    <p><label><input type="checkbox">・S3OneZone-IA适用于非关键数据，且仅存储在一个用区，无法满足数据持久性要求。</label></p>
+                    <p><label><input
+                                type="checkbox">・GlacierInstantRetrieval并不是"Standard的低价替代品"，它适合的是低访问频率的数据。一旦访问变得频繁，节省的存储费很容易被数据取回费用抵消甚至超过</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・SystemsManagerStateManager=保证机器一直保持在你规定的状态。注意，它管理的是状态（State），不是定时（Schedule）。</label>
+                    </p>
+                    <p><label><input type="checkbox">・网络层DDoS（Layer3/4）攻击的是：IP、TCP、UDP,负责防御的是：AWSShield</label></p>
+                    <p><label><input type="checkbox">・应用层DDoS（Layer7）攻击的是：HTTP/HTTPS,负责防御的是：AWSWAF</label></p>
+                    <p><label><input
+                                type="checkbox">・WAF是应用层（L7）检查HTTP/HTTPS请求，GlobalAccelerator工作在网络层（L4）TCP/UDP，因此它不会解析HTTP请求。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・DynamoDBexportconnector是AWSGlue的一种数据源连接器，它不是直接读取DynamoDB，而是先调用DynamoDBExporttoS3，再从S3读取数据。</label>
+                    </p>
+                    <p><label><input type="checkbox">・所以它最大的特点就是：不会消耗DynamoDB的RCU（ReadCapacityUnits）。</label></p>
+                    <p><label><input
+                                type="checkbox">・AWSApp2Container（A2C）是一个迁移工具，用于把现有应用程序自动容器化（Containerize），方便部署到AmazonECS或AmazonEKS。把老应用→自动打包成Docker容器。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・BatchGetSecretValue是AWSSecretsManager提供的一个API，用于一次获取多个Secret的值。GetSecretValue=一个Secret；BatchGetSecretValue=多个Secret一次取。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・S3TransferAcceleration可以加速跨区域的上传和下载，但它主要适用于单一客户端与S3bucket的交互</label>
+                    </p>
+                    <p><label><input type="checkbox">・iSCSI是一种访问块存储的协议</label></p>
+                    <p><label><input type="checkbox">・Windows+跨AZ共享块存储=FSxforNetAppONTAP（iSCSI）。</label></p>
+                    <p><label><input type="checkbox">・Windows+EBS=直接挂载，不需要NetApp。</label></p>
+                    <p><label><input type="checkbox">・EBS永远属于一个AZ。不能把同一个EBSVolume同时挂载到不同AZ的EC2。</label></p>
+                    <p><label><input type="checkbox">・EBSMulti-Attach所有EC2必须在同一个AZ。</label></p>
+                    <p><label><input type="checkbox">・Geolocation（地理位置）：按地区（国家/洲）分流。</label></p>
+                    <p><label><input type="checkbox">・Geoproximity（地理邻近）：按距离最近分流。</label></p>
+                    <p><label><input type="checkbox">・SAA范围内，可以认为所有IAMPolicy都遵循"默认拒绝（ImplicitDeny）"。</label></p>
+                    <p><label><input
+                                type="checkbox">・IAMIdentityCenter目录（Directory）就是存放用户和组的地方，相当于IAMIdentityCenter的"用户数据库"</label>
+                    </p>
+                    <p><label><input type="checkbox">・目录就是：保存用户（User）和组（Group）的地方。</label></p>
+                    <p><label><input
+                                type="checkbox">・IAMIdentityCenter使用PermissionSet（权限集）。IAMRole：IdentityCenter自动在目标AWSAccount中创建，用户登录后实际扮演这个Role。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・CloudFront=CDN，不等于静态网站。它既能缓存静态内容，也能加速动态内容；动态内容通常由ALB、EC2、APIGateway等Origin实时生成，CloudFront负责就近接入和高速传输。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・TagPolicy是AWSOrganizations的一种“标签规范”，用于统一整个组织的Tag命名和值，不是权限策略。如果你提供了这个Tag，那么它的值必须符合TagPolicy。</label>
+                    </p>
+                    <p><label><input type="checkbox">・EKS托管节点（ManagedNodeGroups）不是Serverless。因为实际上底层还是EC2。</label></p>
+                    <p><label><input
+                                type="checkbox">・AmazonS3AccessPoint（访问点）就是S3Bucket的“专用入口”，用于简化不同应用、团队或VPC的访问权限管理。它不是存储，也不是网络服务。每个AccessPoint都可以有自己的权限策略（AccessPointPolicy）。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・对于SAA考试来说，如果要求的是"continuouslyavailable（持续可用）"，就要开始考虑是否需要跨Region容灾。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・GlobalAccelerator工作在TCP/UDP（L4），因此它可以加速HTTP/HTTPS，但它并不解析或缓存HTTP内容。</label>
+                    </p>
+                    <p><label><input type="checkbox">・对于全球用户访问动态API，GlobalAccelerator通常比CloudFront更合适。</label></p>
+                    <p><label><input
+                                type="checkbox">・AWSEC2-PatchLoadBalancerInstance是AWSSystemsManager(SSM)提供的一个官方AutomationRunbook，用来自动给负载均衡器后的EC2打补丁</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・SystemsManagerMaintenanceWindows（维护窗口）就是指定一个固定时间，自动执行运维任务。它本身不负责打补丁，而是负责：什么时候执行任务。</label>
+                    </p>
+                    <p><label><input type="checkbox">・SystemsManagerStateManager用来持续保持EC2（或混合服务器）处于你希望的状态。</label></p>
+                    <p><label><input type="checkbox">・AWSApplicationMigrationService（MGN）的流程可以概括为4步：安装→复制→测试→切换。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・如果题目要求的是“利用已有本地AD登录AWS”，ADConnector可以；但如果题目明确要求“在AWS上创建Directory、建立Trust、使用AD组分配IAMRole”，或者需要AWS中有自己的AD，就应该用AWSManagedMicrosoftAD</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・PrivateIntegration指的是后端（Integration）是私有的。它解决的是：APIGateway如何访问VPC内资源。不是控制客户端哪些IP能访问API。</label>
+                    </p>
+                    <p><label><input
+                                type="checkbox">・PrivateIntegration不是让APIGateway变成私有，而是让APIGateway的后端（Backend）变成私有。</label>
+                    </p>
+
+                </div>
+
+                <div id="s3" class="page">
+                    <span class="badge">AWS</span>
+                    <h1>S3</h1>
+                    <p>
+                        S3 是 AWS 的对象存储服务。
+                    </p>
+
+                </div>
+
+                <div id="lambda" class="page">
+                    <span class="badge">AWS</span>
+                    <h1>Lambda</h1>
+                    <p>
+                        Lambda 是 Serverless 计算服务。
+                    </p>
+                </div>
+
+            </main>
+
+            <div class="toc card">
+                <a href="AWS_SAA.xlsx" download>ダウンロード</a>
+                <!-- <h3>本页目录</h3>
+                <a href="#s3">Amazon S3</a>
+                <a href="#feature">S3 特点</a>
+                <a href="#exam">考试重点</a> -->
+
+            </div>
+        </div>
+        <script>
+            function showPage(id) {
+
+                document.querySelectorAll(".page").forEach(page => {
+                    page.classList.remove("active");
+                });
+
+                document.getElementById(id).classList.add("active");
+
+            }
+        </script>
+
+    </body>
+
+</html>
